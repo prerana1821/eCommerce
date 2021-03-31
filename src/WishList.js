@@ -1,32 +1,44 @@
-import { useData } from "./DataProvider";
+import { useCart } from "./CartProvider";
 
 export const WishList = () => {
-  const { state, dispatch } = useData();
+  const { cartState, cartDispatch } = useCart();
   return (
     <div>
-      {state.map((product) => {
+      {cartState.wishList.map((product) => {
         return (
-          product.wishlist && (
-            <div className='card' key={product.id}>
-              <img className='card-img' src={product.image} alt='' />
-              <div className='bdge-sm pink'>NEW</div>
-              <div className='card-info'>
-                <h3>{product.name}</h3>
-                <h4>{product.material}</h4>
-                <div className='card-details'>
-                  <p>{product.price}</p>
-                </div>
+          <div className='card' key={product.id}>
+            <img className='card-img' src={product.image} alt='' />
+            <button
+              onClick={() =>
+                cartDispatch({
+                  type: "REMOVE_FROM_WISHLIST",
+                  payload: product,
+                })
+              }
+              className='floating-act badge-close tertiary'
+            >
+              <i className='fas fa-lg fa-times'></i>
+            </button>
+            <div className='bdge-sm pink'>NEW</div>
+            <div className='card-info'>
+              <h3>{product.name}</h3>
+              <h4>{product.material}</h4>
+              <div className='card-details'>
+                <p>{product.price}</p>
               </div>
-              <button
-                className='btn btn-primary primary btn-card'
-                onClick={() =>
-                  dispatch({ type: "ADD_TO_CART", payload: product })
-                }
-              >
-                Move to Cart
-              </button>
             </div>
-          )
+            <button
+              className='btn btn-primary primary btn-card'
+              // onClick={() =>
+              //   cartDispatch({
+              //     type: "ADD_TO_CART_FROM_WISHLIST",
+              //     payload: product,
+              //   })
+              // }
+            >
+              Move to Cart
+            </button>
+          </div>
         );
       })}
     </div>

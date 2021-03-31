@@ -10,7 +10,6 @@ const data = [...Array(20)].map((item) => ({
   price: faker.commerce.price(),
   material: faker.commerce.productMaterial(),
   brand: faker.lorem.word(),
-  wishlist: false,
   quantity: 0,
   inStock: faker.random.boolean(),
   fastDelivery: faker.random.boolean(),
@@ -42,12 +41,6 @@ export const DataContext = createContext();
 export const DataProvider = ({ children }) => {
   const dataReducer = (state, action) => {
     switch (action.type) {
-      case "ADD_TO_WISHLIST":
-        return state.map((item) => {
-          return item.id === action.payload.id
-            ? { ...item, wishlist: !action.payload.wishlist }
-            : item;
-        });
       default:
         console.log("Something went wrong");
         break;

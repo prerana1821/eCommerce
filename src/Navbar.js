@@ -4,15 +4,8 @@ export const Navbar = ({ changeRoute }) => {
   const { cartState } = useCart();
 
   const totalItems = () => {
-    return cartState.reduce((acc, value) => {
+    return cartState.cart.reduce((acc, value) => {
       return acc + value.quantity;
-    }, 0);
-  };
-
-  const totalWishes = () => {
-    return cartState.reduce((acc, value) => {
-      console.log(Number(value.wishlist));
-      return acc + Number(value.wishlist);
     }, 0);
   };
 
@@ -31,7 +24,9 @@ export const Navbar = ({ changeRoute }) => {
         }}
         className='badge-av'
       >
-        <div className='badge-icon pink bdg-top'>{totalWishes()}</div>
+        <div className='badge-icon pink bdg-top'>
+          {cartState.wishList.length}
+        </div>
         <div className='avatar av-pink'>
           <i className='fas fa-lg fa-heart'></i>
         </div>

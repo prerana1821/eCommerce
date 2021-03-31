@@ -4,6 +4,7 @@ import { Navbar } from "./Navbar";
 import { WishList } from "./WishList";
 import { Products } from "./Products";
 import { Cart } from "./Cart";
+import { Filters } from "./Filters";
 
 function App() {
   const [route, setRoute] = useState("products");
@@ -23,7 +24,8 @@ function App() {
   return (
     <div className='App'>
       <Navbar changeRoute={changeRoute} />
-      {route === "products" && <Products />}
+      <Filters />
+      {route === "products" && <Products setRoute={setRoute} />}
       {route === "cart" && <Cart />}
       {route === "wishlist" && <WishList />}
     </div>

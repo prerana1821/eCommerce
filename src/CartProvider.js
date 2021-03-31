@@ -5,19 +5,64 @@ export const CartContext = createContext();
 const cartReducer = (cartState, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
-      return cartState.concat({ ...action.payload, quantity: 1 });
+      return {
+        ...cartState,
+        cart: [...cartState.cart, { ...action.payload, quantity: 1 }],
+      };
+    case "WISHLIST":
+      return {
+        ...cartState,
+        wishList: [...cartState.wishList, action.payload],
+      };
+    // return {
+    //   ...cartState,
+    //   wishList: cartState.wishList.map((item) => {
+    //     return item.id === action.payload.id
+    //       ? cartState.wishList.filter((item) => item.id !== action.payload.id)
+    //       : cartState.wishList.concat(action.payload);
+    //   }),
+    // };
     case "INCREMENT_QUANTITY":
-      return cartState.map((item) => {
-        return item.id === action.payload.id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item;
-      });
+      return {
+        ...cartState,
+        cart: cartState.cart.map((item) => {
+          return item.id === action.payload.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item;
+        }),
+      };
     case "DECREMENT_QUANTITY":
-      return cartState.map((item) => {
-        return item.id === action.payload.id
-          ? { ...item, quantity: item.quantity - 1 }
-          : item;
-      });
+      return {
+        ...cartState,
+        cart: cartState.cart.map((item) => {
+          return item.id === action.payload.id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item;
+        }),
+      };
+    case "REMOVE_FROM_CART":
+      return {
+        ...cartState,
+        cart: cartState.cart.filter((item) => {
+          return item.id !== action.payload.id;
+        }),
+      };
+    case "REMOVE_FROM_WISHLIST":
+      return {
+        ...cartState,
+        wishList: cartState.wishList.filter((item) => {
+          return item.id !== action.payload.id;
+        }),
+      };
+    case "ADD_TO_CART_FROM_WISHLIST":
+      return {
+        ...cartState,
+        cart: cartState.cart.map((item) => {
+          return item.id === action.payload.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : { ...action.payload, quantity: 1 };
+        }),
+      };
     default:
       console.log("Something went wrong");
       break;
@@ -27,7 +72,10 @@ const cartReducer = (cartState, action) => {
 };
 
 export const CartProvider = ({ children }) => {
-  const [cartState, cartDispatch] = useReducer(cartReducer, []);
+  const [cartState, cartDispatch] = useReducer(cartReducer, {
+    wishList: [],
+    cart: [],
+  });
 
   return (
     <CartContext.Provider value={{ cartState, cartDispatch }}>
