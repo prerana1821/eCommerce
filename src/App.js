@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import { Navbar } from "./Navbar";
+import { WishList } from "./WishList";
+import { Products } from "./Products";
+import { Cart } from "./Cart";
 
 function App() {
+  const [route, setRoute] = useState("products");
+
+  const changeRoute = (routeName) => {
+    if (routeName === "cart") {
+      setRoute("cart");
+    }
+    if (routeName === "wishlist") {
+      setRoute("wishlist");
+    }
+    if (routeName === "products") {
+      setRoute("products");
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Navbar changeRoute={changeRoute} />
+      {route === "products" && <Products />}
+      {route === "cart" && <Cart />}
+      {route === "wishlist" && <WishList />}
     </div>
   );
 }
