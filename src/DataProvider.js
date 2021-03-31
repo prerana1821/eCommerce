@@ -41,15 +41,71 @@ export const DataContext = createContext();
 export const DataProvider = ({ children }) => {
   const dataReducer = (state, action) => {
     switch (action.type) {
+      case "TOGGLE_INVENTORY":
+        return { ...state, showInventoryAll: !state.showInventoryAll };
+      case "TOGGLE_DELIVERY":
+        return { ...state, showFastDelivery: !state.showFastDelivery };
+      case "SORT":
+        return { ...state, sortBy: action.payload };
+      case "PRICE_RANGE":
+        return { ...state, priceRange: action.payload };
       default:
         console.log("Something went wrong");
         break;
     }
   };
 
-  const [state, dispatch] = useReducer(dataReducer, data);
+  const getSortedData = (productList, sortBy) => {
+    if (sortBy === "PRICE_LOW_TO_HIGH") {
+      return productList.sort((a, b) => a["price"] - b["price"]);
+    }
+    if (sortBy === "PRICE_HIGH_TO_LOW") {
+      return productList.sort((a, b) => b["price"] - a["price"]);
+    }
+    return productList;
+  };
+
+  function getFilteredData(
+    productList,
+    { showFastDeliveryOnly, showInventoryAll }
+  ) {
+    return productList
+      .filter(({ fastDelivery }) =>
+        showFastDeliveryOnly ? fastDelivery : true
+      )
+      .filter(({ inStock }) => (showInventoryAll ? true : inStock));
+  }
+
+  const getRangedPrice = (productList, priceRange) => {
+    console.log({ priceRange });
+    return productList.filter((item) => {
+      return item.price < Number(priceRange);
+    });
+  };
+
+  const [
+    { sortBy, showFastDeliveryOnly, showInventoryAll, priceRange },
+    dispatch,
+  ] = useReducer(dataReducer, {
+    showInventoryAll: true,
+    showFastDelivery: false,
+    sortBy: null,
+    priceRange: 900,
+  });
+
+  const sortedData = getSortedData(data, sortBy);
+  const filteredData = getFilteredData(sortedData, {
+    showFastDeliveryOnly,
+    showInventoryAll,
+  });
+  const rangedData = getRangedPrice(filteredData, priceRange);
+
+  console.log("!!!!!!!!!", { priceRange });
+
+  console.log(rangedData);
+
   return (
-    <DataContext.Provider value={{ state, dispatch }}>
+    <DataContext.Provider value={{ sortBy, rangedData, dispatch }}>
       {children}
     </DataContext.Provider>
   );

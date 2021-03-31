@@ -2,7 +2,7 @@ import { useData } from "./DataProvider";
 import { useCart } from "./CartProvider";
 
 export const Products = ({ setRoute }) => {
-  const { state } = useData();
+  const { rangedData } = useData();
   const { cartState, cartDispatch } = useCart();
 
   //   const isProdInCart = (item) => {
@@ -27,8 +27,8 @@ export const Products = ({ setRoute }) => {
   //   };
 
   return (
-    <div>
-      {state.map((product) => {
+    <div className='products'>
+      {rangedData.map((product) => {
         // isProdInCart(product);
         return (
           <div className='card' key={product.id}>
@@ -36,7 +36,20 @@ export const Products = ({ setRoute }) => {
             <div className='bdge-sm pink'>NEW</div>
             <div className='card-info'>
               <h3>{product.name}</h3>
-              <h4>{product.material}</h4>
+              <div className='card-info-details'>
+                <h4>
+                  {product.material} - {product.brand}
+                </h4>
+                <div className='badge-ratings'>
+                  <p>{product.ratings}</p>
+                  <i class='fa fa-star'></i>
+                </div>
+              </div>
+              <h4>
+                {product.inStock ? "In Stock" : "Out of Stock"} :
+                {product.fastDelivery ? " Fast Delivery" : " 3 days +"}
+              </h4>
+
               <div className='card-details'>
                 <p>Price: {product.price}</p>
                 <button

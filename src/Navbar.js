@@ -1,4 +1,5 @@
 import { useCart } from "./CartProvider";
+import Logo from "./preCodes.png";
 
 export const Navbar = ({ changeRoute }) => {
   const { cartState } = useCart();
@@ -11,13 +12,17 @@ export const Navbar = ({ changeRoute }) => {
 
   return (
     <header className='header'>
-      <h1
-        onClick={() => {
-          return changeRoute("products");
-        }}
-      >
-        eCommerce
-      </h1>
+      <div className='logo'>
+        <img src={Logo} alt='Logo' />
+        <p
+          className='logo-txt'
+          onClick={() => {
+            return changeRoute("products");
+          }}
+        >
+          eCom
+        </p>
+      </div>
       <div
         onClick={() => {
           return changeRoute("wishlist");

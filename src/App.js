@@ -24,8 +24,10 @@ function App() {
   return (
     <div className='App'>
       <Navbar changeRoute={changeRoute} />
-      <Filters />
-      {route === "products" && <Products setRoute={setRoute} />}
+      <div>
+        <Filters />
+        {route === "products" && <Products setRoute={setRoute} />}
+      </div>
       {route === "cart" && <Cart />}
       {route === "wishlist" && <WishList />}
     </div>

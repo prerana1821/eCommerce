@@ -2,6 +2,30 @@ body {
   background-color: var(--body-color);
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 1rem;
+  flex: 1;
+}
+
+.logo img {
+  width: 50px;
+  border-radius: 50%;
+}
+
+.filters {
+  padding: 0 1rem;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  font-size: 1.4rem;
+}
 .card {
   margin: 1rem auto;
   max-width: 320px;
@@ -9,14 +33,39 @@ body {
 
 .header {
   display: flex;
-  justify-content: space-around;
-  margin: 1rem 0;
+  justify-content: space-between;
+  margin: 1rem 2rem;
+  gap: 1rem;
 }
 
 .card-horizontal {
   margin: 1rem;
   position: relative;
   box-shadow: 2px 4px 20px -1px #00000014, -1px -2px 20px -1px #00000008;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin-right: 1rem;
+}
+
+input[type="range"] {
+  margin: 0 2rem;
+}
+
+.products {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.card-info-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.badge-ratings > p {
+  padding: 0;
 }
 
 @media (max-width: 600px) {
