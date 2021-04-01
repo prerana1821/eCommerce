@@ -8,7 +8,7 @@ import { Filters } from "./Filters";
 import { Home } from "./Home";
 
 function App() {
-  const [route, setRoute] = useState("home");
+  const [route, setRoute] = useState("products");
 
   const changeRoute = (routeName) => {
     if (routeName === "cart") {

@@ -97,7 +97,7 @@ export const DataProvider = ({ children }) => {
   const getSearchedData = (productList, searchString) => {
     console.log({ searchString });
     return productList.filter((item) => {
-      return item.name.includes(searchString);
+      return item.name.toLowerCase().includes(searchString.toLowerCase());
     });
   };
 

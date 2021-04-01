@@ -17,7 +17,7 @@ export const Filters = () => {
   return (
     <div className='filters'>
       <h3>Search</h3>
-      <div class='input'>
+      <div className='input'>
         <input
           type='text'
           onChange={(e) => {
@@ -25,15 +25,15 @@ export const Filters = () => {
             // return dispatch({ type: "SEARCH", payload: e.target.value });
           }}
           value={search}
-          class='input-txt'
+          className='input-txt'
           required
         />
-        <span class='flt-label'>Search Product</span>
+        <span className='flt-label'>Search Product</span>
         <button
           onClick={() => dispatch({ type: "SEARCH", payload: search })}
           className='btn-search'
         >
-          <i class='fas fa-search'></i>
+          <i className='fas fa-search'></i>
         </button>
       </div>
       <h3>Filters</h3>

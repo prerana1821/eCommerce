@@ -14,14 +14,6 @@ const cartReducer = (cartState, action) => {
         ...cartState,
         wishList: [...cartState.wishList, action.payload],
       };
-    // return {
-    //   ...cartState,
-    //   wishList: cartState.wishList.map((item) => {
-    //     return item.id === action.payload.id
-    //       ? cartState.wishList.filter((item) => item.id !== action.payload.id)
-    //       : cartState.wishList.concat(action.payload);
-    //   }),
-    // };
     case "REMOVE_FROM_WISHLIST":
       return {
         ...cartState,
@@ -54,30 +46,35 @@ const cartReducer = (cartState, action) => {
           return item.id !== action.payload.id;
         }),
       };
-    // case "REMOVE_FROM_WISHLIST":
-    //   return {
-    //     ...cartState,
-    //     wishList: cartState.wishList.filter((item) => {
-    //       return item.id !== action.payload.id;
-    //     }),
-    //   };
     case "ADD_TO_CART_FROM_WISHLIST":
       return {
         ...cartState,
-        cart: [
-          ...cartState.cart,
-          cartState.cart.reduce((acc, value) => {
+        cart: cartState.cart.reduce(
+          (acc, value) => {
             return value.id === action.payload.id
               ? { ...value, quantity: value.quantity + 1 }
-              : { ...action.payload, quantity: 1 };
-          }, {}),
-          // cartState.cart.map((item) => {
-          //   return item.id === action.payload.id
-          //     ? { ...item, quantity: item.quantity + 1 }
-          //     : { ...action.payload, quantity: 1 };
-          // }),
-        ],
+              : acc;
+          },
+          { ...action.payload, quantity: 1 }
+        ),
       };
+    // case "ADD_TO_CART_FROM_WISHLIST":
+    //   return {
+    //     ...cartState,
+    //     cart: [
+    //       ...cartState.cart,
+    //       cartState.cart.reduce((acc, value) => {
+    //         return value.id === action.payload.id
+    //           ? { ...value, quantity: value.quantity + 1 }
+    //           : { ...action.payload, quantity: 1 };
+    //       }, {}),
+    //       // cartState.cart.map((item) => {
+    //       //   return item.id === action.payload.id
+    //       //     ? { ...item, quantity: item.quantity + 1 }
+    //       //     : { ...action.payload, quantity: 1 };
+    //       // }),
+    //     ],
+    //   };
     default:
       console.log("Something went wrong");
       break;
@@ -91,8 +88,6 @@ export const CartProvider = ({ children }) => {
     wishList: [],
     cart: [],
   });
-
-  // console.log(cartState.cart);
 
   return (
     <CartContext.Provider value={{ cartState, cartDispatch }}>

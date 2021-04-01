@@ -32,23 +32,22 @@ export const Home = () => {
         ></button>
       </div>
 
-      <div style={{ height: "500px" }}>
-        <h2>Categories</h2>
-
+      <h2>Categories</h2>
+      <div className='categories'>
         <div className='card-category cat-img1'>
-          <h4>Men's Swim Shorts</h4>
+          <h3>Men's Swim Shorts</h3>
         </div>
         <div className='card-category cat-img2'>
-          <h4>Swimming Floatation Devices</h4>
+          <h3>Swimming Floatation Devices</h3>
         </div>
         <div className='card-category cat-img3'>
-          <h4>Swimming Training Kickboards</h4>
+          <h3>Swimming Training Kickboards</h3>
         </div>
         <div className='card-category cat-img4'>
-          <h4>Kiddie Pools</h4>
+          <h3>Kiddie Pools</h3>
         </div>
         <div className='card-category cat-img5'>
-          <h4>Swimming Kits</h4>
+          <h3>Swimming Kits</h3>
         </div>
       </div>
 
