@@ -3,7 +3,7 @@ import { useCart } from "./CartProvider";
 export const WishList = () => {
   const { cartState, cartDispatch } = useCart();
   return (
-    <div>
+    <div className='products'>
       {cartState.wishList.map((product) => {
         return (
           <div className='card' key={product.id}>

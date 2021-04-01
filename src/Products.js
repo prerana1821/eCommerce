@@ -5,7 +5,7 @@ export const Products = ({ setRoute }) => {
   const { loading, rangedData } = useData();
   const { cartState, cartDispatch } = useCart();
 
-  console.log({ loading });
+  // console.log({ loading });
 
   //   const isProdInCart = (item) => {
   //     return cartState.cart.map((prod) => {
@@ -39,31 +39,30 @@ export const Products = ({ setRoute }) => {
 
   return (
     <div className='products'>
-      <h2>{loading}</h2>
+      <h2 className='center-txt'>{loading}</h2>
       {rangedData.map((product) => {
-        // isProdInCart(product);
         return (
           <div className='card' key={product.id}>
             <img className='card-img' src={product.image} alt={product.name} />
             <div className='bdge-sm pink'>NEW</div>
             <div className='card-info'>
-              <h3>{product.name}</h3>
+              <p>{product.name}</p>
               <div className='card-info-details'>
-                <h4>
+                <h5>
                   {product.material} - {product.brand}
-                </h4>
+                </h5>
                 <div className='badge-ratings'>
-                  <p>{product.ratings}</p>
+                  <h5>{product.ratings}</h5>
                   <i className='fa fa-star'></i>
                 </div>
               </div>
-              <h4>
+              <h5>
                 {product.inStock ? "In Stock" : "Out of Stock"} :
                 {product.fastDelivery ? " Fast Delivery" : " 3 days +"}
-              </h4>
-              <h4>{product.level}</h4>
+              </h5>
+              <h5>{product.level}</h5>
               <div className='card-details'>
-                <p>Price: {product.price}</p>
+                <h5>Price: {product.price}</h5>
                 <button
                   onClick={() => {
                     console.log(cartState.wishList);

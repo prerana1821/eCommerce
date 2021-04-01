@@ -45,7 +45,23 @@ export const DataProvider = ({ children }) => {
       case "ADD_DATA":
         return { ...state, data: action.payload };
       case "LOAD_STATUS":
-        return { ...state, loading: action.payload ? "Loading..." : "" };
+        return {
+          ...state,
+          loading: action.payload ? "Loading data from server..." : "",
+        };
+      case "CLEAR_FILTERS":
+        return {
+          ...state,
+          showInventoryAll: true,
+          showFastDelivery: false,
+          sortBy: null,
+          priceRange: 1000,
+          level: "beginner",
+          ratings: 5,
+          searchString: "",
+        };
+      case "SEARCH":
+        return { ...state, searchString: action.payload };
       case "TOGGLE_INVENTORY":
         return { ...state, showInventoryAll: !state.showInventoryAll };
       case "TOGGLE_DELIVERY":
@@ -54,6 +70,8 @@ export const DataProvider = ({ children }) => {
         return { ...state, sortBy: action.payload };
       case "PRICE_RANGE":
         return { ...state, priceRange: action.payload };
+      case "RATINGS":
+        return { ...state, ratings: action.payload };
       case "SELECT_LEVEL":
         return { ...state, level: action.payload };
       default:
@@ -68,7 +86,6 @@ export const DataProvider = ({ children }) => {
         dispatch({ type: "LOAD_STATUS", payload: true });
         const response = await axios.get("api/products");
         const data = response.data.products;
-        console.log({ data });
         dispatch({ type: "ADD_DATA", payload: data });
       } catch (error) {
       } finally {
@@ -76,6 +93,13 @@ export const DataProvider = ({ children }) => {
       }
     })();
   }, []);
+
+  const getSearchedData = (productList, searchString) => {
+    console.log({ searchString });
+    return productList.filter((item) => {
+      return item.name.includes(searchString);
+    });
+  };
 
   const getSortedData = (productList, sortBy) => {
     if (sortBy === "PRICE_LOW_TO_HIGH") {
@@ -105,9 +129,14 @@ export const DataProvider = ({ children }) => {
   };
 
   const getRangedPrice = (productList, priceRange) => {
-    console.log({ priceRange });
     return productList.filter((item) => {
-      return item.price < Number(priceRange);
+      return item.price <= priceRange;
+    });
+  };
+
+  const getRatings = (productList, ratings) => {
+    return productList.filter((item) => {
+      return item.ratings <= ratings;
     });
   };
 
@@ -119,7 +148,9 @@ export const DataProvider = ({ children }) => {
       showFastDeliveryOnly,
       showInventoryAll,
       priceRange,
+      ratings,
       level,
+      searchString,
     },
     dispatch,
   ] = useReducer(dataReducer, {
@@ -130,22 +161,38 @@ export const DataProvider = ({ children }) => {
     sortBy: null,
     priceRange: 1000,
     level: "beginner",
+    ratings: 5,
+    searchString: "",
   });
 
-  const sortedData = getSortedData(data, sortBy);
+  const searchedData = getSearchedData(data, searchString);
+  const sortedData = getSortedData(searchedData, sortBy);
   const filteredData = getFilteredData(sortedData, {
     showFastDeliveryOnly,
     showInventoryAll,
   });
   const selectedLevelData = getSelectedLevelData(filteredData, level);
-  const rangedData = getRangedPrice(selectedLevelData, priceRange);
+  const ratingsData = getRatings(selectedLevelData, ratings);
+  const rangedData = getRangedPrice(ratingsData, priceRange);
 
-  console.log("!!!!!!!!!", { priceRange });
+  console.log({ searchedData });
 
-  console.log(rangedData);
+  // console.log("!!!!!!!!!", { priceRange });
+
+  // console.log(rangedData);
 
   return (
-    <DataContext.Provider value={{ sortBy, rangedData, dispatch, loading }}>
+    <DataContext.Provider
+      value={{
+        sortBy,
+        rangedData,
+        ratings,
+        dispatch,
+        priceRange,
+        loading,
+        searchString,
+      }}
+    >
       {children}
     </DataContext.Provider>
   );

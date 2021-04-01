@@ -10,7 +10,7 @@ export const Cart = () => {
   }
 
   return (
-    <div>
+    <div className='products'>
       {cartState.cart.map((product) => {
         return (
           <div className='card-horizontal' key={product.id}>

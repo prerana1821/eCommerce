@@ -92,7 +92,7 @@ export const CartProvider = ({ children }) => {
     cart: [],
   });
 
-  console.log(cartState.cart);
+  // console.log(cartState.cart);
 
   return (
     <CartContext.Provider value={{ cartState, cartDispatch }}>

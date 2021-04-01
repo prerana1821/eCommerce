@@ -24,12 +24,12 @@ function App() {
   return (
     <div className='App'>
       <Navbar changeRoute={changeRoute} />
-      <div>
+      <div className='main'>
         <Filters />
         {route === "products" && <Products setRoute={setRoute} />}
+        {route === "cart" && <Cart />}
+        {route === "wishlist" && <WishList />}
       </div>
-      {route === "cart" && <Cart />}
-      {route === "wishlist" && <WishList />}
     </div>
   );
 }

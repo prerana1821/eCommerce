@@ -1,4 +1,5 @@
 import { useData } from "./DataProvider";
+import { useState } from "react";
 export const Filters = () => {
   const {
     sortBy,
@@ -7,12 +8,35 @@ export const Filters = () => {
     priceRange,
     dispatch,
     level,
+    ratings,
+    // searchString,
   } = useData();
 
-  console.log({ priceRange });
+  const [search, setSearch] = useState("");
 
   return (
     <div className='filters'>
+      <h3>Search</h3>
+      <div class='input'>
+        <input
+          type='text'
+          onChange={(e) => {
+            return setSearch(e.target.value);
+            // return dispatch({ type: "SEARCH", payload: e.target.value });
+          }}
+          value={search}
+          class='input-txt'
+          required
+        />
+        <span class='flt-label'>Search Product</span>
+        <button
+          onClick={() => dispatch({ type: "SEARCH", payload: search })}
+          className='btn-search'
+        >
+          <i class='fas fa-search'></i>
+        </button>
+      </div>
+      <h3>Filters</h3>
       <div className='filter'>
         Price:
         <div>
@@ -67,6 +91,7 @@ export const Filters = () => {
       </div>
       <div className='filter'>
         <select
+          className='select-level'
           value={level}
           onChange={(e) =>
             dispatch({ type: "SELECT_LEVEL", payload: e.target.value })
@@ -80,11 +105,10 @@ export const Filters = () => {
         </select>
       </div>
       <div className='filter'>
-        <label>Price Range: </label>
-        {/* <label>Price Range: 0 to {priceRange}</label> */}
+        <label>Price Range: 0 to {priceRange}</label>
         <input
           type='range'
-          min='1'
+          min='0'
           step='100'
           max='1000'
           value={priceRange}
@@ -93,6 +117,27 @@ export const Filters = () => {
           }
         />
       </div>
+      <div className='filter'>
+        <label>Star Ratings: 0 to {ratings}</label>
+        <input
+          type='range'
+          min='1'
+          max='5'
+          value={ratings}
+          onChange={(e) =>
+            dispatch({
+              type: "RATINGS",
+              payload: Number(e.target.value),
+            })
+          }
+        />
+      </div>
+      <button
+        className='btn primary btn-clr'
+        onClick={() => dispatch({ type: "CLEAR_FILTERS" })}
+      >
+        Cleat Filters
+      </button>
     </div>
   );
 };
