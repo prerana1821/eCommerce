@@ -2,8 +2,10 @@ import { useData } from "./DataProvider";
 import { useCart } from "./CartProvider";
 
 export const Products = ({ setRoute }) => {
-  const { rangedData } = useData();
+  const { loading, rangedData } = useData();
   const { cartState, cartDispatch } = useCart();
+
+  console.log({ loading });
 
   //   const isProdInCart = (item) => {
   //     return cartState.cart.map((prod) => {
@@ -37,6 +39,7 @@ export const Products = ({ setRoute }) => {
 
   return (
     <div className='products'>
+      <h2>{loading}</h2>
       {rangedData.map((product) => {
         // isProdInCart(product);
         return (
