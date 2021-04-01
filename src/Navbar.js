@@ -1,7 +1,7 @@
 import { useCart } from "./CartProvider";
 import Logo from "./preCodes.png";
 
-export const Navbar = ({ changeRoute }) => {
+export const Navbar = ({ route, changeRoute }) => {
   const { cartState } = useCart();
 
   const totalItems = () => {
@@ -20,8 +20,24 @@ export const Navbar = ({ changeRoute }) => {
             return changeRoute("products");
           }}
         >
-          eCom
+          preStore
         </p>
+      </div>
+      <div className='nav'>
+        <button
+          style={route === "home" ? { textDecoration: "underline" } : {}}
+          className='btn-nav'
+          onClick={() => changeRoute("home")}
+        >
+          Home
+        </button>
+        <button
+          style={route === "products" ? { textDecoration: "underline" } : {}}
+          className='btn-nav'
+          onClick={() => changeRoute("products")}
+        >
+          Products
+        </button>
       </div>
       <div
         onClick={() => {

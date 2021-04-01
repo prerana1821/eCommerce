@@ -27,6 +27,7 @@ export const Products = ({ setRoute }) => {
   //     }
   //   });
   // };
+
   const isProdInWishList = (item) => {
     return cartState.wishList.map((prod) => {
       if (prod.id === item.id) {
@@ -39,7 +40,7 @@ export const Products = ({ setRoute }) => {
 
   return (
     <div className='products'>
-      <h2 className='center-txt'>{loading}</h2>
+      <h2 className='center-txt ctn'>{loading}</h2>
       {rangedData.map((product) => {
         return (
           <div className='card' key={product.id}>
