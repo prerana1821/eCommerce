@@ -16,15 +16,24 @@ export const Products = ({ setRoute }) => {
   //     });
   //   };
 
-  //   const isProdInWishList = (item) => {
-  //     return cartState.wishList.map((prod) => {
-  //       if (prod.id === item.id) {
-  //         return <i className='fas fa-lg fa-heart'></i>;
-  //       } else {
-  //         return <i className='far fa-lg fa-heart'></i>;
-  //       }
-  //     });
-  //   };
+  // const isProdInWishList = (item) => {
+  //   return cartState.wishList.map((prod) => {
+  //     if (prod.id === item.id) {
+  //       return <i className='fas fa-lg fa-heart'></i>;
+  //     } else {
+  //       return <i className='far fa-lg fa-heart'></i>;
+  //     }
+  //   });
+  // };
+  const isProdInWishList = (item) => {
+    return cartState.wishList.map((prod) => {
+      if (prod.id === item.id) {
+        return "fas fa-lg fa-heart";
+      } else {
+        return "far fa-lg fa-heart";
+      }
+    });
+  };
 
   return (
     <div className='products'>
@@ -42,20 +51,37 @@ export const Products = ({ setRoute }) => {
                 </h4>
                 <div className='badge-ratings'>
                   <p>{product.ratings}</p>
-                  <i class='fa fa-star'></i>
+                  <i className='fa fa-star'></i>
                 </div>
               </div>
               <h4>
                 {product.inStock ? "In Stock" : "Out of Stock"} :
                 {product.fastDelivery ? " Fast Delivery" : " 3 days +"}
               </h4>
-
+              <h4>{product.level}</h4>
               <div className='card-details'>
                 <p>Price: {product.price}</p>
                 <button
-                  onClick={() =>
-                    cartDispatch({ type: "WISHLIST", payload: product })
-                  }
+                  onClick={() => {
+                    console.log(cartState.wishList);
+                    // return cartState.wishList.map((item) => {
+                    //   console.log("Hello");
+                    //   if (item.id === product.id) {
+                    //     console.log("there");
+                    //     return cartDispatch({
+                    //       type: "REMOVE_FROM_WISHLIST",
+                    //       payload: product,
+                    //     });
+                    //   } else {
+                    //     console.log("not there");
+                    return cartDispatch({
+                      type: "ADD_TO_WISHLIST",
+                      payload: product,
+                      // });
+                      // }
+                    });
+                    // return cartDispatch({ type: "ADD_TO_WISHLIST", payload: product });
+                  }}
                   className='floating-act secondary flt-tri'
                 >
                   {/* {isProdInWishList(product)} */}
@@ -67,9 +93,10 @@ export const Products = ({ setRoute }) => {
                     }
                   })} */}
                   {/* {cartState.wishList ? (
-                    <i class='fas fa-lg fa-heart'></i>
+                    <i className='fas fa-lg fa-heart'></i>
                   ) : ( */}
-                  <i className='far fa-lg fa-heart'></i>
+                  {/* <i className='far fa-lg fa-heart'></i> */}
+                  <i className={`${isProdInWishList(product)}`}></i>
                   {/*)} */}
                 </button>
               </div>

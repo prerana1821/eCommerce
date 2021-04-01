@@ -53,6 +53,14 @@ input[type="range"] {
   margin: 0 2rem;
 }
 
+input[type="select"] {
+  padding: 0.5rem;
+  font-size: large;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: var(--secondary-box-shadow);
+}
+
 .products {
   display: flex;
   align-items: center;

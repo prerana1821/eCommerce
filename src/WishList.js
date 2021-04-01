@@ -29,12 +29,12 @@ export const WishList = () => {
             </div>
             <button
               className='btn btn-primary primary btn-card'
-              // onClick={() =>
-              //   cartDispatch({
-              //     type: "ADD_TO_CART_FROM_WISHLIST",
-              //     payload: product,
-              //   })
-              // }
+              onClick={() =>
+                cartDispatch({
+                  type: "ADD_TO_CART_FROM_WISHLIST",
+                  payload: product,
+                })
+              }
             >
               Move to Cart
             </button>

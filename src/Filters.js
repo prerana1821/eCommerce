@@ -6,6 +6,7 @@ export const Filters = () => {
     showFastDeliveryOnly,
     priceRange,
     dispatch,
+    level,
   } = useData();
 
   console.log({ priceRange });
@@ -63,6 +64,20 @@ export const Filters = () => {
             Fast Delivery Only
           </label>
         </div>
+      </div>
+      <div className='filter'>
+        <select
+          value={level}
+          onChange={(e) =>
+            dispatch({ type: "SELECT_LEVEL", payload: e.target.value })
+          }
+        >
+          <option value='beginner'>beginner</option>
+          <option value='amateur'>amateur</option>
+          <option value='intermediate'>intermediate</option>
+          <option value='advanced'>advanced</option>
+          <option value='professional'>professional</option>
+        </select>
       </div>
       <div className='filter'>
         <label>Price Range: </label>

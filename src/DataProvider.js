@@ -3,7 +3,7 @@ import faker from "faker";
 
 faker.seed(123);
 
-const data = [...Array(20)].map((item) => ({
+const data = [...Array(60)].map((item) => ({
   id: faker.random.uuid(),
   name: faker.commerce.productName(),
   image: faker.random.image(),
@@ -49,6 +49,8 @@ export const DataProvider = ({ children }) => {
         return { ...state, sortBy: action.payload };
       case "PRICE_RANGE":
         return { ...state, priceRange: action.payload };
+      case "SELECT_LEVEL":
+        return { ...state, level: action.payload };
       default:
         console.log("Something went wrong");
         break;
@@ -76,6 +78,12 @@ export const DataProvider = ({ children }) => {
       .filter(({ inStock }) => (showInventoryAll ? true : inStock));
   }
 
+  const getSelectedLevelData = (productList, selectedRange) => {
+    return productList.filter((item) => {
+      return item.level === selectedRange;
+    });
+  };
+
   const getRangedPrice = (productList, priceRange) => {
     console.log({ priceRange });
     return productList.filter((item) => {
@@ -84,13 +92,14 @@ export const DataProvider = ({ children }) => {
   };
 
   const [
-    { sortBy, showFastDeliveryOnly, showInventoryAll, priceRange },
+    { sortBy, showFastDeliveryOnly, showInventoryAll, priceRange, level },
     dispatch,
   ] = useReducer(dataReducer, {
     showInventoryAll: true,
     showFastDelivery: false,
     sortBy: null,
-    priceRange: 900,
+    priceRange: 1000,
+    level: "beginner",
   });
 
   const sortedData = getSortedData(data, sortBy);
@@ -98,7 +107,9 @@ export const DataProvider = ({ children }) => {
     showFastDeliveryOnly,
     showInventoryAll,
   });
-  const rangedData = getRangedPrice(filteredData, priceRange);
+  const selectedLevelData = getSelectedLevelData(filteredData, level);
+  // console.log(selectedLevelData);
+  const rangedData = getRangedPrice(selectedLevelData, priceRange);
 
   console.log("!!!!!!!!!", { priceRange });
 
