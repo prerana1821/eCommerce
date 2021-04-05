@@ -1,41 +1,5 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
 import axios from "axios";
-// import faker from "faker";
-
-// faker.seed(123);
-
-// const data = [...Array(60)].map((item) => ({
-//   id: faker.random.uuid(),
-//   name: faker.commerce.productName(),
-//   image: faker.random.image(),
-//   price: faker.commerce.price(),
-//   material: faker.commerce.productMaterial(),
-//   brand: faker.lorem.word(),
-//   quantity: 0,
-//   inStock: faker.random.boolean(),
-//   fastDelivery: faker.random.boolean(),
-//   ratings: faker.random.arrayElement([1, 2, 3, 4, 5]),
-//   offer: faker.random.arrayElement([
-//     "Save 50",
-//     "70% bonanza",
-//     "Republic Day Sale",
-//   ]),
-//   idealFor: faker.random.arrayElement([
-//     "Men",
-//     "Women",
-//     "Girl",
-//     "Boy",
-//     "Senior",
-//   ]),
-//   level: faker.random.arrayElement([
-//     "beginner",
-//     "amateur",
-//     "intermediate",
-//     "advanced",
-//     "professional",
-//   ]),
-//   color: faker.commerce.color(),
-// }));
 
 export const DataContext = createContext();
 
@@ -175,11 +139,14 @@ export const DataProvider = ({ children }) => {
   const ratingsData = getRatings(selectedLevelData, ratings);
   const rangedData = getRangedPrice(ratingsData, priceRange);
 
-  console.log({ searchedData });
-
-  // console.log("!!!!!!!!!", { priceRange });
-
-  // console.log(rangedData);
+  // console.log({ searchedData });
+  // console.log({ sortedData });
+  // console.log({ filteredData });
+  // console.log({ selectedLevelData });
+  // console.log({ ratingsData });
+  // console.log({ sortedData });
+  // console.log({ priceRange });
+  // console.log({ rangedData });
 
   return (
     <DataContext.Provider

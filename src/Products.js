@@ -21,6 +21,10 @@ export const Products = ({ setRoute }) => {
     }, "far fa-lg fa-heart");
   };
 
+  const found = (array, id) => {
+    return !!array.find((item) => item.id === id);
+  };
+
   return (
     <div className='products'>
       <h2 className='center-txt ctn'>{loading}</h2>
@@ -67,9 +71,9 @@ export const Products = ({ setRoute }) => {
             <button
               className='btn btn-primary primary btn-card'
               onClick={() => {
-                return cartState.cart.reduce((acc, value) => {
-                  return value.id === product.id ? setRoute("cart") : acc;
-                }, cartDispatch({ type: "ADD_TO_CART", payload: product }));
+                return found(cartState.cart, product.id)
+                  ? setRoute("cart")
+                  : cartDispatch({ type: "ADD_TO_CART", payload: product });
               }}
             >
               <p>{isProdInCart(product)}</p>

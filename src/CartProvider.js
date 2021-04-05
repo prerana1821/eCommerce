@@ -2,6 +2,10 @@ import { createContext, useContext, useReducer } from "react";
 
 export const CartContext = createContext();
 
+const found = (array, id) => {
+  return !!array.find((item) => item.id === id);
+};
+
 const cartReducer = (cartState, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
@@ -49,32 +53,17 @@ const cartReducer = (cartState, action) => {
     case "ADD_TO_CART_FROM_WISHLIST":
       return {
         ...cartState,
-        cart: cartState.cart.reduce(
-          (acc, value) => {
-            return value.id === action.payload.id
-              ? { ...value, quantity: value.quantity + 1 }
-              : acc;
-          },
-          { ...action.payload, quantity: 1 }
-        ),
+        cart: found(cartState.cart, action.payload.id)
+          ? cartState.cart.map((value) => {
+              return value.id === action.payload.id
+                ? { ...action.payload, quantity: value.quantity + 1 }
+                : value;
+            })
+          : [...cartState.cart, { ...action.payload, quantity: 1 }],
+        wishList: cartState.wishList.filter((item) => {
+          return item.id !== action.payload.id;
+        }),
       };
-    // case "ADD_TO_CART_FROM_WISHLIST":
-    //   return {
-    //     ...cartState,
-    //     cart: [
-    //       ...cartState.cart,
-    //       cartState.cart.reduce((acc, value) => {
-    //         return value.id === action.payload.id
-    //           ? { ...value, quantity: value.quantity + 1 }
-    //           : { ...action.payload, quantity: 1 };
-    //       }, {}),
-    //       // cartState.cart.map((item) => {
-    //       //   return item.id === action.payload.id
-    //       //     ? { ...item, quantity: item.quantity + 1 }
-    //       //     : { ...action.payload, quantity: 1 };
-    //       // }),
-    //     ],
-    //   };
     default:
       console.log("Something went wrong");
       break;
