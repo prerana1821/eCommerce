@@ -1,4 +1,4 @@
-import { useCart } from "./CartProvider";
+import { useCart } from "../Cart";
 
 export const WishList = () => {
   const { cartState, cartDispatch } = useCart();

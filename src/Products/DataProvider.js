@@ -8,10 +8,10 @@ export const DataProvider = ({ children }) => {
     switch (action.type) {
       case "ADD_DATA":
         return { ...state, data: action.payload };
-      case "LOAD_STATUS":
+      case "STATUS":
         return {
           ...state,
-          loading: action.payload ? "Loading data from server..." : "",
+          loading: action.payload,
         };
       case "CLEAR_FILTERS":
         return {
@@ -47,19 +47,19 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     (async () => {
       try {
-        dispatch({ type: "LOAD_STATUS", payload: true });
+        dispatch({ type: "STATUS", payload: "Loading data from server..." });
         const response = await axios.get("api/products");
         const data = response.data.products;
         dispatch({ type: "ADD_DATA", payload: data });
       } catch (error) {
+        dispatch({ type: "STATUS", payload: "Sorry, try again later.." });
       } finally {
-        dispatch({ type: "LOAD_STATUS", payload: false });
+        dispatch({ type: "STATUS", payload: "" });
       }
     })();
   }, []);
 
   const getSearchedData = (productList, searchString) => {
-    console.log({ searchString });
     return productList.filter((item) => {
       return item.name.toLowerCase().includes(searchString.toLowerCase());
     });

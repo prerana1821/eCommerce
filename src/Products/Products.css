@@ -1,0 +1,16 @@
+.badge-ratings {
+  padding: 0.1rem 0.5rem;
+}
+
+.badge-ratings > p {
+  padding: 0;
+}
+
+.card-info-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ctn {
+  margin: auto;
+}

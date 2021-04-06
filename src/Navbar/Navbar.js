@@ -1,5 +1,6 @@
-import { useCart } from "./CartProvider";
-import Logo from "./images/preCodes.png";
+import { useCart } from "../Cart";
+import Logo from "../images/preCodes.png";
+import "./Navbar.css";
 
 export const Navbar = ({ route, changeRoute }) => {
   const { cartState } = useCart();

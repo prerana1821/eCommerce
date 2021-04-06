@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./Home.css";
 
 export const Home = () => {
   const [img, setImg] = useState("img1");
@@ -32,7 +33,7 @@ export const Home = () => {
         ></button>
       </div>
 
-      <h2>Categories</h2>
+      <h2 className='center-txt'>Categories</h2>
       <div className='categories'>
         <div className='card-category cat-img1'>
           <h3>Men's Swim Shorts</h3>

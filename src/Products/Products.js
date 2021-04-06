@@ -1,5 +1,6 @@
-import { useData } from "./DataProvider";
-import { useCart } from "./CartProvider";
+import { useData } from "../Products";
+import { useCart } from "../Cart";
+import "./Products.css";
 
 export const Products = ({ setRoute }) => {
   const { loading, rangedData } = useData();

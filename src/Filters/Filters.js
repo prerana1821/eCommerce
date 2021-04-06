@@ -1,5 +1,6 @@
-import { useData } from "./DataProvider";
+import { useData } from "../Products";
 import { useState } from "react";
+import "./Filters.css";
 export const Filters = () => {
   const {
     sortBy,

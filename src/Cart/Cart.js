@@ -1,4 +1,5 @@
-import { useCart } from "./CartProvider";
+import { useCart } from "../Cart";
+import "./Cart.css";
 
 export const Cart = () => {
   const { cartState, cartDispatch } = useCart();
