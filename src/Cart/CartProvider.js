@@ -36,6 +36,11 @@ export const CartProvider = ({ children }) => {
           ...cartState,
           wishList: action.payload,
         };
+      case "STATUS":
+        return {
+          ...cartState,
+          loading: action.payload,
+        };
       case "ADD_TO_CART":
         return {
           ...cartState,
@@ -103,6 +108,7 @@ export const CartProvider = ({ children }) => {
   const [cartState, cartDispatch] = useReducer(cartReducer, {
     wishList: [],
     cart: [],
+    loading: "",
   });
 
   return (

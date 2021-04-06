@@ -60,7 +60,7 @@ export default function setupMockServer() {
         server.create("cartItem", {});
       });
       [...Array(0)].forEach((_) => {
-        server.create("wishList", {});
+        server.create("wishListItem", {});
       });
     },
   });

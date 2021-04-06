@@ -1,4 +1,5 @@
 import { useCart } from "../Cart";
+import axios from "axios";
 import "./Cart.css";
 
 export const Cart = () => {
@@ -10,6 +11,70 @@ export const Cart = () => {
     }, 0);
   }
 
+  const deleteItemFromCartApi = async (product, dispatch) => {
+    try {
+      dispatch({
+        type: "STATUS",
+        payload: "Removing Item from Cart....",
+      });
+      const response = await axios.delete(`api/cartItems/${product.id}`);
+      if (response.status === 204) {
+        dispatch({ type: "REMOVE_FROM_CART", payload: product });
+      }
+    } catch (error) {
+      dispatch({
+        type: "STATUS",
+        payload: "Couldn't remove item to cart..",
+      });
+    } finally {
+      dispatch({ type: "STATUS", payload: "" });
+    }
+  };
+
+  const incrementQuantityFromCartApi = async (product, dispatch) => {
+    try {
+      dispatch({
+        type: "STATUS",
+        payload: "Increasing Quantity..",
+      });
+      const response = await axios.put(`api/cartItems/${product.id}`, {
+        cartItem: { ...product, quantity: product.quantity + 1 },
+      });
+      if (response.status === 200) {
+        dispatch({ type: "INCREMENT_QUANTITY", payload: product });
+      }
+    } catch (error) {
+      dispatch({
+        type: "STATUS",
+        payload: "Couldn't increase quantity in the cart..",
+      });
+    } finally {
+      dispatch({ type: "STATUS", payload: "" });
+    }
+  };
+
+  const decrementQuantityFromCartApi = async (product, dispatch) => {
+    try {
+      dispatch({
+        type: "STATUS",
+        payload: "Increasing Quantity..",
+      });
+      const response = await axios.put(`api/cartItems/${product.id}`, {
+        cartItem: { ...product, quantity: product.quantity - 1 },
+      });
+      if (response.status === 200) {
+        dispatch({ type: "DECREMENT_QUANTITY", payload: product });
+      }
+    } catch (error) {
+      dispatch({
+        type: "STATUS",
+        payload: "Couldn't increase quantity in the cart..",
+      });
+    } finally {
+      dispatch({ type: "STATUS", payload: "" });
+    }
+  };
+
   return (
     <div className='products'>
       {cartState.cart.map((product) => {
@@ -17,11 +82,12 @@ export const Cart = () => {
           <div className='card-horizontal' key={product.id}>
             <img className='card-horizontal-img' src={product.image} alt='' />
             <button
-              onClick={() =>
-                cartDispatch({
-                  type: "REMOVE_FROM_CART",
-                  payload: product,
-                })
+              onClick={
+                () => deleteItemFromCartApi(product, cartDispatch)
+                // cartDispatch({
+                //   type: "REMOVE_FROM_CART",
+                //   payload: product,
+                // })
               }
               className='floating-act badge-close tertiary'
             >
@@ -33,11 +99,12 @@ export const Cart = () => {
               <div className='card-details-horizontal'>
                 <div className='card-quant'>
                   <button
-                    onClick={() =>
-                      cartDispatch({
-                        type: "INCREMENT_QUANTITY",
-                        payload: product,
-                      })
+                    onClick={
+                      () => incrementQuantityFromCartApi(product, cartDispatch)
+                      // cartDispatch({
+                      //   type: "INCREMENT_QUANTITY",
+                      //   payload: product,
+                      // })
                     }
                     className='floating-act badge-close tertiary'
                   >
@@ -45,11 +112,12 @@ export const Cart = () => {
                   </button>
                   <p>{product.quantity}</p>
                   <button
-                    onClick={() =>
-                      cartDispatch({
-                        type: "DECREMENT_QUANTITY",
-                        payload: product,
-                      })
+                    onClick={
+                      () => decrementQuantityFromCartApi(product, cartDispatch)
+                      // cartDispatch({
+                      //   type: "DECREMENT_QUANTITY",
+                      //   payload: product,
+                      // })
                     }
                     className='floating-act badge-close tertiary'
                   >

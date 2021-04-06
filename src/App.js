@@ -2,13 +2,14 @@ import "./App.css";
 import { useState } from "react";
 import { Navbar } from "./Navbar";
 import { WishList } from "./WishList";
-import { Products } from "./Products";
-import { Cart } from "./Cart";
+import { Products, useData } from "./Products";
+import { Cart, useCart } from "./Cart";
 import { Filters } from "./Filters";
 import { Home } from "./Home";
 
 function App() {
   const [route, setRoute] = useState("products");
+  const { cartState } = useCart();
 
   const changeRoute = (routeName) => {
     if (routeName === "cart") {
@@ -34,9 +35,22 @@ function App() {
         {route === "products" && <Products setRoute={setRoute} />}
         {route === "cart" && <Cart />}
         {route === "wishlist" && <WishList />}
+        {cartState.loading && <Toast />}
       </div>
     </div>
   );
 }
+
+export const Toast = () => {
+  const { cartState } = useCart();
+  return (
+    <>
+      <div className='alert al-info status'>
+        <i className='fas fa-info-circle'></i>
+        <p>{cartState.loading}</p>
+      </div>
+    </>
+  );
+};
 
 export default App;
