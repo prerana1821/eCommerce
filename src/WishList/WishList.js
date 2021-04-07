@@ -1,5 +1,9 @@
 import { useCart } from "../Cart";
-import axios from "axios";
+import {
+  addToCartApi,
+  incrementQuantityFromCartApi,
+  deleteFromWishListApi,
+} from "../api-calls";
 import "./WishList.css";
 
 const found = (array, id) => {
@@ -9,63 +13,63 @@ const found = (array, id) => {
 export const WishList = () => {
   const { cartState, cartDispatch } = useCart();
 
-  const addToCartApi = async (product, dispatch) => {
-    try {
-      dispatch({ type: "STATUS", payload: "Item Adding to Cart...." });
-      const response = await axios.post("api/cartItems", {
-        cartItem: product,
-      });
-      if (response.status === 201) {
-        dispatch({ type: "ADD_TO_CART", payload: product });
-      }
-    } catch (error) {
-      dispatch({ type: "STATUS", payload: "Couldn't add item to cart.." });
-    } finally {
-      dispatch({ type: "STATUS", payload: "" });
-    }
-  };
+  // const addToCartApi = async (product, dispatch) => {
+  //   try {
+  //     dispatch({ type: "STATUS", payload: "Item Adding to Cart...." });
+  //     const response = await axios.post("api/cartItems", {
+  //       cartItem: product,
+  //     });
+  //     if (response.status === 201) {
+  //       dispatch({ type: "ADD_TO_CART", payload: product });
+  //     }
+  //   } catch (error) {
+  //     dispatch({ type: "STATUS", payload: "Couldn't add item to cart.." });
+  //   } finally {
+  //     dispatch({ type: "STATUS", payload: "" });
+  //   }
+  // };
 
-  const deleteFromWishListApi = async (product, dispatch) => {
-    try {
-      dispatch({
-        type: "STATUS",
-        payload: "Removing Item from Wishlist....",
-      });
-      const response = await axios.delete(`api/wishListItems/${product.id}`);
-      if (response.status === 204) {
-        dispatch({ type: "REMOVE_FROM_WISHLIST", payload: product });
-      }
-    } catch (error) {
-      dispatch({
-        type: "STATUS",
-        payload: "Couldn't remove item to Wishlist..",
-      });
-    } finally {
-      dispatch({ type: "STATUS", payload: "" });
-    }
-  };
+  // const deleteFromWishListApi = async (product, dispatch) => {
+  //   try {
+  //     dispatch({
+  //       type: "STATUS",
+  //       payload: "Removing Item from Wishlist....",
+  //     });
+  //     const response = await axios.delete(`api/wishListItems/${product.id}`);
+  //     if (response.status === 204) {
+  //       dispatch({ type: "REMOVE_FROM_WISHLIST", payload: product });
+  //     }
+  //   } catch (error) {
+  //     dispatch({
+  //       type: "STATUS",
+  //       payload: "Couldn't remove item to Wishlist..",
+  //     });
+  //   } finally {
+  //     dispatch({ type: "STATUS", payload: "" });
+  //   }
+  // };
 
-  const incrementQuantityFromCartApi = async (product, dispatch) => {
-    try {
-      dispatch({
-        type: "STATUS",
-        payload: "Increasing Quantity..",
-      });
-      const response = await axios.put(`api/cartItems/${product.id}`, {
-        cartItem: { ...product, quantity: product.quantity + 1 },
-      });
-      if (response.status === 200) {
-        dispatch({ type: "INCREMENT_QUANTITY", payload: product });
-      }
-    } catch (error) {
-      dispatch({
-        type: "STATUS",
-        payload: "Couldn't increase quantity in the cart..",
-      });
-    } finally {
-      dispatch({ type: "STATUS", payload: "" });
-    }
-  };
+  // const incrementQuantityFromCartApi = async (product, dispatch) => {
+  //   try {
+  //     dispatch({
+  //       type: "STATUS",
+  //       payload: "Increasing Quantity..",
+  //     });
+  //     const response = await axios.put(`api/cartItems/${product.id}`, {
+  //       cartItem: { ...product, quantity: product.quantity + 1 },
+  //     });
+  //     if (response.status === 200) {
+  //       dispatch({ type: "INCREMENT_QUANTITY", payload: product });
+  //     }
+  //   } catch (error) {
+  //     dispatch({
+  //       type: "STATUS",
+  //       payload: "Couldn't increase quantity in the cart..",
+  //     });
+  //   } finally {
+  //     dispatch({ type: "STATUS", payload: "" });
+  //   }
+  // };
 
   return (
     <div className='products'>

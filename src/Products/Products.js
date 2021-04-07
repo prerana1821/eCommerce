@@ -1,60 +1,64 @@
 import { useData } from "../Products";
 import { useCart } from "../Cart";
 import "./Products.css";
-import axios from "axios";
+import {
+  addToCartApi,
+  addToWishListApi,
+  deleteFromWishListApi,
+} from "../api-calls";
 
 export const Products = ({ setRoute }) => {
   const { loading, rangedData } = useData();
   const { cartState, cartDispatch } = useCart();
 
-  const addToCartApi = async (product, dispatch) => {
-    try {
-      dispatch({ type: "STATUS", payload: "Item Adding to Cart...." });
-      const response = await axios.post("api/cartItems", {
-        cartItem: product,
-      });
-      if (response.status === 201) {
-        dispatch({ type: "ADD_TO_CART", payload: product });
-      }
-    } catch (error) {
-      dispatch({ type: "STATUS", payload: "Couldn't add item to cart.." });
-    } finally {
-      dispatch({ type: "STATUS", payload: "" });
-    }
-  };
+  // const addToCartApi = async (product, dispatch) => {
+  //   try {
+  //     dispatch({ type: "STATUS", payload: "Item Adding to Cart...." });
+  //     const response = await axios.post("api/cartItems", {
+  //       cartItem: product,
+  //     });
+  //     if (response.status === 201) {
+  //       dispatch({ type: "ADD_TO_CART", payload: product });
+  //     }
+  //   } catch (error) {
+  //     dispatch({ type: "STATUS", payload: "Couldn't add item to cart.." });
+  //   } finally {
+  //     dispatch({ type: "STATUS", payload: "" });
+  //   }
+  // };
 
-  const addToWishListApi = async (product, dispatch) => {
-    try {
-      dispatch({ type: "STATUS", payload: "Item Adding to Wishlist...." });
-      const response = await axios.post("api/wishListItems", {
-        wishListItem: product,
-      });
-      if (response.status === 201) {
-        dispatch({ type: "ADD_TO_WISHLIST", payload: product });
-      }
-    } catch (error) {
-      dispatch({ type: "STATUS", payload: "Couldn't add item to Wishlist.." });
-    } finally {
-      dispatch({ type: "STATUS", payload: "" });
-    }
-  };
+  // const addToWishListApi = async (product, dispatch) => {
+  //   try {
+  //     dispatch({ type: "STATUS", payload: "Item Adding to Wishlist...." });
+  //     const response = await axios.post("api/wishListItems", {
+  //       wishListItem: product,
+  //     });
+  //     if (response.status === 201) {
+  //       dispatch({ type: "ADD_TO_WISHLIST", payload: product });
+  //     }
+  //   } catch (error) {
+  //     dispatch({ type: "STATUS", payload: "Couldn't add item to Wishlist.." });
+  //   } finally {
+  //     dispatch({ type: "STATUS", payload: "" });
+  //   }
+  // };
 
-  const deleteFromWishListApi = async (product, dispatch) => {
-    try {
-      dispatch({ type: "STATUS", payload: "Removing Item from Wishlist...." });
-      const response = await axios.delete(`api/wishListItems/${product.id}`);
-      if (response.status === 204) {
-        dispatch({ type: "REMOVE_FROM_WISHLIST", payload: product });
-      }
-    } catch (error) {
-      dispatch({
-        type: "STATUS",
-        payload: "Couldn't remove item to Wishlist..",
-      });
-    } finally {
-      dispatch({ type: "STATUS", payload: "" });
-    }
-  };
+  // const deleteFromWishListApi = async (product, dispatch) => {
+  //   try {
+  //     dispatch({ type: "STATUS", payload: "Removing Item from Wishlist...." });
+  //     const response = await axios.delete(`api/wishListItems/${product.id}`);
+  //     if (response.status === 204) {
+  //       dispatch({ type: "REMOVE_FROM_WISHLIST", payload: product });
+  //     }
+  //   } catch (error) {
+  //     dispatch({
+  //       type: "STATUS",
+  //       payload: "Couldn't remove item to Wishlist..",
+  //     });
+  //   } finally {
+  //     dispatch({ type: "STATUS", payload: "" });
+  //   }
+  // };
 
   const isProdInCart = (item) => {
     return cartState.cart.reduce((acc, value) => {
