@@ -33,7 +33,7 @@ function App() {
       <div className='main'>
         {route === "products" && <Filters />}
         {route === "products" && <Products setRoute={setRoute} />}
-        {route === "cart" && <Cart />}
+        {route === "cart" && <Cart changeRoute={changeRoute} />}
         {route === "wishlist" && <WishList />}
         {cartState.loading && <Toast />}
       </div>

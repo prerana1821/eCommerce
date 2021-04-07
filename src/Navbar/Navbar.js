@@ -26,14 +26,14 @@ export const Navbar = ({ route, changeRoute }) => {
       </div>
       <div className='nav'>
         <button
-          style={route === "home" ? { textDecoration: "underline" } : {}}
+          style={route === "home" ? { color: "var(--dk-pink)" } : {}}
           className='btn-nav'
           onClick={() => changeRoute("home")}
         >
           Home
         </button>
         <button
-          style={route === "products" ? { textDecoration: "underline" } : {}}
+          style={route === "products" ? { color: "var(--dk-pink)" } : {}}
           className='btn-nav'
           onClick={() => changeRoute("products")}
         >

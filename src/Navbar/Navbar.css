@@ -22,7 +22,7 @@
   outline: var(--white-color);
   border: none;
   font-size: x-large;
-  color: var(--dk-pink);
+  color: #000;
   cursor: pointer;
 }
 
