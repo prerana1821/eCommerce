@@ -102,7 +102,7 @@ export const Products = ({ setRoute }) => {
                 {product.level} :
                 {product.fastDelivery ? " Fast Delivery" : " 3 days +"}
               </h5>
-              {/* <h5>{product.level}</h5> */}
+              <h5>Category: {product.category}</h5>
               <div className='card-details'>
                 <h5>Price: {product.price}</h5>
                 <button

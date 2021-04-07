@@ -20,9 +20,10 @@ export const DataProvider = ({ children }) => {
           showFastDelivery: false,
           sortBy: null,
           priceRange: 1000,
-          level: "beginner",
+          level: "",
           ratings: 5,
           searchString: "",
+          category: "",
         };
       case "SEARCH":
         return { ...state, searchString: action.payload };
@@ -38,6 +39,8 @@ export const DataProvider = ({ children }) => {
         return { ...state, ratings: action.payload };
       case "SELECT_LEVEL":
         return { ...state, level: action.payload };
+      case "CATEGORY":
+        return { ...state, category: action.payload };
       default:
         console.log("Something went wrong");
         break;
@@ -85,9 +88,19 @@ export const DataProvider = ({ children }) => {
   }
 
   const getSelectedLevelData = (productList, selectedRange) => {
-    return productList.filter((item) => {
-      return item.level === selectedRange;
-    });
+    return selectedRange
+      ? productList.filter((item) => {
+          return item.level === selectedRange;
+        })
+      : productList;
+  };
+
+  const getSelectedCategoryData = (productList, category) => {
+    return category
+      ? productList.filter((item) => {
+          return item.category === category;
+        })
+      : productList;
   };
 
   const getRangedPrice = (productList, priceRange) => {
@@ -113,6 +126,7 @@ export const DataProvider = ({ children }) => {
       ratings,
       level,
       searchString,
+      category,
     },
     dispatch,
   ] = useReducer(dataReducer, {
@@ -122,13 +136,15 @@ export const DataProvider = ({ children }) => {
     showFastDelivery: false,
     sortBy: null,
     priceRange: 1000,
-    level: "Beginner",
+    level: "",
     ratings: 5,
     searchString: "",
+    category: "",
   });
 
   const searchedData = getSearchedData(data, searchString);
-  const sortedData = getSortedData(searchedData, sortBy);
+  const categoryData = getSelectedCategoryData(searchedData, category);
+  const sortedData = getSortedData(categoryData, sortBy);
   const filteredData = getFilteredData(sortedData, {
     showFastDelivery,
     showInventoryAll,
@@ -138,6 +154,7 @@ export const DataProvider = ({ children }) => {
   const rangedData = getRangedPrice(ratingsData, priceRange);
 
   // console.log({ searchedData });
+  // console.log({categoryData});
   // console.log({ sortedData });
   // console.log({ filteredData });
   // console.log({ selectedLevelData });

@@ -22,7 +22,7 @@ export default function setupMockServer() {
     },
 
     seeds(server) {
-      [...Array(100)].forEach((_) => {
+      [...Array(60)].forEach((_) => {
         server.create("product", {
           id: faker.datatype.uuid(),
           name: faker.commerce.productName(),
@@ -45,6 +45,13 @@ export default function setupMockServer() {
             "Girl",
             "Boy",
             "Senior",
+          ]),
+          category: faker.random.arrayElement([
+            "Men's Swim Shorts",
+            "Floatation Devices",
+            "Training Kickboards",
+            "Kiddie Pools",
+            "Swimming Kits",
           ]),
           level: faker.random.arrayElement([
             "Beginner",

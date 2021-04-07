@@ -92,6 +92,7 @@
 
 .card-category:hover {
   transition: all 1ms ease-in-out;
+  cursor: pointer;
   box-shadow: 9.91px 9.91px 15px #d9dade, -9.91px -9.91px 15px #ffffff;
 }
 

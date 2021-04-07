@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useData } from "../Products";
 import "./Home.css";
 
 export const Home = ({ changeRoute }) => {
   const [img, setImg] = useState("img1");
+  const { dispatch } = useData();
   return (
     <>
       <div className='banner'>
@@ -40,19 +42,55 @@ export const Home = ({ changeRoute }) => {
 
       <h2 className='center-txt'>Categories</h2>
       <div className='categories'>
-        <div className='card-category cat-img1'>
+        <div
+          onClick={() => {
+            changeRoute("products");
+            return dispatch({ type: "CATEGORY", payload: "Men's Swim Shorts" });
+          }}
+          className='card-category cat-img1'
+        >
           <h3>Men's Swim Shorts</h3>
         </div>
-        <div className='card-category cat-img2'>
+        <div
+          onClick={() => {
+            changeRoute("products");
+            return dispatch({
+              type: "CATEGORY",
+              payload: "Floatation Devices",
+            });
+          }}
+          className='card-category cat-img2'
+        >
           <h3>Swimming Floatation Devices</h3>
         </div>
-        <div className='card-category cat-img3'>
+        <div
+          onClick={() => {
+            changeRoute("products");
+            return dispatch({
+              type: "CATEGORY",
+              payload: "Training Kickboards",
+            });
+          }}
+          className='card-category cat-img3'
+        >
           <h3>Swimming Training Kickboards</h3>
         </div>
-        <div className='card-category cat-img4'>
+        <div
+          onClick={() => {
+            changeRoute("products");
+            return dispatch({ type: "CATEGORY", payload: "Kiddie Pools" });
+          }}
+          className='card-category cat-img4'
+        >
           <h3>Kiddie Pools</h3>
         </div>
-        <div className='card-category cat-img5'>
+        <div
+          onClick={() => {
+            changeRoute("products");
+            return dispatch({ type: "CATEGORY", payload: "Swimming Kits" });
+          }}
+          className='card-category cat-img5'
+        >
           <h3>Swimming Kits</h3>
         </div>
       </div>
