@@ -83,7 +83,9 @@ export const Products = ({ setRoute }) => {
         return (
           <div className='card' key={product.id}>
             <img className='card-img' src={product.image} alt={product.name} />
-            <div className='bdge-sm pink'>NEW</div>
+            <div className='bdge-sm pink'>
+              {product.inStock ? "Stock" : "Sold"}
+            </div>
             <div className='card-info'>
               <p>{product.name}</p>
               <div className='card-info-details'>
@@ -96,10 +98,11 @@ export const Products = ({ setRoute }) => {
                 </div>
               </div>
               <h5>
-                {product.inStock ? "In Stock" : "Out of Stock"} :
+                {/* {product.inStock ? "In Stock" : "Out of Stock"} : */}
+                {product.level} :
                 {product.fastDelivery ? " Fast Delivery" : " 3 days +"}
               </h5>
-              <h5>{product.level}</h5>
+              {/* <h5>{product.level}</h5> */}
               <div className='card-details'>
                 <h5>Price: {product.price}</h5>
                 <button

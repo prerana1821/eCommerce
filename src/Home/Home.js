@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Home.css";
 
-export const Home = () => {
+export const Home = ({ changeRoute }) => {
   const [img, setImg] = useState("img1");
   return (
     <>
@@ -9,7 +9,12 @@ export const Home = () => {
         {img === "img1" && (
           <div className='sliding-img img1'>
             <h2>Lorem ipsum dolor sit amet.</h2>
-            <button className='btn-main btn'>Shop Now</button>
+            <button
+              className='btn-main btn'
+              onClick={() => changeRoute("products")}
+            >
+              Shop Now
+            </button>
           </div>
         )}
         {img === "img2" && <div className='sliding-img img2'></div>}

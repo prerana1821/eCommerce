@@ -46,16 +46,16 @@ export const Navbar = ({ route, changeRoute }) => {
         }}
         className='badge-av'
       >
-        <div className='badge-icon pink bdg-top'>
+        <div className='badge-icon primary bdg-top'>
           {cartState.wishList.length}
         </div>
-        <div className='avatar av-pink'>
+        <div className='avatar av-primary'>
           <i className='fas fa-lg fa-heart'></i>
         </div>
       </div>
       <div onClick={() => changeRoute("cart")} className='badge-av'>
-        <div className='badge-icon yellow bdg-top'>{totalItems()}</div>
-        <div className='avatar av-yellow'>
+        <div className='badge-icon pink bdg-top'>{totalItems()}</div>
+        <div className='avatar av-pink'>
           <i className='fas fa-lg fa-shopping-cart'></i>
         </div>
       </div>

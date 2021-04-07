@@ -77,6 +77,9 @@ export const Cart = () => {
 
   return (
     <div className='products'>
+      <h3>
+        {cartState.cart.length === 0 && "No products were added to the cart"}
+      </h3>
       {cartState.cart.map((product) => {
         return (
           <div className='card-horizontal' key={product.id}>

@@ -77,12 +77,10 @@ export const DataProvider = ({ children }) => {
 
   function getFilteredData(
     productList,
-    { showFastDeliveryOnly, showInventoryAll }
+    { showFastDelivery, showInventoryAll }
   ) {
     return productList
-      .filter(({ fastDelivery }) =>
-        showFastDeliveryOnly ? fastDelivery : true
-      )
+      .filter(({ fastDelivery }) => (showFastDelivery ? fastDelivery : true))
       .filter(({ inStock }) => (showInventoryAll ? true : inStock));
   }
 
@@ -109,7 +107,7 @@ export const DataProvider = ({ children }) => {
       data,
       loading,
       sortBy,
-      showFastDeliveryOnly,
+      showFastDelivery,
       showInventoryAll,
       priceRange,
       ratings,
@@ -124,7 +122,7 @@ export const DataProvider = ({ children }) => {
     showFastDelivery: false,
     sortBy: null,
     priceRange: 1000,
-    level: "beginner",
+    level: "Beginner",
     ratings: 5,
     searchString: "",
   });
@@ -132,7 +130,7 @@ export const DataProvider = ({ children }) => {
   const searchedData = getSearchedData(data, searchString);
   const sortedData = getSortedData(searchedData, sortBy);
   const filteredData = getFilteredData(sortedData, {
-    showFastDeliveryOnly,
+    showFastDelivery,
     showInventoryAll,
   });
   const selectedLevelData = getSelectedLevelData(filteredData, level);

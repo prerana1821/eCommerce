@@ -76,7 +76,7 @@ export const Filters = () => {
               checked={showInventoryAll}
               onChange={() => dispatch({ type: "TOGGLE_INVENTORY" })}
             />
-            Include Out of Stock
+            Exclude Out of Stock
           </label>
         </div>
         <div>
@@ -98,10 +98,10 @@ export const Filters = () => {
             dispatch({ type: "SELECT_LEVEL", payload: e.target.value })
           }
         >
-          <option value='beginner'>beginner</option>
-          <option value='amateur'>amateur</option>
-          <option value='intermediate'>intermediate</option>
-          <option value='advanced'>advanced</option>
+          <option value='Beginner'>Beginner</option>
+          <option value='Amateur'>Amateur</option>
+          <option value='Intermediate'>Intermediate</option>
+          <option value='Advanced'>Advanced</option>
           <option value='professional'>professional</option>
         </select>
       </div>

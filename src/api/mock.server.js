@@ -22,7 +22,7 @@ export default function setupMockServer() {
     },
 
     seeds(server) {
-      [...Array(60)].forEach((_) => {
+      [...Array(100)].forEach((_) => {
         server.create("product", {
           id: faker.datatype.uuid(),
           name: faker.commerce.productName(),
@@ -47,11 +47,11 @@ export default function setupMockServer() {
             "Senior",
           ]),
           level: faker.random.arrayElement([
-            "beginner",
-            "amateur",
-            "intermediate",
-            "advanced",
-            "professional",
+            "Beginner",
+            "Amateur",
+            "Intermediate",
+            "Advanced",
+            "Professional",
           ]),
           color: faker.commerce.color(),
         });

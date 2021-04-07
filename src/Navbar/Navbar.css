@@ -32,3 +32,8 @@
   margin: 1rem 2rem;
   gap: 1rem;
 }
+
+.av-primary {
+  background-color: var(--lt-green);
+  color: var(--primary-color);
+}

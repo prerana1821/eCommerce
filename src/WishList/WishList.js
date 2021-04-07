@@ -1,5 +1,6 @@
 import { useCart } from "../Cart";
 import axios from "axios";
+import "./WishList.css";
 
 const found = (array, id) => {
   return !!array.find((item) => item.id === id);
@@ -68,9 +69,13 @@ export const WishList = () => {
 
   return (
     <div className='products'>
+      <h3 className='info-txt'>
+        {cartState.wishList.length === 0 &&
+          "No products were added to the wishlist! (＞﹏＜)"}
+      </h3>
       {cartState.wishList.map((product) => {
         return (
-          <div className='card' key={product.id}>
+          <div className='card wishList-card' key={product.id}>
             <img className='card-img' src={product.image} alt='' />
             <button
               onClick={
