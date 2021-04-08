@@ -6,8 +6,9 @@ import {
 } from "../api-calls";
 
 import "./Cart.css";
+import { Link } from "react-router-dom";
 
-export const Cart = ({ changeRoute }) => {
+export const Cart = () => {
   const { cartState, cartDispatch } = useCart();
 
   function totalPrice() {
@@ -27,12 +28,14 @@ export const Cart = ({ changeRoute }) => {
           <h3>Your Cart is Empty</h3>
           <hr className='hr' />
           <p className='mg-1'>There are no items in your cart.</p>
-          <button
-            onClick={() => changeRoute("products")}
-            className='btn primary btn-shop'
-          >
-            Shop Now
-          </button>
+          <Link to='/products'>
+            <button
+              // onClick={() => changeRoute("products")}
+              className='btn primary btn-shop'
+            >
+              Shop Now
+            </button>
+          </Link>
         </div>
       ) : (
         <div className='products products-cart'>
@@ -140,7 +143,7 @@ export const Cart = ({ changeRoute }) => {
                 <div className='item-price-details'>
                   <h4 className='center-txt'>Total Amount: </h4>
                   <h4 className='center-txt'>
-                    <bold> ₹ {totalPrice()} 8/-</bold>
+                    <bold> ₹ {totalPrice()} /-</bold>
                   </h4>
                 </div>
                 <button className='btn btn-checkout primary'>CHECKOUT</button>

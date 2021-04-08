@@ -1,22 +1,25 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useData } from "../Products";
 import "./Home.css";
 
-export const Home = ({ changeRoute }) => {
+export const Home = () => {
   const [img, setImg] = useState("img1");
   const { dispatch } = useData();
   return (
-    <>
+    <div className='home'>
       <div className='banner'>
         {img === "img1" && (
           <div className='sliding-img img1'>
             <h2>Lorem ipsum dolor sit amet.</h2>
-            <button
-              className='btn-main btn'
-              onClick={() => changeRoute("products")}
-            >
-              Shop Now
-            </button>
+            <Link to='/products'>
+              <button
+                className='btn-main btn'
+                // onClick={() => changeRoute("products")}
+              >
+                Shop Now
+              </button>
+            </Link>
           </div>
         )}
         {img === "img2" && <div className='sliding-img img2'></div>}
@@ -42,57 +45,70 @@ export const Home = ({ changeRoute }) => {
 
       <h2 className='center-txt'>Categories</h2>
       <div className='categories'>
-        <div
-          onClick={() => {
-            changeRoute("products");
-            return dispatch({ type: "CATEGORY", payload: "Men's Swim Shorts" });
-          }}
-          className='card-category cat-img1'
-        >
-          <h3>Men's Swim Shorts</h3>
-        </div>
-        <div
-          onClick={() => {
-            changeRoute("products");
-            return dispatch({
-              type: "CATEGORY",
-              payload: "Floatation Devices",
-            });
-          }}
-          className='card-category cat-img2'
-        >
-          <h3>Swimming Floatation Devices</h3>
-        </div>
-        <div
-          onClick={() => {
-            changeRoute("products");
-            return dispatch({
-              type: "CATEGORY",
-              payload: "Training Kickboards",
-            });
-          }}
-          className='card-category cat-img3'
-        >
-          <h3>Swimming Training Kickboards</h3>
-        </div>
-        <div
-          onClick={() => {
-            changeRoute("products");
-            return dispatch({ type: "CATEGORY", payload: "Kiddie Pools" });
-          }}
-          className='card-category cat-img4'
-        >
-          <h3>Kiddie Pools</h3>
-        </div>
-        <div
-          onClick={() => {
-            changeRoute("products");
-            return dispatch({ type: "CATEGORY", payload: "Swimming Kits" });
-          }}
-          className='card-category cat-img5'
-        >
-          <h3>Swimming Kits</h3>
-        </div>
+        <Link to='/products'>
+          <div
+            onClick={() => {
+              // changeRoute("products");
+              return dispatch({
+                type: "CATEGORY",
+                payload: "Men's Swim Shorts",
+              });
+            }}
+            className='card-category cat-img1'
+          >
+            <h3>Men's Swim Shorts</h3>
+          </div>
+        </Link>
+        <Link to='/products'>
+          <div
+            onClick={() => {
+              // changeRoute("products");
+              return dispatch({
+                type: "CATEGORY",
+                payload: "Floatation Devices",
+              });
+            }}
+            className='card-category cat-img2'
+          >
+            <h3>Swimming Floatation Devices</h3>
+          </div>
+        </Link>
+        <Link to='/products'>
+          <div
+            onClick={() => {
+              // changeRoute("products");
+              return dispatch({
+                type: "CATEGORY",
+                payload: "Training Kickboards",
+              });
+            }}
+            className='card-category cat-img3'
+          >
+            <h3>Swimming Training Kickboards</h3>
+          </div>
+        </Link>
+        <Link to='/products'>
+          <div
+            onClick={() => {
+              // changeRoute("products");
+              return dispatch({ type: "CATEGORY", payload: "Kiddie Pools" });
+            }}
+            className='card-category cat-img4'
+          >
+            <h3>Kiddie Pools</h3>
+          </div>
+        </Link>
+        <Link to='/products'>
+          <div
+            onClick={() => {
+              // changeRoute("products");
+              return dispatch({ type: "CATEGORY", payload: "Swimming Kits" });
+            }}
+            className='card-category cat-img5'
+          >
+            <h3>Swimming Kits</h3>
+          </div>
+        </Link>
       </div>
 
       <footer className='main-footer'>
@@ -129,6 +145,6 @@ export const Home = ({ changeRoute }) => {
           </li>
         </ul>
       </footer>
-    </>
+    </div>
   );
 };

@@ -1,3 +1,8 @@
+.product-listing {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .badge-ratings {
   padding: 0.1rem 0.5rem;
 }

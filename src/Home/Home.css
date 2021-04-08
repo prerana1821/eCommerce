@@ -90,6 +90,10 @@
   align-items: center;
 }
 
+.home {
+  flex-direction: column;
+}
+
 .card-category:hover {
   transition: all 1ms ease-in-out;
   cursor: pointer;

@@ -29,8 +29,6 @@
 
 .products {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
   border-radius: 1rem 0 0 0;
 }
 
@@ -38,6 +36,9 @@
   padding: 0.5rem;
 }
 
+a {
+  color: black;
+}
 @media (max-width: 600px) {
   .card-horizontal-img {
     max-width: 100%;
