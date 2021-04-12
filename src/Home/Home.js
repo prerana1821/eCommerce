@@ -11,7 +11,10 @@ export const Home = () => {
       <div className='banner'>
         {img === "img1" && (
           <div className='sliding-img img1'>
-            <h2>Lorem ipsum dolor sit amet.</h2>
+            <h2 className='slogan'>
+              preStore helps Swimmers and Triathletes swim better and achieve
+              their goals.
+            </h2>
             <Link to='/products'>
               <button className='btn-main btn'>Shop Now</button>
             </Link>

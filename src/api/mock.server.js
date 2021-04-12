@@ -54,13 +54,7 @@ export default function setupMockServer() {
             "Boy",
             "Senior",
           ]),
-          category: faker.random.arrayElement([
-            "Men's Swim Shorts",
-            "Floatation Devices",
-            "Training Kickboards",
-            "Kiddie Pools",
-            "Swimming Kits",
-          ]),
+          category: faker.random.arrayElement(categories),
           level: faker.random.arrayElement([
             "Beginner",
             "Amateur",

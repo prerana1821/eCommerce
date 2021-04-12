@@ -7,7 +7,7 @@
 .input-txt {
   padding: 0.5rem 1rem;
   margin: 1rem 0;
-  max-width: 160px;
+  max-width: 170px;
 }
 
 .flt-label {
@@ -21,7 +21,7 @@
   box-shadow: var(--tertiary-box-shadow);
   margin-left: 0.6rem;
   border-radius: 0.2rem;
-  padding: 0.5rem;
+  padding: 0.6rem;
   cursor: pointer;
   outline: var(--primary-color);
 }

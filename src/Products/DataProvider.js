@@ -163,6 +163,7 @@ export const DataProvider = ({ children }) => {
         priceRange,
         loading,
         searchString,
+        category,
       }}
     >
       {children}

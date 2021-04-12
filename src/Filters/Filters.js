@@ -1,6 +1,7 @@
 import { useData } from "../Products";
 import { useState } from "react";
 import "./Filters.css";
+import { categories } from "../api/mock.server";
 export const Filters = () => {
   const {
     sortBy,
@@ -11,6 +12,7 @@ export const Filters = () => {
     level,
     ratings,
     searchString,
+    category,
   } = useData();
 
   const [search, setSearch] = useState("");
@@ -89,6 +91,29 @@ export const Filters = () => {
             Fast Delivery Only
           </label>
         </div>
+      </div>
+      <div className='filter'>
+        Category:
+        {categories.map((item) => {
+          return (
+            <div>
+              <label>
+                <input
+                  type='radio'
+                  name='sort-category'
+                  checked={item === category ? true : false}
+                  onChange={() =>
+                    dispatch({
+                      type: "CATEGORY",
+                      payload: item,
+                    })
+                  }
+                />
+                {item}
+              </label>
+            </div>
+          );
+        })}
       </div>
       <div className='filter'>
         <select
