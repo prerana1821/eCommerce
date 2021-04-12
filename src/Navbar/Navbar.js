@@ -17,24 +17,10 @@ export const Navbar = () => {
       <NavLink to='/'>
         <div className='logo'>
           <img src={Logo} alt='Logo' />
-          <p
-            className='logo-txt'
-            // onClick={() => {
-            //   return changeRoute("products");
-            // }}
-          >
-            preStore
-          </p>
+          <p className='logo-txt'>preStore</p>
         </div>
       </NavLink>
       <div className='nav'>
-        {/* <button
-          style={route === "home" ? { color: "var(--dk-pink)" } : {}}
-          className='btn-nav'
-          onClick={() => changeRoute("home")}
-        >
-          Home
-        </button> */}
         <NavLink
           end
           activeStyle={{
@@ -45,13 +31,6 @@ export const Navbar = () => {
         >
           Home
         </NavLink>
-        {/* <button
-          style={route === "products" ? { color: "var(--dk-pink)" } : {}}
-          className='btn-nav'
-          onClick={() => changeRoute("products")}
-        >
-          Products
-        </button> */}
         <NavLink
           activeStyle={{
             color: "var(--dk-pink)",
@@ -63,12 +42,7 @@ export const Navbar = () => {
         </NavLink>
       </div>
       <NavLink to='/wishlist'>
-        <div
-          // onClick={() => {
-          //   return changeRoute("wishlist");
-          // }}
-          className='badge-av'
-        >
+        <div className='badge-av'>
           <div className='badge-icon primary bdg-top'>
             {cartState.wishList.length}
           </div>
@@ -78,10 +52,7 @@ export const Navbar = () => {
         </div>
       </NavLink>
       <NavLink to='/cart'>
-        <div
-          // onClick={() => changeRoute("cart")}
-          className='badge-av'
-        >
+        <div className='badge-av'>
           <div className='badge-icon pink bdg-top'>{totalItems()}</div>
           <div className='avatar av-pink'>
             <i className='fas fa-lg fa-shopping-cart'></i>

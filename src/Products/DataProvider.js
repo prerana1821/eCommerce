@@ -153,16 +153,6 @@ export const DataProvider = ({ children }) => {
   const ratingsData = getRatings(selectedLevelData, ratings);
   const rangedData = getRangedPrice(ratingsData, priceRange);
 
-  // console.log({ searchedData });
-  // console.log({categoryData});
-  // console.log({ sortedData });
-  // console.log({ filteredData });
-  // console.log({ selectedLevelData });
-  // console.log({ ratingsData });
-  // console.log({ sortedData });
-  // console.log({ priceRange });
-  // console.log({ rangedData });
-
   return (
     <DataContext.Provider
       value={{

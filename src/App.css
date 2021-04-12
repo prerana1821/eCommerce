@@ -1,7 +1,3 @@
-.products {
-  flex: 6;
-}
-
 .card {
   margin: 1rem auto;
   max-width: 270px;
@@ -29,7 +25,7 @@
 
 .products {
   display: flex;
-  border-radius: 1rem 0 0 0;
+  width: 100%;
 }
 
 .card-info {
@@ -39,6 +35,18 @@
 a {
   color: black;
 }
+
+.btn-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  cursor: pointer;
+}
+
+.avatar-top {
+  box-shadow: none;
+}
+
 @media (max-width: 600px) {
   .card-horizontal-img {
     max-width: 100%;
@@ -48,8 +56,8 @@ a {
 
 .status {
   position: absolute;
-  bottom: 2rem;
-  right: 1rem;
+  bottom: 2.3rem;
+  right: 7rem;
 }
 
 .toast {

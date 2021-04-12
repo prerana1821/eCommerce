@@ -10,7 +10,7 @@ export const Filters = () => {
     dispatch,
     level,
     ratings,
-    // searchString,
+    searchString,
   } = useData();
 
   const [search, setSearch] = useState("");
@@ -25,7 +25,7 @@ export const Filters = () => {
             return setSearch(e.target.value);
             // return dispatch({ type: "SEARCH", payload: e.target.value });
           }}
-          value={search}
+          value={searchString ? searchString : search}
           className='input-txt'
           required
         />
@@ -135,7 +135,10 @@ export const Filters = () => {
       </div>
       <button
         className='btn primary btn-clr'
-        onClick={() => dispatch({ type: "CLEAR_FILTERS" })}
+        onClick={() => {
+          setSearch("");
+          dispatch({ type: "CLEAR_FILTERS" });
+        }}
       >
         Cleat Filters
       </button>

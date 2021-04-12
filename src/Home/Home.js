@@ -13,12 +13,7 @@ export const Home = () => {
           <div className='sliding-img img1'>
             <h2>Lorem ipsum dolor sit amet.</h2>
             <Link to='/products'>
-              <button
-                className='btn-main btn'
-                // onClick={() => changeRoute("products")}
-              >
-                Shop Now
-              </button>
+              <button className='btn-main btn'>Shop Now</button>
             </Link>
           </div>
         )}
@@ -48,7 +43,6 @@ export const Home = () => {
         <Link to='/products'>
           <div
             onClick={() => {
-              // changeRoute("products");
               return dispatch({
                 type: "CATEGORY",
                 payload: "Men's Swim Shorts",
@@ -62,7 +56,6 @@ export const Home = () => {
         <Link to='/products'>
           <div
             onClick={() => {
-              // changeRoute("products");
               return dispatch({
                 type: "CATEGORY",
                 payload: "Floatation Devices",
@@ -76,7 +69,6 @@ export const Home = () => {
         <Link to='/products'>
           <div
             onClick={() => {
-              // changeRoute("products");
               return dispatch({
                 type: "CATEGORY",
                 payload: "Training Kickboards",
@@ -90,7 +82,6 @@ export const Home = () => {
         <Link to='/products'>
           <div
             onClick={() => {
-              // changeRoute("products");
               return dispatch({ type: "CATEGORY", payload: "Kiddie Pools" });
             }}
             className='card-category cat-img4'
@@ -101,7 +92,6 @@ export const Home = () => {
         <Link to='/products'>
           <div
             onClick={() => {
-              // changeRoute("products");
               return dispatch({ type: "CATEGORY", payload: "Swimming Kits" });
             }}
             className='card-category cat-img5'

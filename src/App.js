@@ -7,42 +7,27 @@ import { Home } from "./Home";
 import { Route, Routes } from "react-router";
 
 function App() {
-  // const [route, setRoute] = useState("products");
   const { cartState } = useCart();
 
-  // const changeRoute = (routeName) => {
-  //   if (routeName === "cart") {
-  //     setRoute("cart");
-  //   }
-  //   if (routeName === "wishlist") {
-  //     setRoute("wishlist");
-  //   }
-  //   if (routeName === "products") {
-  //     setRoute("products");
-  //   }
-  //   if (routeName === "home") {
-  //     setRoute("home");
-  //   }
-  // };
-
   return (
-    <div className='App'>
+    <div className='App' id='top'>
       <Navbar />
-      {/* {route === "home" && <Home changeRoute={changeRoute} />} */}
       <div className='main'>
-        {/* {route === "products" && <Filters />}
-        {route === "products" && <Products setRoute={setRoute} />}
-        {route === "cart" && <Cart changeRoute={changeRoute} />}
-        {route === "wishlist" && <WishList />}
-      {cartState.loading && <Toast />} */}
         <Routes>
           <Route path='/' element={<Home />}></Route>
-          {/* <Route path='/products' element={<Filters />}></Route> */}
           <Route path='/products' element={<Products />}></Route>
           <Route path='/cart' element={<Cart />}></Route>
           <Route path='/wishlist' element={<WishList />}></Route>
         </Routes>
         {cartState.loading && <Toast />}
+        {/* <Toast /> */}
+        <a href='#top'>
+          <div className=' btn-top badge-av'>
+            <div className='avatar avatar-top av-pink'>
+              <i className='fas fa-lg  fa-arrow-up'></i>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   );
