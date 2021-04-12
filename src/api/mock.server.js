@@ -1,6 +1,14 @@
 import { createServer, Model, RestSerializer } from "miragejs";
 import faker from "faker";
 
+export const categories = [
+  "Men's Swim Shorts",
+  "Floatation Devices",
+  "Training Kickboards",
+  "Kiddie Pools",
+  "Swimming Kits",
+];
+
 export default function setupMockServer() {
   createServer({
     serializers: {

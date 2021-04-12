@@ -1,7 +1,7 @@
 .filters {
   max-width: 600px;
-  padding: 1.5rem;
-  flex: 1;
+  padding: 0 1rem;
+  flex: 1 1;
 }
 
 .input-txt {

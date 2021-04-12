@@ -35,7 +35,7 @@ export const Products = ({ setRoute }) => {
 
   return (
     <div className='products'>
-      <div>
+      <div className='main-filters'>
         <Filters />
       </div>
       <div className='product-listing'>
