@@ -1,15 +1,16 @@
 import { useData } from "../Products";
 import { useCart } from "../Cart";
 import "./Products.css";
+import { Link } from "react-router-dom";
+import { found } from "../utils";
+import { Filters } from "../Filters";
 import {
   addToCartApi,
   addToWishListApi,
   deleteFromWishListApi,
 } from "../api-calls";
-import { Link } from "react-router-dom";
-import { Filters } from "../Filters";
 
-export const Products = ({ setRoute }) => {
+export const Products = () => {
   const { loading, rangedData } = useData();
   const { cartState, cartDispatch } = useCart();
 
@@ -27,10 +28,6 @@ export const Products = ({ setRoute }) => {
     return cartState.wishList.reduce((icon, product) => {
       return product.id === item.id ? (icon = "fas fa-lg fa-heart") : icon;
     }, "far fa-lg fa-heart");
-  };
-
-  const found = (array, id) => {
-    return !!array.find((item) => item.id === id);
   };
 
   return (
@@ -104,31 +101,3 @@ export const Products = ({ setRoute }) => {
     </div>
   );
 };
-
-// {
-//   found(cartState.cart, product.id) ? (
-//     <Link to='/cart'>
-//       <button
-//         className='btn btn-primary primary btn-card'
-//         onClick={() => {
-//           return found(cartState.cart, product.id)
-//             ? setRoute("cart")
-//             : addToCartApi(product, cartDispatch);
-//         }}
-//       >
-//         <p>{isProdInCart(product)}</p>
-//       </button>
-//     </Link>
-//   ) : (
-//     <button
-//       className='btn btn-primary primary btn-card'
-//       onClick={() => {
-//         return found(cartState.cart, product.id)
-//           ? setRoute("cart")
-//           : addToCartApi(product, cartDispatch);
-//       }}
-//     >
-//       <p>{isProdInCart(product)}</p>
-//     </button>
-//   );
-// }

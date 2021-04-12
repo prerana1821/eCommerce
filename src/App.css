@@ -54,22 +54,3 @@ a {
     max-height: 200px;
   }
 }
-
-.status {
-  position: absolute;
-  bottom: 2.3rem;
-  right: 7rem;
-}
-
-.toast {
-  box-shadow: none;
-}
-
-.tl-error {
-  background-color: var(--secondary-color);
-  color: var(--dk-green);
-}
-
-.tl-content-error {
-  border-left: 3px solid var(--dk-green);
-}

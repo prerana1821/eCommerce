@@ -1,4 +1,5 @@
 import axios from "axios";
+
 export const addToCartApi = async (product, dispatch) => {
   try {
     dispatch({ type: "STATUS", payload: "Item Adding to Cart...." });

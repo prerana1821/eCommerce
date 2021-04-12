@@ -5,6 +5,7 @@ import { Products } from "./Products";
 import { Cart, useCart } from "./Cart";
 import { Home } from "./Home";
 import { Route, Routes } from "react-router";
+import { Toast } from "./Toast";
 
 function App() {
   const { cartState } = useCart();
@@ -20,7 +21,6 @@ function App() {
           <Route path='/wishlist' element={<WishList />}></Route>
         </Routes>
         {cartState.loading && <Toast />}
-        {/* <Toast /> */}
         <a href='#top'>
           <div className=' btn-top badge-av'>
             <div className='avatar avatar-top av-pink'>
@@ -32,19 +32,5 @@ function App() {
     </div>
   );
 }
-
-export const Toast = () => {
-  const { cartState } = useCart();
-  return (
-    <>
-      <div className='toast tl-error status'>
-        <div className='tl-content-error'>
-          <i className='fas fa-check-circle'></i>
-          <p>{cartState.loading}</p>
-        </div>
-      </div>
-    </>
-  );
-};
 
 export default App;

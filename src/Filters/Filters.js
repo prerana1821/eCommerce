@@ -1,7 +1,7 @@
 import { useData } from "../Products";
 import { useState } from "react";
 import "./Filters.css";
-import { categories } from "../api/mock.server";
+import { categories } from "../api/database";
 export const Filters = () => {
   const {
     sortBy,
@@ -96,7 +96,7 @@ export const Filters = () => {
         Category:
         {categories.map((item) => {
           return (
-            <div>
+            <div key={item}>
               <label>
                 <input
                   type='radio'

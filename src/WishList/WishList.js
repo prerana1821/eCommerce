@@ -5,10 +5,7 @@ import {
   deleteFromWishListApi,
 } from "../api-calls";
 import "./WishList.css";
-
-const found = (array, id) => {
-  return !!array.find((item) => item.id === id);
-};
+import { found } from "../utils";
 
 export const WishList = () => {
   const { cartState, cartDispatch } = useCart();
