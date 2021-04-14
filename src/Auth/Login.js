@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router";
 import { useAuth } from "./AuthProvider";
 import { useState } from "react";
 import "./Login.css";
+import { Link } from "react-router-dom";
 
 export const Login = () => {
   const { status, login, loginUserWithCredentials, logout } = useAuth();
@@ -83,8 +84,18 @@ export const Login = () => {
       >
         {login ? "Logout" : "Login"}
       </button>
-      <p>Forgot your password? Reset here!</p>
-      <p>Don't have an account? Sign up!</p>
+      <p className='mg'>
+        Forgot your password?
+        <Link to='/forgot-password'>
+          <span className='pink-txt'> Reset here!</span>
+        </Link>
+      </p>
+      <p>
+        Don't have an account?
+        <Link to='/signup'>
+          <span className='pink-txt'> Sign up!</span>
+        </Link>
+      </p>
     </div>
   );
 };

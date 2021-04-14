@@ -37,3 +37,7 @@
   color: var(--dk-pink);
   outline: #fff;
 }
+
+.mg {
+  margin: 1.5rem 0 1rem;
+}
