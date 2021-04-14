@@ -1,0 +1,30 @@
+.login-form {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+}
+
+.login-input {
+  position: relative;
+  width: 335px;
+}
+
+.flt-label {
+  left: 35px;
+  top: 31px;
+  border: none;
+  background: none;
+}
+
+.show-pass {
+  position: absolute;
+  top: 2.2rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--dk-pink);
+  outline: #fff;
+}
