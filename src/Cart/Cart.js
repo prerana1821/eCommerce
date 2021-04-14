@@ -29,12 +29,7 @@ export const Cart = () => {
           <hr className='hr' />
           <p className='mg-1'>There are no items in your cart.</p>
           <Link to='/products'>
-            <button
-              // onClick={() => changeRoute("products")}
-              className='btn primary btn-shop'
-            >
-              Shop Now
-            </button>
+            <button className='btn primary btn-shop'>Shop Now</button>
           </Link>
         </div>
       ) : (
@@ -49,13 +44,7 @@ export const Cart = () => {
                     alt=''
                   />
                   <button
-                    onClick={
-                      () => deleteItemFromCartApi(product, cartDispatch)
-                      // cartDispatch({
-                      //   type: "REMOVE_FROM_CART",
-                      //   payload: product,
-                      // })
-                    }
+                    onClick={() => deleteItemFromCartApi(product, cartDispatch)}
                     className='floating-act badge-close tertiary'
                   >
                     <i className='fas fa-lg fa-times'></i>
@@ -66,16 +55,8 @@ export const Cart = () => {
                     <div className='card-details-horizontal'>
                       <div className='card-quant'>
                         <button
-                          onClick={
-                            () =>
-                              incrementQuantityFromCartApi(
-                                product,
-                                cartDispatch
-                              )
-                            // cartDispatch({
-                            //   type: "INCREMENT_QUANTITY",
-                            //   payload: product,
-                            // })
+                          onClick={() =>
+                            incrementQuantityFromCartApi(product, cartDispatch)
                           }
                           className='floating-act badge-close tertiary'
                         >
@@ -83,16 +64,8 @@ export const Cart = () => {
                         </button>
                         <p>{product.quantity}</p>
                         <button
-                          onClick={
-                            () =>
-                              decrementQuantityFromCartApi(
-                                product,
-                                cartDispatch
-                              )
-                            // cartDispatch({
-                            //   type: "DECREMENT_QUANTITY",
-                            //   payload: product,
-                            // })
+                          onClick={() =>
+                            decrementQuantityFromCartApi(product, cartDispatch)
                           }
                           className='floating-act badge-close tertiary'
                         >
@@ -121,7 +94,7 @@ export const Cart = () => {
                         <p>
                           <span>
                             <bold>{item.quantity}</bold>
-                          </span>{" "}
+                          </span>
                           x <span>{item.name}</span>
                         </p>
                         <p>
