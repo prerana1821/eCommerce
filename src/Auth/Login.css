@@ -1,9 +1,14 @@
 .login-form {
   margin: auto;
   display: flex;
+  padding: 2rem;
   flex-direction: column;
   align-items: center;
   justify-content: end;
+  margin: 3rem auto;
+  border-radius: 1rem;
+  box-shadow: 8.71px 8.71px 15px rgb(0 0 0 / 5%),
+    -8.71px -8.71px 15px rgb(0 0 0 / 3%);
 }
 
 .login-input {
@@ -11,11 +16,15 @@
   width: 335px;
 }
 
-.flt-label {
+.flt-label-form {
   left: 35px;
   top: 31px;
   border: none;
   background: none;
+  position: absolute;
+  pointer-events: none;
+
+  transition: 0.2s ease all;
 }
 
 .show-pass {

@@ -6,8 +6,7 @@ import { Cart, useCart } from "./Cart";
 import { Home } from "./Home";
 import { Route, Routes } from "react-router";
 import { Toast } from "./Toast";
-import { PrivateRoute } from "./PrivateRoute";
-import { Login } from "./Auth/Login";
+import { PrivateRoute, Login } from "./Auth";
 
 function App() {
   const { cartState } = useCart();

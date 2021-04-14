@@ -5,7 +5,7 @@ import { CartProvider } from "./Cart";
 import setupMockServer from "./api/mock.server";
 import { DataProvider } from "./Products";
 import { BrowserRouter as Router } from "react-router-dom";
-import { AuthProvider } from "./AuthProvider";
+import { AuthProvider } from "./Auth";
 
 setupMockServer();
 

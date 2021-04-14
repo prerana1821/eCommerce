@@ -1,10 +1,10 @@
 import { useLocation, useNavigate } from "react-router";
-import { useAuth } from "../AuthProvider";
+import { useAuth } from "./AuthProvider";
 import { useState } from "react";
 import "./Login.css";
 
 export const Login = () => {
-  const { status, login, loginUserWithCredentials } = useAuth();
+  const { status, login, loginUserWithCredentials, logout } = useAuth();
   const { state } = useLocation();
   const navigate = useNavigate();
   const [loginCredentials, setLoginCredentials] = useState({
@@ -39,7 +39,7 @@ export const Login = () => {
             }))
           }
         />
-        <span className='flt-label tri-pink'>
+        <span className='flt-label flt-label-form tri-pink'>
           <i className='fas fa-user'></i> Username
         </span>
       </div>
@@ -57,7 +57,7 @@ export const Login = () => {
             }))
           }
         />
-        <span className='flt-label tri-pink'>
+        <span className='flt-label flt-label-form tri-pink'>
           <i class='fas fa-lock'></i> Password
         </span>
         <button
@@ -77,9 +77,14 @@ export const Login = () => {
         </button>
       </div>
       <h3>{status}</h3>
-      <button className='btn btn-main' onClick={loginHandler}>
+      <button
+        className='btn btn-main'
+        onClick={login ? () => logout() : loginHandler}
+      >
         {login ? "Logout" : "Login"}
       </button>
+      <p>Forgot your password? Reset here!</p>
+      <p>Don't have an account? Sign up!</p>
     </div>
   );
 };
