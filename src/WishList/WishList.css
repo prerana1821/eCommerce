@@ -5,8 +5,3 @@
 .info-txt {
   margin: auto;
 }
-
-.products-wishlist {
-  display: flex;
-  flex-direction: column;
-}

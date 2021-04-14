@@ -6,16 +6,23 @@ import {
 } from "../api-calls";
 import "./WishList.css";
 import { found } from "../utils";
+import { Link } from "react-router-dom";
 
 export const WishList = () => {
   const { cartState, cartDispatch } = useCart();
 
   return (
     <div className='products products-wishlist'>
-      <h3 className='info-txt'>
-        {cartState.wishList.length === 0 &&
-          "No products were added to the wishlist! (＞﹏＜)"}
-      </h3>
+      {cartState.wishList.length === 0 && (
+        <div className='card cart-empty-card'>
+          <h3>Your Wish List is Empty</h3>
+          <hr className='hr' />
+          <p className='mg-1'>There are no items in your wishlist.</p>
+          <Link to='/products'>
+            <button className='btn primary btn-shop'>Shop Now</button>
+          </Link>
+        </div>
+      )}
       {cartState.wishList.map((product) => {
         return (
           <div className='card wishList-card' key={product.id}>
