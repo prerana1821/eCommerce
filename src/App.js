@@ -6,7 +6,7 @@ import { Cart, useCart } from "./Cart";
 import { Home } from "./Home";
 import { Route, Routes } from "react-router";
 import { Toast } from "./Toast";
-import { PrivateRoute, Login, SignUp, ForgotPassword } from "./Auth";
+import { PrivateRoute, Login, SignUp, ForgotPassword, Account } from "./Auth";
 
 function App() {
   const { cartState } = useCart();
@@ -23,6 +23,7 @@ function App() {
           <Route path='/login' element={<Login />}></Route>
           <Route path='/signup' element={<SignUp />}></Route>
           <Route path='/forgot-password' element={<ForgotPassword />}></Route>
+          <Route path='/account' element={<Account />}></Route>
         </Routes>
         {cartState.loading && <Toast />}
         <a href='#top'>
