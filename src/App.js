@@ -23,7 +23,7 @@ function App() {
           <Route path='/login' element={<Login />}></Route>
           <Route path='/signup' element={<SignUp />}></Route>
           <Route path='/forgot-password' element={<ForgotPassword />}></Route>
-          <Route path='/account' element={<Account />}></Route>
+          <PrivateRoute path='/account' element={<Account />}></PrivateRoute>
         </Routes>
         {cartState.loading && <Toast />}
         <a href='#top'>

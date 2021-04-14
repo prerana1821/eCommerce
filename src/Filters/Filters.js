@@ -31,7 +31,7 @@ export const Filters = () => {
           className='input-txt'
           required
         />
-        <span className='flt-label'>Search Product</span>
+        <span className='flt-label flt-label-search'>Search Product</span>
         <button
           onClick={() => dispatch({ type: "SEARCH", payload: search })}
           className='btn-search'

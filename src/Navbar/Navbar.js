@@ -1,9 +1,11 @@
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../Auth";
 import { useCart } from "../Cart";
 import Logo from "../images/preCodes.png";
 import "./Navbar.css";
 
 export const Navbar = () => {
+  const { login } = useAuth();
   const { cartState } = useCart();
 
   const totalItems = () => {
@@ -59,7 +61,8 @@ export const Navbar = () => {
           </div>
         </div>
       </NavLink>
-      <NavLink to='/login'>
+
+      <NavLink to={login ? "/account" : "/login"}>
         <div className='badge-av'>
           <div className='avatar av-pink'>
             <i className='fas fa-lg fa-user'></i>

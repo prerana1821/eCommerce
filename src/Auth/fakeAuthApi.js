@@ -30,7 +30,27 @@ export const fakeLoginApi = (username, password) => {
       if (userName?.password && userName.password === password) {
         resolve({ success: true, status: 200, message: "Login Successful" });
       } else {
-        reject({ success: false, status: 404, message: "Login Unssuccessful" });
+        reject({ success: false, status: 404, message: "Login Unsuccessful" });
+      }
+    }, 3000);
+  });
+};
+
+let id = 123;
+
+export const fakeSignUpApi = (username, password, email) => {
+  return new Promise((resolve, reject) => {
+    const userName = findUserByUserName(username);
+    setTimeout(() => {
+      if (!userName?.username) {
+        Users.push({ id: id++, username, password, email });
+        resolve({ success: true, status: 200, message: "Login Successful" });
+      } else {
+        reject({
+          success: false,
+          status: 404,
+          message: "Username Already Exists",
+        });
       }
     }, 3000);
   });

@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { fakeLoginApi } from "./fakeAuthApi";
+import { fakeLoginApi, fakeSignUpApi } from "./fakeAuthApi";
 
 export const AuthContext = createContext();
 
@@ -37,6 +37,28 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const signUpUserWithCredentials = async (username, password, email) => {
+    try {
+      setStatus("Adding...");
+      const response = await fakeSignUpApi(username, password, email);
+      console.log({ response });
+      localStorage?.setItem("login", JSON.stringify({ login: true }));
+      if (response.success) {
+        setLogin(true);
+      }
+      setStatus("Hurray! Signup Successful");
+      return response;
+    } catch (error) {
+      console.log(error);
+      if (!error.success) {
+        setStatus("Ohh no signup Unsuccessful");
+      }
+      return error;
+    } finally {
+      setStatus("");
+    }
+  };
+
   const logout = () => {
     setLogin(false);
     localStorage?.removeItem("login");
@@ -45,7 +67,13 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ status, login, loginUserWithCredentials, logout }}
+      value={{
+        status,
+        login,
+        loginUserWithCredentials,
+        signUpUserWithCredentials,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>

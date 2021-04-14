@@ -5,7 +5,7 @@ import "./Login.css";
 import { Link } from "react-router-dom";
 
 export const Login = () => {
-  const { status, login, loginUserWithCredentials, logout } = useAuth();
+  const { status, loginUserWithCredentials } = useAuth();
   const { state } = useLocation();
   const navigate = useNavigate();
   const [loginCredentials, setLoginCredentials] = useState({
@@ -78,11 +78,8 @@ export const Login = () => {
         </button>
       </div>
       <h3>{status}</h3>
-      <button
-        className='btn btn-main'
-        onClick={login ? () => logout() : loginHandler}
-      >
-        {login ? "Logout" : "Login"}
+      <button className='btn btn-main' onClick={loginHandler}>
+        Login
       </button>
       <p className='mg'>
         Forgot your password?
