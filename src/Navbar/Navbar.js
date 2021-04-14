@@ -59,6 +59,13 @@ export const Navbar = () => {
           </div>
         </div>
       </NavLink>
+      <NavLink to='/login'>
+        <div className='badge-av'>
+          <div className='avatar av-pink'>
+            <i className='fas fa-lg fa-user'></i>
+          </div>
+        </div>
+      </NavLink>
     </header>
   );
 };

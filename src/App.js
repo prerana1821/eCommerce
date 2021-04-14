@@ -6,6 +6,8 @@ import { Cart, useCart } from "./Cart";
 import { Home } from "./Home";
 import { Route, Routes } from "react-router";
 import { Toast } from "./Toast";
+import { PrivateRoute } from "./PrivateRoute";
+import { Login } from "./Auth/Login";
 
 function App() {
   const { cartState } = useCart();
@@ -17,8 +19,9 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />}></Route>
           <Route path='/products' element={<Products />}></Route>
-          <Route path='/cart' element={<Cart />}></Route>
-          <Route path='/wishlist' element={<WishList />}></Route>
+          <PrivateRoute path='/cart' element={<Cart />}></PrivateRoute>
+          <PrivateRoute path='/wishlist' element={<WishList />}></PrivateRoute>
+          <Route path='/login' element={<Login />}></Route>
         </Routes>
         {cartState.loading && <Toast />}
         <a href='#top'>
