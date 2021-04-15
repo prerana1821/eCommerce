@@ -63,7 +63,7 @@ export const SignUp = () => {
           }
         />
         <span className='flt-label flt-label-form tri-pink'>
-          <i class='fas fa-envelope'></i> Email
+          <i className='fas fa-envelope'></i> Email
         </span>
       </div>
 
@@ -99,7 +99,7 @@ export const SignUp = () => {
           }
         />
         <span className='flt-label flt-label-form tri-pink'>
-          <i class='fas fa-lock'></i> Password
+          <i className='fas fa-lock'></i> Password
         </span>
         <button
           className='show-pass'
@@ -111,9 +111,9 @@ export const SignUp = () => {
           }
         >
           {signUpCredentials.showPassword ? (
-            <i class='far fa-lg fa-eye-slash'></i>
+            <i className='far fa-lg fa-eye-slash'></i>
           ) : (
-            <i class='far fa-lg  fa-eye'></i>
+            <i className='far fa-lg  fa-eye'></i>
           )}
         </button>
       </div>
@@ -132,7 +132,7 @@ export const SignUp = () => {
           }
         />
         <span className='flt-label flt-label-form tri-pink'>
-          <i class='fas fa-lock'></i> Confirm Password
+          <i className='fas fa-lock'></i> Confirm Password
         </span>
         <button
           className='show-pass'
@@ -144,9 +144,9 @@ export const SignUp = () => {
           }
         >
           {signUpCredentials.showConfirmPassword ? (
-            <i class='far fa-lg fa-eye-slash'></i>
+            <i className='far fa-lg fa-eye-slash'></i>
           ) : (
-            <i class='far fa-lg  fa-eye'></i>
+            <i className='far fa-lg  fa-eye'></i>
           )}
         </button>
       </div>
@@ -156,7 +156,7 @@ export const SignUp = () => {
       <p className='mg'>
         Already have an account?
         <Link to='/login'>
-          <span className='pink-txt'> Login up!</span>
+          <span className='pink-txt'>Login up!</span>
         </Link>
       </p>
 

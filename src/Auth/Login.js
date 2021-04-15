@@ -59,7 +59,7 @@ export const Login = () => {
           }
         />
         <span className='flt-label flt-label-form tri-pink'>
-          <i class='fas fa-lock'></i> Password
+          <i className='fas fa-lock'></i> Password
         </span>
         <button
           className='show-pass'
@@ -71,9 +71,9 @@ export const Login = () => {
           }
         >
           {loginCredentials.showPassword ? (
-            <i class='far fa-lg fa-eye-slash'></i>
+            <i className='far fa-lg fa-eye-slash'></i>
           ) : (
-            <i class='far fa-lg  fa-eye'></i>
+            <i className='far fa-lg  fa-eye'></i>
           )}
         </button>
       </div>

@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { fakeLoginApi, fakeSignUpApi } from "./fakeAuthApi";
+import { fakeLoginApi, fakeSignUpApi, fakeForgotPassApi } from "./fakeAuthApi";
 
 export const AuthContext = createContext();
 
@@ -54,8 +54,26 @@ export const AuthProvider = ({ children }) => {
         setStatus("Ohh no signup Unsuccessful");
       }
       return error;
-    } finally {
-      setStatus("");
+    }
+  };
+
+  const forgotPasswordByCredentials = async (email, password) => {
+    try {
+      setStatus("Checkkingg...");
+      const response = await fakeForgotPassApi(email, password);
+      console.log({ response });
+      localStorage?.setItem("login", JSON.stringify({ login: true }));
+      if (response.success) {
+        setLogin(true);
+      }
+      setStatus("Hurray! Password Changed Successfully");
+      return response;
+    } catch (error) {
+      console.log(error);
+      if (!error.success) {
+        setStatus("Email doesn't exits");
+      }
+      return error;
     }
   };
 
@@ -72,6 +90,7 @@ export const AuthProvider = ({ children }) => {
         login,
         loginUserWithCredentials,
         signUpUserWithCredentials,
+        forgotPasswordByCredentials,
         logout,
       }}
     >
