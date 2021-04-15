@@ -1,1 +1,0 @@
-export { WishList } from "./WishList";
