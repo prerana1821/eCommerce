@@ -62,6 +62,8 @@ export const AuthProvider = ({ children }) => {
         setStatus("Ohh no signup Unsuccessful");
       }
       return error;
+    } finally {
+      setStatus("");
     }
   };
 
@@ -83,6 +85,8 @@ export const AuthProvider = ({ children }) => {
         setStatus("Email doesn't exits");
       }
       return error;
+    } finally {
+      setStatus("");
     }
   };
 
