@@ -21,8 +21,12 @@ export const Products = () => {
 
   const isProdInCart = (item) => {
     return cartState.cart.reduce((acc, value) => {
-      if (item.id === value.id) {
-        return "Go to Cart";
+      if (login) {
+        if (item.id === value.id) {
+          return "Go to Cart";
+        } else {
+          return acc;
+        }
       } else {
         return acc;
       }
@@ -31,7 +35,11 @@ export const Products = () => {
 
   const isProdInWishList = (item) => {
     return cartState.wishList.reduce((icon, product) => {
-      return product.id === item.id ? (icon = "fas fa-lg fa-heart") : icon;
+      if (login) {
+        return product.id === item.id ? (icon = "fas fa-lg fa-heart") : icon;
+      } else {
+        return icon;
+      }
     }, "far fa-lg fa-heart");
   };
 
