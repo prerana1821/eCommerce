@@ -10,7 +10,7 @@ import {
 } from "../api-calls";
 import "./Products.css";
 import { useAuth } from "../Auth";
-import { LoginAlertModal } from "../LoginAlertModal";
+import { LoginAlertModal } from "../LoginAlert";
 import { useState } from "react";
 
 export const Products = () => {
