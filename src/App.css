@@ -1,0 +1,56 @@
+.card {
+  margin: 1rem auto;
+  max-width: 270px;
+}
+
+.card-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.floating-act {
+  width: 40px;
+  height: 40px;
+}
+
+.btn {
+  outline: none;
+  padding: 0.3rem 0.2rem;
+}
+
+.main {
+  display: flex;
+}
+
+.products {
+  display: flex;
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.card-info {
+  padding: 0.5rem;
+}
+
+a {
+  color: black;
+}
+
+.btn-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  cursor: pointer;
+}
+
+.avatar-top {
+  box-shadow: none;
+}
+
+@media (max-width: 600px) {
+  .card-horizontal-img {
+    max-width: 100%;
+    max-height: 200px;
+  }
+}

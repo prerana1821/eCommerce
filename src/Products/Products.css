@@ -1,0 +1,41 @@
+.product-listing {
+  display: flex;
+  width: 84%;
+  flex-wrap: wrap;
+  margin-left: 18%;
+}
+
+.badge-ratings {
+  padding: 0.1rem 0.5rem;
+}
+
+.badge-ratings > p {
+  padding: 0;
+}
+
+.card-info-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ctn {
+  margin: auto;
+}
+
+.bdge-sm {
+  font-size: 1rem;
+}
+
+.btn-card {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.main-filters {
+  position: fixed;
+  top: 136px;
+  left: 10px;
+  bottom: 10px;
+  width: 18%;
+  overflow-y: scroll;
+}
