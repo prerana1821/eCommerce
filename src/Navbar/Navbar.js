@@ -45,9 +45,11 @@ export const Navbar = () => {
       </div>
       <NavLink to='/wishlist'>
         <div className='badge-av'>
-          <div className='badge-icon primary bdg-top'>
-            {cartState.wishList.length}
-          </div>
+          {login && (
+            <div className='badge-icon primary bdg-top'>
+              {cartState.wishList.length}
+            </div>
+          )}
           <div className='avatar av-primary'>
             <i className='fas fa-lg fa-heart'></i>
           </div>
@@ -55,7 +57,9 @@ export const Navbar = () => {
       </NavLink>
       <NavLink to='/cart'>
         <div className='badge-av'>
-          <div className='badge-icon pink bdg-top'>{totalItems()}</div>
+          {login && (
+            <div className='badge-icon pink bdg-top'>{totalItems()}</div>
+          )}
           <div className='avatar av-pink'>
             <i className='fas fa-lg fa-shopping-cart'></i>
           </div>
