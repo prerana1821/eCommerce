@@ -39,8 +39,6 @@ export const AuthProvider = ({ children }) => {
         setStatus("Ohh no login Unsuccessful");
       }
       return error;
-    } finally {
-      setStatus("");
     }
   };
 
@@ -62,8 +60,6 @@ export const AuthProvider = ({ children }) => {
         setStatus("Ohh no signup Unsuccessful");
       }
       return error;
-    } finally {
-      setStatus("");
     }
   };
 
@@ -85,13 +81,12 @@ export const AuthProvider = ({ children }) => {
         setStatus("Email doesn't exits");
       }
       return error;
-    } finally {
-      setStatus("");
     }
   };
 
   const logout = () => {
     setLogin(false);
+    setStatus("");
     setUser({ id: "", username: "", email: "", password: "" });
     localStorage?.removeItem("login");
     navigate("/");
