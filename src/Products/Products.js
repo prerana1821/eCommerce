@@ -1,6 +1,5 @@
 import { useData } from "../Products";
 import { useCart } from "../Cart";
-import "./Products.css";
 import { Link } from "react-router-dom";
 import { found } from "../utils";
 import { Filters } from "../Filters";
@@ -9,10 +8,16 @@ import {
   addToWishListApi,
   deleteFromWishListApi,
 } from "../api-calls";
+import "./Products.css";
+import { useAuth } from "../Auth";
+import { LoginAlertModal } from "../LoginAlertModal";
+import { useState } from "react";
 
 export const Products = () => {
   const { loading, rangedData } = useData();
   const { cartState, cartDispatch } = useCart();
+  const { login } = useAuth();
+  const [showModal, setShowModal] = useState(false);
 
   const isProdInCart = (item) => {
     return cartState.cart.reduce((acc, value) => {
@@ -28,6 +33,10 @@ export const Products = () => {
     return cartState.wishList.reduce((icon, product) => {
       return product.id === item.id ? (icon = "fas fa-lg fa-heart") : icon;
     }, "far fa-lg fa-heart");
+  };
+
+  const loginAlert = (msg) => {
+    return setShowModal(true);
   };
 
   return (
@@ -67,36 +76,59 @@ export const Products = () => {
                 <div className='card-details'>
                   <h5>Price: {product.price}</h5>
                   <button
-                    onClick={() => {
-                      return cartState.wishList.reduce((acc, value) => {
-                        return value.id === product.id
-                          ? deleteFromWishListApi(product, cartDispatch)
-                          : acc;
-                      }, addToWishListApi(product, cartDispatch));
-                    }}
+                    onClick={
+                      login
+                        ? () => {
+                            return cartState.wishList.reduce((acc, value) => {
+                              return value.id === product.id
+                                ? deleteFromWishListApi(product, cartDispatch)
+                                : acc;
+                            }, addToWishListApi(product, cartDispatch));
+                          }
+                        : () =>
+                            loginAlert(
+                              "Hey, you need to login in order to add items to wishlist"
+                            )
+                    }
                     className='floating-act secondary flt-tri'
                   >
                     <i className={`${isProdInWishList(product)}`}></i>
                   </button>
                 </div>
               </div>
-              {found(cartState.cart, product.id) ? (
-                <Link to='/cart'>
-                  <button className='btn btn-primary primary btn-card'>
+
+              <div>
+                {found(cartState.cart, product.id) ? (
+                  <Link to='/cart'>
+                    <button className='btn btn-primary primary btn-card'>
+                      <p>{isProdInCart(product)}</p>
+                    </button>
+                  </Link>
+                ) : (
+                  <button
+                    className='btn btn-primary primary btn-card'
+                    onClick={
+                      login
+                        ? () => addToCartApi(product, cartDispatch)
+                        : () =>
+                            loginAlert(
+                              "Hey, you need to login in order to add items to cart"
+                            )
+                    }
+                  >
                     <p>{isProdInCart(product)}</p>
                   </button>
-                </Link>
-              ) : (
-                <button
-                  className='btn btn-primary primary btn-card'
-                  onClick={() => addToCartApi(product, cartDispatch)}
-                >
-                  <p>{isProdInCart(product)}</p>
-                </button>
-              )}
+                )}
+              </div>
             </div>
           );
         })}
+        {showModal && (
+          <LoginAlertModal
+            setShowModal={setShowModal}
+            msg={"Hey, you need to login in order to add items"}
+          />
+        )}
       </div>
     </div>
   );
