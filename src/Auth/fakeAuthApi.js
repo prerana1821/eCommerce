@@ -32,7 +32,12 @@ export const fakeLoginApi = (username, password) => {
     const userName = findUserByUserName(username);
     setTimeout(() => {
       if (userName?.password && userName.password === password) {
-        resolve({ success: true, status: 200, message: "Login Successful" });
+        resolve({
+          userName,
+          success: true,
+          status: 200,
+          message: "Login Successful",
+        });
       } else {
         reject({ success: false, status: 404, message: "Login Unsuccessful" });
       }
@@ -48,7 +53,12 @@ export const fakeSignUpApi = (username, password, email) => {
     setTimeout(() => {
       if (!userName?.username) {
         Users.push({ id: id++, username, password, email });
-        resolve({ success: true, status: 200, message: "Login Successful" });
+        resolve({
+          userName: { id: id, username, password, email },
+          success: true,
+          status: 200,
+          message: "Login Successful",
+        });
       } else {
         reject({
           success: false,
@@ -78,6 +88,7 @@ export const fakeForgotPassApi = (email, password) => {
         changePassword(email, password);
         console.log({ Users });
         resolve({
+          userName,
           success: true,
           status: 200,
           message: "Password Changed Successfully",

@@ -7,6 +7,12 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [login, setLogin] = useState(false);
+  const [user, setUser] = useState({
+    id: "",
+    username: "",
+    email: "",
+    password: "",
+  });
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
 
@@ -24,6 +30,7 @@ export const AuthProvider = ({ children }) => {
       if (response.success) {
         setLogin(true);
       }
+      setUser(response.userName);
       setStatus("Hurray! Login Successful");
       return response;
     } catch (error) {
@@ -46,6 +53,7 @@ export const AuthProvider = ({ children }) => {
       if (response.success) {
         setLogin(true);
       }
+      setUser(response.userName);
       setStatus("Hurray! Signup Successful");
       return response;
     } catch (error) {
@@ -66,6 +74,7 @@ export const AuthProvider = ({ children }) => {
       if (response.success) {
         setLogin(true);
       }
+      setUser(response.userName);
       setStatus("Hurray! Password Changed Successfully");
       return response;
     } catch (error) {
@@ -79,6 +88,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setLogin(false);
+    setUser({ id: "", username: "", email: "", password: "" });
     localStorage?.removeItem("login");
     navigate("/");
   };
@@ -88,6 +98,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         status,
         login,
+        user,
         loginUserWithCredentials,
         signUpUserWithCredentials,
         forgotPasswordByCredentials,
