@@ -1,12 +1,14 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../Auth";
 import { useCart } from "../Cart";
+import { useState } from "react";
 import Logo from "../images/preCodes.png";
 import "./Navbar.css";
 
 export const Navbar = () => {
   const { login } = useAuth();
   const { cartState } = useCart();
+  const [toggle, setToggle] = useState(true);
 
   const totalItems = () => {
     return cartState.cart.reduce((acc, value) => {
@@ -16,63 +18,84 @@ export const Navbar = () => {
 
   return (
     <header className='header'>
-      <NavLink to='/'>
-        <div className='logo'>
-          <img src={Logo} alt='Logo' />
-          <p className='logo-txt'>preStore</p>
-        </div>
-      </NavLink>
-      <div className='nav'>
-        <NavLink
-          end
-          activeStyle={{
-            color: "var(--dk-pink)",
-          }}
-          className='btn-nav'
-          to='/'
-        >
-          Home
+      <nav className='navbar'>
+        <NavLink to='/'>
+          <div className='logo'>
+            <img src={Logo} alt='Logo' />
+            <p className='logo-txt'>preStore</p>
+          </div>
         </NavLink>
-        <NavLink
-          activeStyle={{
-            color: "var(--dk-pink)",
-          }}
-          className='btn-nav'
-          to='/products'
+        <ul className={toggle ? "nav-menu" : "nav-menu active"}>
+          <div className='nav'>
+            <li className='nav-item nav-link'>
+              <NavLink
+                end
+                activeStyle={{
+                  color: "var(--dk-pink)",
+                }}
+                className='btn-nav'
+                to='/'
+              >
+                Home
+              </NavLink>
+            </li>
+            <li className='nav-item nav-link'>
+              <NavLink
+                activeStyle={{
+                  color: "var(--dk-pink)",
+                }}
+                className='btn-nav'
+                to='/products'
+              >
+                Products
+              </NavLink>
+            </li>
+          </div>
+          <li className='nav-item'>
+            <NavLink to='/wishlist' className='nav-link'>
+              <div className='badge-av'>
+                {login && (
+                  <div className='badge-icon primary bdg-top'>
+                    {cartState.wishList.length}
+                  </div>
+                )}
+                <div className='avatar av-primary'>
+                  <i className='fas fa-lg fa-heart'></i>
+                </div>
+              </div>
+            </NavLink>
+          </li>
+          <li className='nav-item'>
+            <NavLink to='/cart' className='nav-link'>
+              <div className='badge-av'>
+                {login && (
+                  <div className='badge-icon pink bdg-top'>{totalItems()}</div>
+                )}
+                <div className='avatar av-pink'>
+                  <i className='fas fa-lg fa-shopping-cart'></i>
+                </div>
+              </div>
+            </NavLink>
+          </li>
+          <li className='nav-item'>
+            <NavLink to={login ? "/account" : "/login"} className='nav-link'>
+              <div className='badge-av'>
+                <div className='avatar av-pink'>
+                  <i className='fas fa-lg fa-user'></i>
+                </div>
+              </div>
+            </NavLink>
+          </li>
+        </ul>
+        <div
+          onClick={() => setToggle(!toggle)}
+          className={toggle ? "hamburger" : "hamburger active"}
         >
-          Products
-        </NavLink>
-      </div>
-      <NavLink to='/wishlist'>
-        <div className='badge-av'>
-          {login && (
-            <div className='badge-icon primary bdg-top'>
-              {cartState.wishList.length}
-            </div>
-          )}
-          <div className='avatar av-primary'>
-            <i className='fas fa-lg fa-heart'></i>
-          </div>
+          <span className='bar'></span>
+          <span className='bar'></span>
+          <span className='bar'></span>
         </div>
-      </NavLink>
-      <NavLink to='/cart'>
-        <div className='badge-av'>
-          {login && (
-            <div className='badge-icon pink bdg-top'>{totalItems()}</div>
-          )}
-          <div className='avatar av-pink'>
-            <i className='fas fa-lg fa-shopping-cart'></i>
-          </div>
-        </div>
-      </NavLink>
-
-      <NavLink to={login ? "/account" : "/login"}>
-        <div className='badge-av'>
-          <div className='avatar av-pink'>
-            <i className='fas fa-lg fa-user'></i>
-          </div>
-        </div>
-      </NavLink>
+      </nav>
     </header>
   );
 };
