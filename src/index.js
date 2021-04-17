@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { CartProvider } from "./Cart";
+import { UserProvider } from "./User";
 import setupMockServer from "./api/mock.server";
 import { DataProvider } from "./Products";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -14,9 +14,9 @@ ReactDOM.render(
     <Router>
       <AuthProvider>
         <DataProvider>
-          <CartProvider>
+          <UserProvider>
             <App />
-          </CartProvider>
+          </UserProvider>
         </DataProvider>
       </AuthProvider>
     </Router>

@@ -1,15 +1,15 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
 import axios from "axios";
-import { cartReducer } from "./cartReducer";
+import { userReducer } from "./userReducer";
 
-export const CartContext = createContext();
+export const UserContext = createContext();
 
-export const CartProvider = ({ children }) => {
+export const UserProvider = ({ children }) => {
   useEffect(() => {
     (async () => {
       const response = await axios.get("api/cartItems");
       const data = response.data.cartItems;
-      cartDispatch({ type: "LOAD_DATA_TO_CART", payload: data });
+      userDispatch({ type: "LOAD_DATA_TO_CART", payload: data });
     })();
   }, []);
 
@@ -17,23 +17,23 @@ export const CartProvider = ({ children }) => {
     (async () => {
       const response = await axios.get("api/wishListItems");
       const data = response.data.wishListItems;
-      cartDispatch({ type: "LOAD_DATA_TO_WISHLIST", payload: data });
+      userDispatch({ type: "LOAD_DATA_TO_WISHLIST", payload: data });
     })();
   }, []);
 
-  const [cartState, cartDispatch] = useReducer(cartReducer, {
+  const [userState, userDispatch] = useReducer(userReducer, {
     wishList: [],
     cart: [],
     loading: "",
   });
 
   return (
-    <CartContext.Provider value={{ cartState, cartDispatch }}>
+    <UserContext.Provider value={{ userState, userDispatch }}>
       {children}
-    </CartContext.Provider>
+    </UserContext.Provider>
   );
 };
 
-export const useCart = () => {
-  return useContext(CartContext);
+export const useUser = () => {
+  return useContext(UserContext);
 };

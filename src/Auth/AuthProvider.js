@@ -1,19 +1,23 @@
 import { createContext, useContext } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { fakeLoginApi, fakeSignUpApi, fakeForgotPassApi } from "./fakeAuthApi";
+import {
+  fakeLoginApi,
+  fakeSignUpApi,
+  fakeForgotPassApi,
+  Users,
+} from "./fakeAuthApi";
 
 export const AuthContext = createContext();
 
+const findUserById = (id) => {
+  return Users.find((user) => user.id === id);
+};
+
 export const AuthProvider = ({ children }) => {
   const [login, setLogin] = useState(false);
-  const [user, setUser] = useState({
-    id: "",
-    username: "",
-    email: "",
-    password: "",
-  });
   const [status, setStatus] = useState("");
+  const [user, setUser] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,8 +34,9 @@ export const AuthProvider = ({ children }) => {
       if (response.success) {
         setLogin(true);
       }
-      setUser(response.userName);
       setStatus("Hurray! Login Successful");
+      const userFromApi = findUserById(response.userId);
+      setUser(userFromApi);
       return response;
     } catch (error) {
       console.log(error);
@@ -51,8 +56,9 @@ export const AuthProvider = ({ children }) => {
       if (response.success) {
         setLogin(true);
       }
-      setUser(response.userName);
       setStatus("Hurray! Signup Successful");
+      const userFromApi = findUserById(response.userId);
+      setUser(userFromApi);
       return response;
     } catch (error) {
       console.log(error);
@@ -72,8 +78,9 @@ export const AuthProvider = ({ children }) => {
       if (response.success) {
         setLogin(true);
       }
-      setUser(response.userName);
       setStatus("Hurray! Password Changed Successfully");
+      const userFromApi = findUserById(response.userId);
+      setUser(userFromApi);
       return response;
     } catch (error) {
       console.log(error);
@@ -87,7 +94,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setLogin(false);
     setStatus("");
-    setUser({ id: "", username: "", email: "", password: "" });
+    setUser({});
     localStorage?.removeItem("login");
     navigate("/");
   };

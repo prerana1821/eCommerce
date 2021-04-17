@@ -1,50 +1,50 @@
 import { found } from "../utils";
 
-export const cartReducer = (cartState, action) => {
+export const userReducer = (userState, action) => {
   switch (action.type) {
     case "LOAD_DATA_TO_CART":
       return {
-        ...cartState,
+        ...userState,
         cart: action.payload,
       };
     case "LOAD_DATA_TO_WIHSLIST":
       return {
-        ...cartState,
+        ...userState,
         wishList: action.payload,
       };
     case "STATUS":
       return {
-        ...cartState,
+        ...userState,
         loading: action.payload,
       };
     case "ADD_TO_CART":
       return {
-        ...cartState,
-        cart: [...cartState.cart, { ...action.payload, quantity: 1 }],
+        ...userState,
+        cart: [...userState.cart, { ...action.payload, quantity: 1 }],
       };
     case "REMOVE_FROM_CART":
       return {
-        ...cartState,
-        cart: cartState.cart.filter((item) => {
+        ...userState,
+        cart: userState.cart.filter((item) => {
           return item.id !== action.payload.id;
         }),
       };
     case "ADD_TO_WISHLIST":
       return {
-        ...cartState,
-        wishList: [...cartState.wishList, action.payload],
+        ...userState,
+        wishList: [...userState.wishList, action.payload],
       };
     case "REMOVE_FROM_WISHLIST":
       return {
-        ...cartState,
-        wishList: cartState.wishList.filter(
+        ...userState,
+        wishList: userState.wishList.filter(
           (item) => item.id !== action.payload.id
         ),
       };
     case "INCREMENT_QUANTITY":
       return {
-        ...cartState,
-        cart: cartState.cart.map((item) => {
+        ...userState,
+        cart: userState.cart.map((item) => {
           return item.id === action.payload.id
             ? { ...item, quantity: item.quantity + 1 }
             : item;
@@ -52,8 +52,8 @@ export const cartReducer = (cartState, action) => {
       };
     case "DECREMENT_QUANTITY":
       return {
-        ...cartState,
-        cart: cartState.cart.map((item) => {
+        ...userState,
+        cart: userState.cart.map((item) => {
           return item.id === action.payload.id
             ? { ...item, quantity: item.quantity - 1 }
             : item;
@@ -61,15 +61,15 @@ export const cartReducer = (cartState, action) => {
       };
     case "ADD_TO_CART_FROM_WISHLIST":
       return {
-        ...cartState,
-        cart: found(cartState.cart, action.payload.id)
-          ? cartState.cart.map((value) => {
+        ...userState,
+        cart: found(userState.cart, action.payload.id)
+          ? userState.cart.map((value) => {
               return value.id === action.payload.id
                 ? { ...action.payload, quantity: value.quantity + 1 }
                 : value;
             })
-          : [...cartState.cart, { ...action.payload, quantity: 1 }],
-        wishList: cartState.wishList.filter((item) => {
+          : [...userState.cart, { ...action.payload, quantity: 1 }],
+        wishList: userState.wishList.filter((item) => {
           return item.id !== action.payload.id;
         }),
       };
@@ -78,5 +78,5 @@ export const cartReducer = (cartState, action) => {
       break;
   }
 
-  return cartState;
+  return userState;
 };

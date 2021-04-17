@@ -2,14 +2,15 @@ import "./App.css";
 import { Navbar } from "./Navbar";
 import { WishList } from "./WishList";
 import { Products } from "./Products";
-import { Cart, useCart } from "./Cart";
+import { Cart } from "./Cart";
+import { useUser } from "./User";
 import { Home } from "./Home";
 import { Route, Routes } from "react-router";
 import { Toast } from "./Toast";
 import { PrivateRoute, Login, SignUp, ForgotPassword, Account } from "./Auth";
 
 function App() {
-  const { cartState } = useCart();
+  const { userState } = useUser();
 
   return (
     <div className='App' id='top'>
@@ -25,7 +26,7 @@ function App() {
           <Route path='/forgot-password' element={<ForgotPassword />}></Route>
           <PrivateRoute path='/account' element={<Account />}></PrivateRoute>
         </Routes>
-        {cartState.loading && <Toast />}
+        {userState.loading && <Toast />}
         <a href='#top'>
           <div className=' btn-top badge-av'>
             <div className='avatar avatar-top av-pink'>

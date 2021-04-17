@@ -1,4 +1,4 @@
-import { useCart } from "../Cart";
+import { useUser } from "../User";
 import {
   deleteItemFromCartApi,
   incrementQuantityFromCartApi,
@@ -9,10 +9,10 @@ import "./Cart.css";
 import { Link } from "react-router-dom";
 
 export const Cart = () => {
-  const { cartState, cartDispatch } = useCart();
+  const { userState, userDispatch } = useUser();
 
   function totalPrice() {
-    return cartState.cart.reduce((acc, value) => {
+    return userState.cart.reduce((acc, value) => {
       return acc + value.quantity * value.price;
     }, 0);
   }
@@ -23,7 +23,7 @@ export const Cart = () => {
 
   return (
     <div className='products products-cart'>
-      {cartState.cart.length === 0 ? (
+      {userState.cart.length === 0 ? (
         <div className='card cart-empty-card'>
           <h3>Your Cart is Empty</h3>
           <hr className='hr' />
@@ -35,7 +35,7 @@ export const Cart = () => {
       ) : (
         <div className='products products-cart'>
           <div>
-            {cartState.cart.map((product) => {
+            {userState.cart.map((product) => {
               return (
                 <div className='card-horizontal' key={product.id}>
                   <img
@@ -44,7 +44,7 @@ export const Cart = () => {
                     alt=''
                   />
                   <button
-                    onClick={() => deleteItemFromCartApi(product, cartDispatch)}
+                    onClick={() => deleteItemFromCartApi(product, userDispatch)}
                     className='floating-act badge-close tertiary'
                   >
                     <i className='fas fa-lg fa-times'></i>
@@ -56,7 +56,7 @@ export const Cart = () => {
                       <div className='card-quant'>
                         <button
                           onClick={() =>
-                            incrementQuantityFromCartApi(product, cartDispatch)
+                            incrementQuantityFromCartApi(product, userDispatch)
                           }
                           className='floating-act badge-close tertiary'
                         >
@@ -65,7 +65,7 @@ export const Cart = () => {
                         <p>{product.quantity}</p>
                         <button
                           onClick={() =>
-                            decrementQuantityFromCartApi(product, cartDispatch)
+                            decrementQuantityFromCartApi(product, userDispatch)
                           }
                           className='floating-act badge-close tertiary'
                         >
@@ -81,14 +81,14 @@ export const Cart = () => {
           </div>
           <div>
             <div className='card card-checkout'>
-              <h2>Price Details - {cartState.cart.length} Items</h2>
+              <h2>Price Details - {userState.cart.length} Items</h2>
               <div>
                 <div className='item-price-details'>
                   <h4 className='center-txt'>Total Price:</h4>
                   <h4>{totalPrice()}</h4>
                 </div>
                 <div>
-                  {cartState.cart.map((item) => {
+                  {userState.cart.map((item) => {
                     return (
                       <div className='item-price-details'>
                         <p>

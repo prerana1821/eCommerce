@@ -1,5 +1,5 @@
 import { useData } from "../Products";
-import { useCart } from "../Cart";
+import { useUser } from "../User";
 import { Link } from "react-router-dom";
 import { found } from "../utils";
 import { Filters } from "../Filters";
@@ -15,12 +15,12 @@ import { useState } from "react";
 
 export const Products = () => {
   const { loading, rangedData } = useData();
-  const { cartState, cartDispatch } = useCart();
+  const { userState, userDispatch } = useUser();
   const { login } = useAuth();
   const [showModal, setShowModal] = useState(false);
 
   const isProdInCart = (item) => {
-    return cartState.cart.reduce((acc, value) => {
+    return userState.cart.reduce((acc, value) => {
       if (login) {
         if (item.id === value.id) {
           return "Go to Cart";
@@ -34,7 +34,7 @@ export const Products = () => {
   };
 
   const isProdInWishList = (item) => {
-    return cartState.wishList.reduce((icon, product) => {
+    return userState.wishList.reduce((icon, product) => {
       if (login) {
         return product.id === item.id ? (icon = "fas fa-lg fa-heart") : icon;
       } else {
@@ -87,11 +87,11 @@ export const Products = () => {
                     onClick={
                       login
                         ? () => {
-                            return cartState.wishList.reduce((acc, value) => {
+                            return userState.wishList.reduce((acc, value) => {
                               return value.id === product.id
-                                ? deleteFromWishListApi(product, cartDispatch)
+                                ? deleteFromWishListApi(product, userDispatch)
                                 : acc;
-                            }, addToWishListApi(product, cartDispatch));
+                            }, addToWishListApi(product, userDispatch));
                           }
                         : () =>
                             loginAlert(
@@ -106,7 +106,7 @@ export const Products = () => {
               </div>
 
               <div>
-                {found(cartState.cart, product.id) ? (
+                {found(userState.cart, product.id) ? (
                   <Link to='/cart'>
                     <button className='btn btn-primary primary btn-card'>
                       <p>{isProdInCart(product)}</p>
@@ -117,7 +117,7 @@ export const Products = () => {
                     className='btn btn-primary primary btn-card'
                     onClick={
                       login
-                        ? () => addToCartApi(product, cartDispatch)
+                        ? () => addToCartApi(product, userDispatch)
                         : () =>
                             loginAlert(
                               "Hey, you need to login in order to add items to cart"

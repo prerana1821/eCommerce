@@ -1,4 +1,4 @@
-import { useCart } from "../Cart";
+import { useUser } from "../User";
 import {
   addToCartApi,
   incrementQuantityFromCartApi,
@@ -9,11 +9,11 @@ import { found } from "../utils";
 import { Link } from "react-router-dom";
 
 export const WishList = () => {
-  const { cartState, cartDispatch } = useCart();
+  const { userState, userDispatch } = useUser();
 
   return (
     <div className='products products-wishlist'>
-      {cartState.wishList.length === 0 && (
+      {userState.wishList.length === 0 && (
         <div className='card cart-empty-card'>
           <h3>Your Wish List is Empty</h3>
           <hr className='hr' />
@@ -23,12 +23,12 @@ export const WishList = () => {
           </Link>
         </div>
       )}
-      {cartState.wishList.map((product) => {
+      {userState.wishList.map((product) => {
         return (
           <div className='card wishList-card' key={product.id}>
             <img className='card-img' src={product.image} alt='' />
             <button
-              onClick={() => deleteFromWishListApi(product, cartDispatch)}
+              onClick={() => deleteFromWishListApi(product, userDispatch)}
               className='floating-act badge-close tertiary'
             >
               <i className='fas fa-lg fa-times'></i>
@@ -44,10 +44,10 @@ export const WishList = () => {
             <button
               className='btn btn-primary primary btn-card'
               onClick={() => {
-                deleteFromWishListApi(product, cartDispatch);
-                return found(cartState.cart, product.id)
-                  ? incrementQuantityFromCartApi(product, cartDispatch)
-                  : addToCartApi(product, cartDispatch);
+                deleteFromWishListApi(product, userDispatch);
+                return found(userState.cart, product.id)
+                  ? incrementQuantityFromCartApi(product, userDispatch)
+                  : addToCartApi(product, userDispatch);
               }}
             >
               Move to Cart

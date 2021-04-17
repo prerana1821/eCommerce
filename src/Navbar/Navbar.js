@@ -1,17 +1,17 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../Auth";
-import { useCart } from "../Cart";
+import { useUser } from "../User";
 import { useState } from "react";
 import Logo from "../images/preCodes.png";
 import "./Navbar.css";
 
 export const Navbar = () => {
   const { login } = useAuth();
-  const { cartState } = useCart();
+  const { userState } = useUser();
   const [toggle, setToggle] = useState(true);
 
   const totalItems = () => {
-    return cartState.cart.reduce((acc, value) => {
+    return userState.cart.reduce((acc, value) => {
       return acc + value.quantity;
     }, 0);
   };
@@ -56,7 +56,7 @@ export const Navbar = () => {
               <div className='badge-av'>
                 {login && (
                   <div className='badge-icon primary bdg-top'>
-                    {cartState.wishList.length}
+                    {userState.wishList.length}
                   </div>
                 )}
                 <div className='avatar av-primary'>

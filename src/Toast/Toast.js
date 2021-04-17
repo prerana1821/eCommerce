@@ -1,14 +1,14 @@
-import { useCart } from "../Cart";
+import { useUser } from "../User";
 import "./Toast.css";
 
 export const Toast = () => {
-  const { cartState } = useCart();
+  const { userState } = useUser();
   return (
     <>
       <div className='toast tl-error status'>
         <div className='tl-content-error'>
           <i className='fas fa-check-circle'></i>
-          <p>{cartState.loading}</p>
+          <p>{userState.loading}</p>
         </div>
       </div>
     </>
