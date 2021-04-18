@@ -7,10 +7,22 @@ import { useUser } from "./User";
 import { Home } from "./Home";
 import { Route, Routes } from "react-router";
 import { Toast } from "./Toast";
-import { PrivateRoute, Login, SignUp, ForgotPassword, Account } from "./Auth";
+import {
+  PrivateRoute,
+  Login,
+  SignUp,
+  ForgotPassword,
+  Account,
+  useAuth,
+} from "./Auth";
+import { findUserById } from "./utils";
 
 function App() {
   const { userState } = useUser();
+  const { user } = useAuth();
+  const currentUser = findUserById(userState, user.id);
+
+  // console.log({ currentUser });
 
   return (
     <div className='App' id='top'>
@@ -26,7 +38,7 @@ function App() {
           <Route path='/forgot-password' element={<ForgotPassword />}></Route>
           <PrivateRoute path='/account' element={<Account />}></PrivateRoute>
         </Routes>
-        {userState.loading && <Toast />}
+        {currentUser?.loading && <Toast />}
         <a href='#top'>
           <div className=' btn-top badge-av'>
             <div className='avatar avatar-top av-pink'>

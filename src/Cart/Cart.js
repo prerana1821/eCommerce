@@ -7,12 +7,16 @@ import {
 
 import "./Cart.css";
 import { Link } from "react-router-dom";
+import { findUserById } from "../utils";
+import { useAuth } from "../Auth";
 
 export const Cart = () => {
   const { userState, userDispatch } = useUser();
+  const { user } = useAuth();
+  const currentUser = findUserById(userState, user.id);
 
   function totalPrice() {
-    return userState.cart.reduce((acc, value) => {
+    return currentUser?.cart.reduce((acc, value) => {
       return acc + value.quantity * value.price;
     }, 0);
   }
@@ -23,7 +27,7 @@ export const Cart = () => {
 
   return (
     <div className='products products-cart'>
-      {userState.cart.length === 0 ? (
+      {currentUser?.cart.length === 0 ? (
         <div className='card cart-empty-card'>
           <h3>Your Cart is Empty</h3>
           <hr className='hr' />
@@ -35,7 +39,7 @@ export const Cart = () => {
       ) : (
         <div className='products products-cart'>
           <div>
-            {userState.cart.map((product) => {
+            {currentUser?.cart.map((product) => {
               return (
                 <div className='card-horizontal' key={product.id}>
                   <img
@@ -81,14 +85,14 @@ export const Cart = () => {
           </div>
           <div>
             <div className='card card-checkout'>
-              <h2>Price Details - {userState.cart.length} Items</h2>
+              <h2>Price Details - {currentUser?.cart.length} Items</h2>
               <div>
                 <div className='item-price-details'>
                   <h4 className='center-txt'>Total Price:</h4>
                   <h4>{totalPrice()}</h4>
                 </div>
                 <div>
-                  {userState.cart.map((item) => {
+                  {currentUser?.cart.map((item) => {
                     return (
                       <div className='item-price-details'>
                         <p>

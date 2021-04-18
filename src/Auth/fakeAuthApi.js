@@ -5,18 +5,6 @@ export const Users = [
     email: "admin@gmail.com",
     password: "admin",
   },
-  {
-    id: 2,
-    username: "prerana",
-    email: "name@gmail.com",
-    password: "siddhi",
-  },
-  {
-    id: 3,
-    username: "nawar",
-    email: "surname@gmail.com",
-    password: "mejari",
-  },
 ];
 
 export const findUserByUserName = (username) => {
@@ -52,9 +40,10 @@ export const fakeSignUpApi = (username, password, email) => {
     const userName = findUserByUserName(username);
     setTimeout(() => {
       if (!userName?.username) {
-        Users.push({ id: id++, username, password, email });
+        const newUser = { id: id++, username, password, email };
+        Users.push(newUser);
         resolve({
-          userId: userName.id,
+          userId: newUser.id,
           success: true,
           status: 200,
           message: "Login Successful",

@@ -7,17 +7,19 @@ import {
   fakeForgotPassApi,
   Users,
 } from "./fakeAuthApi";
+import { findUserById } from "../utils";
 
 export const AuthContext = createContext();
-
-const findUserById = (id) => {
-  return Users.find((user) => user.id === id);
-};
 
 export const AuthProvider = ({ children }) => {
   const [login, setLogin] = useState(false);
   const [status, setStatus] = useState("");
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    id: 1,
+    username: "",
+    email: "",
+    password: "",
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,10 +35,11 @@ export const AuthProvider = ({ children }) => {
       localStorage?.setItem("login", JSON.stringify({ login: true }));
       if (response.success) {
         setLogin(true);
+        const userFromApi = findUserById(Users, response.userId);
+        console.log({ userFromApi });
+        setUser(userFromApi);
       }
       setStatus("Hurray! Login Successful");
-      const userFromApi = findUserById(response.userId);
-      setUser(userFromApi);
       return response;
     } catch (error) {
       console.log(error);
@@ -57,7 +60,7 @@ export const AuthProvider = ({ children }) => {
         setLogin(true);
       }
       setStatus("Hurray! Signup Successful");
-      const userFromApi = findUserById(response.userId);
+      const userFromApi = findUserById(Users, response.userId);
       setUser(userFromApi);
       return response;
     } catch (error) {
@@ -79,7 +82,7 @@ export const AuthProvider = ({ children }) => {
         setLogin(true);
       }
       setStatus("Hurray! Password Changed Successfully");
-      const userFromApi = findUserById(response.userId);
+      const userFromApi = findUserById(Users, response.userId);
       setUser(userFromApi);
       return response;
     } catch (error) {
@@ -94,7 +97,12 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setLogin(false);
     setStatus("");
-    setUser({});
+    setUser({
+      id: 1,
+      username: "",
+      email: "",
+      password: "",
+    });
     localStorage?.removeItem("login");
     navigate("/");
   };

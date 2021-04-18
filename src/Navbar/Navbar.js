@@ -4,14 +4,16 @@ import { useUser } from "../User";
 import { useState } from "react";
 import Logo from "../images/preCodes.png";
 import "./Navbar.css";
+import { findUserById } from "../utils";
 
 export const Navbar = () => {
-  const { login } = useAuth();
+  const { user, login } = useAuth();
   const { userState } = useUser();
   const [toggle, setToggle] = useState(true);
+  const currentUser = findUserById(userState, user.id);
 
   const totalItems = () => {
-    return userState.cart.reduce((acc, value) => {
+    return currentUser?.cart.reduce((acc, value) => {
       return acc + value.quantity;
     }, 0);
   };
@@ -56,7 +58,7 @@ export const Navbar = () => {
               <div className='badge-av'>
                 {login && (
                   <div className='badge-icon primary bdg-top'>
-                    {userState.wishList.length}
+                    {currentUser?.wishList.length}
                   </div>
                 )}
                 <div className='avatar av-primary'>

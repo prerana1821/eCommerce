@@ -7,13 +7,17 @@ import {
 import "./WishList.css";
 import { found } from "../utils";
 import { Link } from "react-router-dom";
+import { findUserById } from "../utils";
+import { useAuth } from "../Auth";
 
 export const WishList = () => {
   const { userState, userDispatch } = useUser();
+  const { user } = useAuth();
+  const currentUser = findUserById(userState, user.id);
 
   return (
     <div className='products products-wishlist'>
-      {userState.wishList.length === 0 && (
+      {currentUser?.wishList.length === 0 && (
         <div className='card cart-empty-card'>
           <h3>Your Wish List is Empty</h3>
           <hr className='hr' />
@@ -23,7 +27,7 @@ export const WishList = () => {
           </Link>
         </div>
       )}
-      {userState.wishList.map((product) => {
+      {currentUser?.wishList.map((product) => {
         return (
           <div className='card wishList-card' key={product.id}>
             <img className='card-img' src={product.image} alt='' />
@@ -45,7 +49,7 @@ export const WishList = () => {
               className='btn btn-primary primary btn-card'
               onClick={() => {
                 deleteFromWishListApi(product, userDispatch);
-                return found(userState.cart, product.id)
+                return found(currentUser?.cart, product.id)
                   ? incrementQuantityFromCartApi(product, userDispatch)
                   : addToCartApi(product, userDispatch);
               }}

@@ -12,15 +12,17 @@ import "./Products.css";
 import { useAuth } from "../Auth";
 import { LoginAlertModal } from "../LoginAlert";
 import { useState } from "react";
+import { findUserById } from "../utils";
 
 export const Products = () => {
   const { loading, rangedData } = useData();
   const { userState, userDispatch } = useUser();
-  const { login } = useAuth();
+  const { user, login } = useAuth();
   const [showModal, setShowModal] = useState(false);
+  const currentUser = findUserById(userState, user.id);
 
   const isProdInCart = (item) => {
-    return userState.cart.reduce((acc, value) => {
+    return currentUser?.cart.reduce((acc, value) => {
       if (login) {
         if (item.id === value.id) {
           return "Go to Cart";
@@ -34,7 +36,7 @@ export const Products = () => {
   };
 
   const isProdInWishList = (item) => {
-    return userState.wishList.reduce((icon, product) => {
+    return currentUser?.wishList.reduce((icon, product) => {
       if (login) {
         return product.id === item.id ? (icon = "fas fa-lg fa-heart") : icon;
       } else {
@@ -87,11 +89,14 @@ export const Products = () => {
                     onClick={
                       login
                         ? () => {
-                            return userState.wishList.reduce((acc, value) => {
-                              return value.id === product.id
-                                ? deleteFromWishListApi(product, userDispatch)
-                                : acc;
-                            }, addToWishListApi(product, userDispatch));
+                            return currentUser?.wishList.reduce(
+                              (acc, value) => {
+                                return value.id === product.id
+                                  ? deleteFromWishListApi(product, userDispatch)
+                                  : acc;
+                              },
+                              addToWishListApi(product, userDispatch)
+                            );
                           }
                         : () =>
                             loginAlert(
@@ -106,7 +111,7 @@ export const Products = () => {
               </div>
 
               <div>
-                {found(userState.cart, product.id) ? (
+                {found(currentUser?.cart, product.id) ? (
                   <Link to='/cart'>
                     <button className='btn btn-primary primary btn-card'>
                       <p>{isProdInCart(product)}</p>

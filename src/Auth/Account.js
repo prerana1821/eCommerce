@@ -4,7 +4,7 @@ import "./Account.css";
 export const Account = () => {
   const { user, logout } = useAuth();
 
-  console.log({ user });
+  // console.log({ user });
 
   return (
     <div className='account'>

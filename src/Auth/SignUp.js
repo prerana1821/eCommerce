@@ -2,9 +2,11 @@ import { useLocation, useNavigate } from "react-router";
 import { useAuth } from "./AuthProvider";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useUser } from "../User";
 
 export const SignUp = () => {
   const { status, signUpUserWithCredentials } = useAuth();
+  const { userDispatch } = useUser();
   const { state } = useLocation();
   const navigate = useNavigate();
   const [signUpCredentials, setSignUpCredentials] = useState({
@@ -30,6 +32,7 @@ export const SignUp = () => {
           signUpCredentials.email
         );
         if (result.success) {
+          userDispatch({ type: "ADD_USER", payload: result.userId });
           navigate(state?.from ? state.from : "/");
         }
       } else {
