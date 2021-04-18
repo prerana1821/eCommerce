@@ -75,7 +75,7 @@ export const fakeForgotPassApi = (email, password) => {
     setTimeout(() => {
       if (userName?.email) {
         changePassword(email, password);
-        console.log({ Users });
+        // console.log({ Users });
         resolve({
           userId: userName.id,
           success: true,

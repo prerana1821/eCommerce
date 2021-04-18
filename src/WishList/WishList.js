@@ -32,7 +32,9 @@ export const WishList = () => {
           <div className='card wishList-card' key={product.id}>
             <img className='card-img' src={product.image} alt='' />
             <button
-              onClick={() => deleteFromWishListApi(product, userDispatch)}
+              onClick={() =>
+                deleteFromWishListApi(currentUser, product, userDispatch)
+              }
               className='floating-act badge-close tertiary'
             >
               <i className='fas fa-lg fa-times'></i>
@@ -48,10 +50,14 @@ export const WishList = () => {
             <button
               className='btn btn-primary primary btn-card'
               onClick={() => {
-                deleteFromWishListApi(product, userDispatch);
+                deleteFromWishListApi(currentUser, product, userDispatch);
                 return found(currentUser?.cart, product.id)
-                  ? incrementQuantityFromCartApi(product, userDispatch)
-                  : addToCartApi(product, userDispatch);
+                  ? incrementQuantityFromCartApi(
+                      currentUser,
+                      product,
+                      userDispatch
+                    )
+                  : addToCartApi(currentUser, product, userDispatch);
               }}
             >
               Move to Cart

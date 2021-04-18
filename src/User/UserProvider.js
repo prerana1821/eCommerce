@@ -7,29 +7,32 @@ import { findUserById, found } from "../utils";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  const { user } = useAuth();
+
   useEffect(() => {
     (async () => {
-      const response = await axios.get("api/cartItems");
-      const data = response.data.cartItems;
+      // const response = await axios.get("api/cartItems");
+      const response = await axios.get(
+        `https://api-prestore.prerananawar1.repl.co/user-details/cart/${user.id}`
+      );
+      const data = response.data.cart;
       userDispatch({ type: "LOAD_DATA_TO_CART", payload: data });
     })();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     (async () => {
-      const response = await axios.get("api/wishListItems");
-      const data = response.data.wishListItems;
+      // const response = await axios.get("api/wishListItems");
+      const response = await axios.get(
+        `https://api-prestore.prerananawar1.repl.co/user-details/wishlist/${user.id}`
+      );
+      const data = response.data.wishList;
       userDispatch({ type: "LOAD_DATA_TO_WISHLIST", payload: data });
     })();
-  }, []);
-
-  const { user } = useAuth();
+  }, [user]);
 
   const userReducer = (userState, action) => {
     const currentUser = findUserById(userState, user.id);
-
-    console.log(userState);
-    console.log(currentUser);
 
     switch (action.type) {
       case "ADD_USER":
@@ -52,7 +55,7 @@ export const UserProvider = ({ children }) => {
             return user;
           })
         );
-      case "LOAD_DATA_TO_WIHSLIST":
+      case "LOAD_DATA_TO_WISHLIST":
         return (
           currentUser &&
           userState.map((user) => {
@@ -207,7 +210,7 @@ export const UserProvider = ({ children }) => {
     },
   ]);
 
-  // console.log({ userState });
+  console.log(userState);
 
   return (
     <UserContext.Provider value={{ userState, userDispatch }}>

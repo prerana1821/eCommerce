@@ -21,6 +21,8 @@ export const Products = () => {
   const [showModal, setShowModal] = useState(false);
   const currentUser = findUserById(userState, user.id);
 
+  // console.log({ currentUser });
+
   const isProdInCart = (item) => {
     return currentUser?.cart.reduce((acc, value) => {
       if (login) {
@@ -92,10 +94,18 @@ export const Products = () => {
                             return currentUser?.wishList.reduce(
                               (acc, value) => {
                                 return value.id === product.id
-                                  ? deleteFromWishListApi(product, userDispatch)
+                                  ? deleteFromWishListApi(
+                                      currentUser,
+                                      product,
+                                      userDispatch
+                                    )
                                   : acc;
                               },
-                              addToWishListApi(product, userDispatch)
+                              addToWishListApi(
+                                currentUser,
+                                product,
+                                userDispatch
+                              )
                             );
                           }
                         : () =>
@@ -122,7 +132,7 @@ export const Products = () => {
                     className='btn btn-primary primary btn-card'
                     onClick={
                       login
-                        ? () => addToCartApi(product, userDispatch)
+                        ? () => addToCartApi(currentUser, product, userDispatch)
                         : () =>
                             loginAlert(
                               "Hey, you need to login in order to add items to cart"

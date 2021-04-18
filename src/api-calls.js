@@ -1,11 +1,18 @@
 import axios from "axios";
 
-export const addToCartApi = async (product, dispatch) => {
+export const addToCartApi = async (currentUser, product, dispatch) => {
+  console.log({ currentUser });
   try {
     dispatch({ type: "STATUS", payload: "Item Adding to Cart...." });
-    const response = await axios.post("api/cartItems", {
-      cartItem: product,
-    });
+    // const response = await axios.post("api/cartItems", {
+    //   cartItem: product,
+    // });
+    const response = await axios.post(
+      `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser.id}`,
+      {
+        product,
+      }
+    );
     if (response.status === 201) {
       dispatch({ type: "ADD_TO_CART", payload: product });
     }
@@ -16,14 +23,17 @@ export const addToCartApi = async (product, dispatch) => {
   }
 };
 
-export const deleteItemFromCartApi = async (product, dispatch) => {
+export const deleteItemFromCartApi = async (currentUser, product, dispatch) => {
   try {
     dispatch({
       type: "STATUS",
       payload: "Removing Item from Cart....",
     });
-    const response = await axios.delete(`api/cartItems/${product.id}`);
-    if (response.status === 204) {
+    // const response = await axios.delete(`api/cartItems/${product.id}`);
+    const response = await axios.delete(
+      `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser.id}/${product.id}`
+    );
+    if (response.status === 200) {
       dispatch({ type: "REMOVE_FROM_CART", payload: product });
     }
   } catch (error) {
@@ -36,15 +46,26 @@ export const deleteItemFromCartApi = async (product, dispatch) => {
   }
 };
 
-export const incrementQuantityFromCartApi = async (product, dispatch) => {
+export const incrementQuantityFromCartApi = async (
+  currentUser,
+  product,
+  dispatch
+) => {
   try {
     dispatch({
       type: "STATUS",
       payload: "Increasing Quantity..",
     });
-    const response = await axios.put(`api/cartItems/${product.id}`, {
-      cartItem: { ...product, quantity: product.quantity + 1 },
-    });
+    // const response = await axios.put(`api/cartItems/${product.id}`, {
+    //   cartItem: { ...product, quantity: product.quantity + 1 },
+    // });
+    const response = await axios.post(
+      `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser.id}/${product.id}`,
+      {
+        ...product,
+        quantity: product.quantity + 1,
+      }
+    );
     if (response.status === 200) {
       dispatch({ type: "INCREMENT_QUANTITY", payload: product });
     }
@@ -58,15 +79,26 @@ export const incrementQuantityFromCartApi = async (product, dispatch) => {
   }
 };
 
-export const decrementQuantityFromCartApi = async (product, dispatch) => {
+export const decrementQuantityFromCartApi = async (
+  currentUser,
+  product,
+  dispatch
+) => {
   try {
     dispatch({
       type: "STATUS",
       payload: "Increasing Quantity..",
     });
-    const response = await axios.put(`api/cartItems/${product.id}`, {
-      cartItem: { ...product, quantity: product.quantity - 1 },
-    });
+    // const response = await axios.put(`api/cartItems/${product.id}`, {
+    //   cartItem: { ...product, quantity: product.quantity - 1 },
+    // });
+    const response = await axios.post(
+      `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser.id}/${product.id}`,
+      {
+        ...product,
+        quantity: product.quantity - 1,
+      }
+    );
     if (response.status === 200) {
       dispatch({ type: "DECREMENT_QUANTITY", payload: product });
     }
@@ -80,12 +112,18 @@ export const decrementQuantityFromCartApi = async (product, dispatch) => {
   }
 };
 
-export const addToWishListApi = async (product, dispatch) => {
+export const addToWishListApi = async (currentUser, product, dispatch) => {
   try {
     dispatch({ type: "STATUS", payload: "Item Adding to Wishlist...." });
-    const response = await axios.post("api/wishListItems", {
-      wishListItem: product,
-    });
+    // const response = await axios.post("api/wishListItems", {
+    //   wishListItem: product,
+    // });
+    const response = await axios.post(
+      `https://api-prestore.prerananawar1.repl.co/user-details/wishlist/${currentUser.id}`,
+      {
+        product,
+      }
+    );
     if (response.status === 201) {
       dispatch({ type: "ADD_TO_WISHLIST", payload: product });
     }
@@ -96,11 +134,14 @@ export const addToWishListApi = async (product, dispatch) => {
   }
 };
 
-export const deleteFromWishListApi = async (product, dispatch) => {
+export const deleteFromWishListApi = async (currentUser, product, dispatch) => {
   try {
     dispatch({ type: "STATUS", payload: "Removing Item from Wishlist...." });
-    const response = await axios.delete(`api/wishListItems/${product.id}`);
-    if (response.status === 204) {
+    const response = await axios.delete(
+      `https://api-prestore.prerananawar1.repl.co/user-details/wishlist/${currentUser.id}/${product.id}`
+    );
+    // const response = await axios.delete(`api/wishListItems/${product.id}`);
+    if (response.status === 200) {
       dispatch({ type: "REMOVE_FROM_WISHLIST", payload: product });
     }
   } catch (error) {

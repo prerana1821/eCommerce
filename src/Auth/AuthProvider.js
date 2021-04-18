@@ -31,18 +31,18 @@ export const AuthProvider = ({ children }) => {
     try {
       setStatus("Checking..");
       const response = await fakeLoginApi(username, password);
-      console.log({ response });
+      // console.log({ response });
       localStorage?.setItem("login", JSON.stringify({ login: true }));
       if (response.success) {
         setLogin(true);
         const userFromApi = findUserById(Users, response.userId);
-        console.log({ userFromApi });
+        // console.log({ userFromApi });
         setUser(userFromApi);
       }
       setStatus("Hurray! Login Successful");
       return response;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       if (!error.success) {
         setStatus("Ohh no login Unsuccessful");
       }
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setStatus("Adding...");
       const response = await fakeSignUpApi(username, password, email);
-      console.log({ response });
+      // console.log({ response });
       localStorage?.setItem("login", JSON.stringify({ login: true }));
       if (response.success) {
         setLogin(true);
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
       setUser(userFromApi);
       return response;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       if (!error.success) {
         setStatus("Ohh no signup Unsuccessful");
       }
@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setStatus("Checkkingg...");
       const response = await fakeForgotPassApi(email, password);
-      console.log({ response });
+      // console.log({ response });
       localStorage?.setItem("login", JSON.stringify({ login: true }));
       if (response.success) {
         setLogin(true);
@@ -86,7 +86,7 @@ export const AuthProvider = ({ children }) => {
       setUser(userFromApi);
       return response;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       if (!error.success) {
         setStatus("Email doesn't exits");
       }

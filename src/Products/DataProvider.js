@@ -18,7 +18,11 @@ export const DataProvider = ({ children }) => {
     (async () => {
       try {
         dispatch({ type: "STATUS", payload: "Loading data from server..." });
-        const response = await axios.get("api/products");
+        // const response = await axios.get("api/products");
+        const response = await axios.get(
+          "https://api-prestore.prerananawar1.repl.co/products"
+        );
+        // console.log({ response });
         const data = response.data.products;
         dispatch({ type: "ADD_DATA", payload: data });
       } catch (error) {
