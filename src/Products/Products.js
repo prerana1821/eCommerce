@@ -24,27 +24,23 @@ export const Products = () => {
   // console.log({ currentUser });
 
   const isProdInCart = (item) => {
-    return currentUser?.cart.reduce((acc, value) => {
-      if (login) {
-        if (item.id === value.id) {
-          return "Go to Cart";
-        } else {
-          return acc;
-        }
-      } else {
-        return acc;
-      }
-    }, "Add to Cart");
+    return login
+      ? currentUser?.cart.reduce((acc, value) => {
+          if (item.id === value.id) {
+            return "Go to Cart";
+          } else {
+            return acc;
+          }
+        }, "Add to Cart")
+      : "Add to Cart";
   };
 
   const isProdInWishList = (item) => {
-    return currentUser?.wishList.reduce((icon, product) => {
-      if (login) {
-        return product.id === item.id ? (icon = "fas fa-lg fa-heart") : icon;
-      } else {
-        return icon;
-      }
-    }, "far fa-lg fa-heart");
+    return login
+      ? currentUser?.wishList.reduce((icon, product) => {
+          return product.id === item.id ? (icon = "fas fa-lg fa-heart") : icon;
+        }, "far fa-lg fa-heart")
+      : "far fa-lg fa-heart";
   };
 
   const loginAlert = (msg) => {
