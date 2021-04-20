@@ -7,29 +7,45 @@ import { findUserById, found } from "../utils";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const { user } = useAuth();
+  const { user, login } = useAuth();
+
+  console.log(user);
+
+  console.log(login);
 
   useEffect(() => {
-    (async () => {
-      // const response = await axios.get("api/cartItems");
-      const response = await axios.get(
-        `https://api-prestore.prerananawar1.repl.co/user-details/cart/${user.id}`
-      );
-      const data = response.data.cart;
-      userDispatch({ type: "LOAD_DATA_TO_CART", payload: data });
-    })();
-  }, [user]);
+    if (login) {
+      (async () => {
+        try {
+          const response = await axios.get(
+            `https://api-prestore.prerananawar1.repl.co/user-details/cart/${user.id}`
+          );
+          const data = response.data.cart;
+          console.log(data);
+          userDispatch({ type: "LOAD_DATA_TO_CART", payload: data });
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+    }
+  }, [login]);
 
   useEffect(() => {
-    (async () => {
-      // const response = await axios.get("api/wishListItems");
-      const response = await axios.get(
-        `https://api-prestore.prerananawar1.repl.co/user-details/wishlist/${user.id}`
-      );
-      const data = response.data.wishList;
-      userDispatch({ type: "LOAD_DATA_TO_WISHLIST", payload: data });
-    })();
-  }, [user]);
+    if (login) {
+      (async () => {
+        try {
+          const response = await axios.get(
+            `https://api-prestore.prerananawar1.repl.co/user-details/wishlist/${user.id}`
+          );
+          const data = response.data.wishList;
+          console.log(data);
+          userDispatch({ type: "LOAD_DATA_TO_WISHLIST", payload: data });
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+    }
+  }, [login]);
 
   const userReducer = (userState, action) => {
     const currentUser = findUserById(userState, user.id);
@@ -203,7 +219,7 @@ export const UserProvider = ({ children }) => {
 
   const [userState, userDispatch] = useReducer(userReducer, [
     {
-      id: 1,
+      id: "1",
       wishList: [],
       cart: [],
       loading: "",

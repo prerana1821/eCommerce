@@ -121,7 +121,7 @@ export const Products = () => {
               </div>
 
               <div>
-                {found(currentUser?.cart, product.id) ? (
+                {currentUser && found(currentUser.cart, product.id) ? (
                   <Link to='/cart'>
                     <button className='btn btn-primary primary btn-card'>
                       <p>{isProdInCart(product)}</p>

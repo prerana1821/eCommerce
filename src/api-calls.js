@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const addToCartApi = async (currentUser, product, dispatch) => {
-  console.log({ currentUser });
+  // console.log({ currentUser });
   try {
     dispatch({ type: "STATUS", payload: "Item Adding to Cart...." });
     // const response = await axios.post("api/cartItems", {
@@ -124,6 +124,7 @@ export const addToWishListApi = async (currentUser, product, dispatch) => {
         product,
       }
     );
+    console.log(response);
     if (response.status === 201) {
       dispatch({ type: "ADD_TO_WISHLIST", payload: product });
     }
