@@ -22,6 +22,15 @@ export const Products = () => {
   const currentUser = findUserById(userState, user.id);
 
   // console.log({ currentUser });
+  const [sideNav, showSideNav] = useState(false);
+
+  const handleClick = () => {
+    showSideNav(true);
+  };
+
+  const handleClose = () => {
+    showSideNav(false);
+  };
 
   const isProdInCart = (item) => {
     return login
@@ -49,6 +58,21 @@ export const Products = () => {
 
   return (
     <div className='products'>
+      <div className='responsive-filter'>
+        <h3>Filters</h3>
+        <button className='resp-btn-filter' onClick={handleClick}>
+          &#9776;
+        </button>
+      </div>
+      <div className={sideNav ? "sidenav mainSideNav" : "sidenav halfSideNav"}>
+        <div className='resp-heading-filter'>
+          <h1>Apply Filters</h1>
+          <button className='closebtn' onClick={handleClose}>
+            &times;
+          </button>
+        </div>
+        <Filters />
+      </div>
       <div className='main-filters'>
         <Filters />
       </div>
