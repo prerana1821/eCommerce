@@ -13,7 +13,7 @@ import { useAuth } from "../Auth";
 export const Cart = () => {
   const { userState, userDispatch } = useUser();
   const { user } = useAuth();
-  const currentUser = findUserById(userState, user.id);
+  const currentUser = findUserById(userState, user._id);
 
   function totalPrice() {
     return currentUser?.cart.reduce((acc, value) => {
@@ -41,7 +41,7 @@ export const Cart = () => {
           <div>
             {currentUser?.cart.map((product) => {
               return (
-                <div className='card-horizontal' key={product.id}>
+                <div className='card-horizontal' key={product._id}>
                   <img
                     className='card-horizontal-img'
                     src={product.image}
@@ -86,7 +86,7 @@ export const Cart = () => {
                           <i className='fas fa-minus'></i>
                         </button>
                       </div>
-                      <p>{product.price}</p>
+                      <p>Rs. {product.price}</p>
                     </div>
                   </div>
                 </div>

@@ -13,7 +13,7 @@ import { useAuth } from "../Auth";
 export const WishList = () => {
   const { userState, userDispatch } = useUser();
   const { user } = useAuth();
-  const currentUser = findUserById(userState, user.id);
+  const currentUser = findUserById(userState, user._id);
 
   return (
     <div className='products products-wishlist'>
@@ -29,7 +29,7 @@ export const WishList = () => {
       )}
       {currentUser?.wishList.map((product) => {
         return (
-          <div className='card wishList-card' key={product.id}>
+          <div className='card wishList-card' key={product._id}>
             <img className='card-img' src={product.image} alt='' />
             <button
               onClick={() =>
@@ -51,7 +51,7 @@ export const WishList = () => {
               className='btn btn-primary primary btn-card'
               onClick={() => {
                 deleteFromWishListApi(currentUser, product, userDispatch);
-                return found(currentUser?.cart, product.id)
+                return found(currentUser?.cart, product._id)
                   ? incrementQuantityFromCartApi(
                       currentUser,
                       product,

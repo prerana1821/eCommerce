@@ -6,7 +6,7 @@ import { findUserById } from "../utils";
 export const Toast = () => {
   const { userState } = useUser();
   const { user } = useAuth();
-  const currentUser = findUserById(userState, user.id);
+  const currentUser = findUserById(userState, user._id);
 
   return (
     <>

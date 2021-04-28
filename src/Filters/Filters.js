@@ -15,6 +15,8 @@ export const Filters = () => {
     category,
   } = useData();
 
+  console.log("18", sortBy);
+
   const [search, setSearch] = useState("");
 
   return (
@@ -47,9 +49,10 @@ export const Filters = () => {
             <input
               type='radio'
               name='sort'
-              onChange={() =>
-                dispatch({ type: "SORT", payload: "PRICE_LOW_TO_HIGH" })
-              }
+              onChange={() => {
+                console.log(sortBy);
+                return dispatch({ type: "SORT", payload: "PRICE_LOW_TO_HIGH" });
+              }}
               checked={sortBy && sortBy === "PRICE_LOW_TO_HIGH"}
             />
             Sort from Low to High

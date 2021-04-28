@@ -22,7 +22,7 @@ export const DataProvider = ({ children }) => {
         const response = await axios.get(
           "https://api-prestore.prerananawar1.repl.co/products"
         );
-        // console.log({ response });
+        console.log({ response });
         const data = response.data.products;
         dispatch({ type: "ADD_DATA", payload: data });
       } catch (error) {

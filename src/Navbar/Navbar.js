@@ -10,7 +10,7 @@ export const Navbar = () => {
   const { user, login } = useAuth();
   const { userState } = useUser();
   const [toggle, setToggle] = useState(true);
-  const currentUser = findUserById(userState, user.id);
+  const currentUser = findUserById(userState, user._id);
 
   const totalItems = () => {
     return currentUser?.cart.reduce((acc, value) => {

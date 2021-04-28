@@ -52,17 +52,14 @@
   transition: 0.5s;
 }
 
-.resp-heading-filter {
-  display: flex;
-  align-items: center;
-  margin: 1rem;
-  justify-content: space-between;
-}
-
 .closebtn {
   font-size: 2rem;
   background: none;
   border: none;
+}
+
+.resp-heading-filter {
+  display: none;
 }
 
 .resp-btn-filter {
@@ -87,8 +84,20 @@
   .products {
     display: block;
   }
+
   .main-filters {
     display: none;
+  }
+
+  .side-filters {
+    z-index: 6;
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    left: 10px;
+    bottom: 0;
+    overflow-y: scroll;
+    width: 100%;
   }
 
   .responsive-filter {
@@ -104,5 +113,12 @@
 
   .filter {
     font-size: 1.3rem;
+  }
+
+  .resp-heading-filter {
+    display: flex;
+    align-items: center;
+    margin: 1rem;
+    justify-content: space-between;
   }
 }

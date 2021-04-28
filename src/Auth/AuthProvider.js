@@ -9,6 +9,7 @@ import {
 } from "./fakeAuthApi";
 import { findUserById } from "../utils";
 import axios from "axios";
+// import { useUser } from "../User";
 
 export const AuthContext = createContext();
 
@@ -22,6 +23,8 @@ export const AuthProvider = ({ children }) => {
   });
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
+  // const { currentUser } = useUser();
+  // const currentUser = findUserById(userState, user._id);
 
   useEffect(() => {
     (async () => {
@@ -29,7 +32,7 @@ export const AuthProvider = ({ children }) => {
         const response = await axios.get(
           "https://api-prestore.prerananawar1.repl.co/auth"
         );
-        console.log({ response });
+        console.log("auth response", { response });
         authDispatch({ type: "LOAD_USERS", payload: response.data.auth });
       } catch (error) {
         console.log(error);
@@ -42,6 +45,11 @@ export const AuthProvider = ({ children }) => {
     loginFromApi?.login && setLogin(true);
   }, []);
 
+  useEffect(() => {
+    const userFromApi = JSON.parse(localStorage?.getItem("user"));
+    userFromApi?._id && setUser({ ...userFromApi });
+  }, []);
+
   const loginUserWithCredentials = async (username, password) => {
     try {
       setStatus("Checking..");
@@ -52,12 +60,24 @@ export const AuthProvider = ({ children }) => {
           password: password,
         }
       );
-      // console.log({ response });
-      localStorage?.setItem("login", JSON.stringify({ login: true }));
+      console.log("login response", { response });
+      console.log(response.data.user._id);
+      console.log(authState);
       if (response.data.success) {
-        setLogin(true);
-        const userFromApi = findUserById(authState, response.data.userName.id);
+        const userFromApi = findUserById(authState, response.data.user._id);
         setUser(userFromApi);
+        localStorage?.setItem("login", JSON.stringify({ login: true }));
+        console.log("login user", userFromApi);
+        const { _id, username, password, email } = userFromApi;
+        localStorage?.setItem(
+          "user",
+          JSON.stringify({ _id, username, password, email })
+        );
+        // localStorage?.setItem(
+        //   "userDetails",
+        //   JSON.stringify({ ...currentUser })
+        // );
+        setLogin(true);
       }
       setStatus("Hurray! Login Successful");
       return response.data;
@@ -82,7 +102,7 @@ export const AuthProvider = ({ children }) => {
           email: email,
         }
       );
-      console.log({ response });
+      console.log("signup response", { response });
       localStorage?.setItem("login", JSON.stringify({ login: true }));
       if (response.data.success) {
         setLogin(true);
@@ -135,6 +155,7 @@ export const AuthProvider = ({ children }) => {
       password: "",
     });
     localStorage?.removeItem("login");
+    localStorage?.removeItem("user");
     navigate("/");
   };
 
@@ -153,6 +174,7 @@ export const AuthProvider = ({ children }) => {
   const [authState, authDispatch] = useReducer(authReducer, []);
 
   console.log(authState);
+  console.log("BESTEST", { user });
 
   return (
     <AuthContext.Provider

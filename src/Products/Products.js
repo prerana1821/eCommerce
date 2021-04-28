@@ -19,7 +19,9 @@ export const Products = () => {
   const { userState, userDispatch } = useUser();
   const { user, login } = useAuth();
   const [showModal, setShowModal] = useState(false);
-  const currentUser = findUserById(userState, user.id);
+  console.log(user);
+  console.log(userState);
+  const currentUser = findUserById(userState, user._id);
 
   // console.log({ currentUser });
   const [sideNav, showSideNav] = useState(false);
@@ -35,7 +37,7 @@ export const Products = () => {
   const isProdInCart = (item) => {
     return login
       ? currentUser?.cart.reduce((acc, value) => {
-          if (item.id === value.id) {
+          if (item._id === value._id) {
             return "Go to Cart";
           } else {
             return acc;
@@ -47,7 +49,9 @@ export const Products = () => {
   const isProdInWishList = (item) => {
     return login
       ? currentUser?.wishList.reduce((icon, product) => {
-          return product.id === item.id ? (icon = "fas fa-lg fa-heart") : icon;
+          return product._id === item._id
+            ? (icon = "fas fa-lg fa-heart")
+            : icon;
         }, "far fa-lg fa-heart")
       : "far fa-lg fa-heart";
   };
@@ -61,26 +65,23 @@ export const Products = () => {
       <div className='responsive-filter'>
         <h3>Filters</h3>
         <button className='resp-btn-filter' onClick={handleClick}>
-          &#9776;
+          <i className='fas fa-filter'></i>
         </button>
       </div>
-      <div className={sideNav ? "sidenav mainSideNav" : "sidenav halfSideNav"}>
+      <div className={sideNav ? "side-filters" : "main-filters"}>
         <div className='resp-heading-filter'>
           <h1>Apply Filters</h1>
           <button className='closebtn' onClick={handleClose}>
-            &times;
+            <i class='fas fa-times'></i>
           </button>
         </div>
-        <Filters />
-      </div>
-      <div className='main-filters'>
         <Filters />
       </div>
       <div className='product-listing'>
         <h2 className='center-txt ctn'>{loading}</h2>
         {rangedData.map((product) => {
           return (
-            <div className='card' key={product.id}>
+            <div className='card' key={product._id}>
               <img
                 className='card-img'
                 src={product.image}
@@ -113,7 +114,7 @@ export const Products = () => {
                         ? () => {
                             return currentUser?.wishList.reduce(
                               (acc, value) => {
-                                return value.id === product.id
+                                return value._id === product._id
                                   ? deleteFromWishListApi(
                                       currentUser,
                                       product,
@@ -141,7 +142,7 @@ export const Products = () => {
               </div>
 
               <div>
-                {currentUser && found(currentUser.cart, product.id) ? (
+                {currentUser && found(currentUser.cart, product._id) ? (
                   <Link to='/cart'>
                     <button className='btn btn-primary primary btn-card'>
                       <p>{isProdInCart(product)}</p>

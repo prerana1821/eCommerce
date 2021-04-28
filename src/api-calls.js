@@ -1,16 +1,17 @@
 import axios from "axios";
 
 export const addToCartApi = async (currentUser, product, dispatch) => {
-  // console.log({ currentUser });
+  console.log({ currentUser });
+  console.log({ product });
   try {
     dispatch({ type: "STATUS", payload: "Item Adding to Cart...." });
     // const response = await axios.post("api/cartItems", {
     //   cartItem: product,
     // });
     const response = await axios.post(
-      `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser.id}`,
+      `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser._id}`,
       {
-        product,
+        id: product._id,
       }
     );
     if (response.status === 201) {
@@ -24,6 +25,8 @@ export const addToCartApi = async (currentUser, product, dispatch) => {
 };
 
 export const deleteItemFromCartApi = async (currentUser, product, dispatch) => {
+  console.log({ currentUser });
+  console.log({ product });
   try {
     dispatch({
       type: "STATUS",
@@ -31,7 +34,7 @@ export const deleteItemFromCartApi = async (currentUser, product, dispatch) => {
     });
     // const response = await axios.delete(`api/cartItems/${product.id}`);
     const response = await axios.delete(
-      `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser.id}/${product.id}`
+      `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser._id}/${product._id}`
     );
     if (response.status === 200) {
       dispatch({ type: "REMOVE_FROM_CART", payload: product });
@@ -60,7 +63,7 @@ export const incrementQuantityFromCartApi = async (
     //   cartItem: { ...product, quantity: product.quantity + 1 },
     // });
     const response = await axios.post(
-      `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser.id}/${product.id}`,
+      `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser._id}/${product._id}`,
       {
         ...product,
         quantity: product.quantity + 1,
@@ -93,7 +96,7 @@ export const decrementQuantityFromCartApi = async (
     //   cartItem: { ...product, quantity: product.quantity - 1 },
     // });
     const response = await axios.post(
-      `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser.id}/${product.id}`,
+      `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser._id}/${product._id}`,
       {
         ...product,
         quantity: product.quantity - 1,
@@ -119,9 +122,9 @@ export const addToWishListApi = async (currentUser, product, dispatch) => {
     //   wishListItem: product,
     // });
     const response = await axios.post(
-      `https://api-prestore.prerananawar1.repl.co/user-details/wishlist/${currentUser.id}`,
+      `https://api-prestore.prerananawar1.repl.co/user-details/wishlist/${currentUser._id}`,
       {
-        product,
+        id: product._id,
       }
     );
     console.log(response);
@@ -139,7 +142,7 @@ export const deleteFromWishListApi = async (currentUser, product, dispatch) => {
   try {
     dispatch({ type: "STATUS", payload: "Removing Item from Wishlist...." });
     const response = await axios.delete(
-      `https://api-prestore.prerananawar1.repl.co/user-details/wishlist/${currentUser.id}/${product.id}`
+      `https://api-prestore.prerananawar1.repl.co/user-details/wishlist/${currentUser._id}/${product._id}`
     );
     // const response = await axios.delete(`api/wishListItems/${product.id}`);
     if (response.status === 200) {

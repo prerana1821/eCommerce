@@ -19,10 +19,12 @@ import { findUserById } from "./utils";
 
 function App() {
   const { userState } = useUser();
-  const { user } = useAuth();
-  const currentUser = findUserById(userState, user.id);
+  const { login, user } = useAuth();
+  const currentUser = findUserById(userState, user._id);
 
-  // console.log({ currentUser });
+  console.log({ user });
+  console.log({ login });
+  console.log({ currentUser });
 
   return (
     <div className='App' id='top'>

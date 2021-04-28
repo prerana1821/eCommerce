@@ -18,11 +18,15 @@ export const UserProvider = ({ children }) => {
       (async () => {
         try {
           const response = await axios.get(
-            `https://api-prestore.prerananawar1.repl.co/user-details/cart/${user.id}`
+            `https://api-prestore.prerananawar1.repl.co/user-details/cart/${user._id}`
           );
+          console.log("cart response", { response });
           const data = response.data.cart;
-          console.log(data);
-          userDispatch({ type: "LOAD_DATA_TO_CART", payload: data });
+          console.log("DATA", data);
+          const cart = data.map((item) => {
+            return item.productId;
+          });
+          userDispatch({ type: "LOAD_DATA_TO_CART", payload: cart });
         } catch (error) {
           console.log(error);
         }
@@ -35,11 +39,33 @@ export const UserProvider = ({ children }) => {
       (async () => {
         try {
           const response = await axios.get(
-            `https://api-prestore.prerananawar1.repl.co/user-details/wishlist/${user.id}`
+            `https://api-prestore.prerananawar1.repl.co/user-details/wishlist/${user._id}`
           );
+          console.log("wishlist response", { response });
           const data = response.data.wishList;
-          console.log(data);
-          userDispatch({ type: "LOAD_DATA_TO_WISHLIST", payload: data });
+          console.log("DDAATAA", data);
+          const wishList = data.map((item) => {
+            return item.productId;
+          });
+          userDispatch({ type: "LOAD_DATA_TO_WISHLIST", payload: wishList });
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+    }
+  }, [login]);
+
+  useEffect(() => {
+    if (login) {
+      (async () => {
+        try {
+          const response = await axios.get(
+            `https://api-prestore.prerananawar1.repl.co/user-details/`
+          );
+          console.log("userdetails response", { response });
+          const data = response.data.userDetails;
+          console.log("DDAATAA2.0", data);
+          userDispatch({ type: "LOAD_USER_DETAILS", payload: data });
         } catch (error) {
           console.log(error);
         }
@@ -48,7 +74,7 @@ export const UserProvider = ({ children }) => {
   }, [login]);
 
   const userReducer = (userState, action) => {
-    const currentUser = findUserById(userState, user.id);
+    const currentUser = findUserById(userState, user._id);
 
     switch (action.type) {
       case "ADD_USER":
@@ -58,6 +84,8 @@ export const UserProvider = ({ children }) => {
           cart: [],
           loading: "",
         });
+      case "LOAD_USER_DETAILS":
+        return action.payload;
       case "LOAD_DATA_TO_CART":
         return (
           currentUser &&
@@ -65,7 +93,7 @@ export const UserProvider = ({ children }) => {
             if (user === currentUser) {
               return {
                 ...user,
-                cart: user.cart.concat(action.payload),
+                cart: action.payload,
               };
             }
             return user;
@@ -78,7 +106,7 @@ export const UserProvider = ({ children }) => {
             if (user === currentUser) {
               return {
                 ...user,
-                wishList: user.wishList.concat(action.payload),
+                wishList: action.payload,
               };
             }
             return user;
@@ -118,7 +146,7 @@ export const UserProvider = ({ children }) => {
               return {
                 ...user,
                 cart: user.cart.filter((item) => {
-                  return item.id !== action.payload.id;
+                  return item._id !== action.payload._id;
                 }),
               };
             }
@@ -146,7 +174,7 @@ export const UserProvider = ({ children }) => {
               return {
                 ...user,
                 wishList: user.wishList.filter((item) => {
-                  return item.id !== action.payload.id;
+                  return item._id !== action.payload._id;
                 }),
               };
             }
@@ -161,7 +189,7 @@ export const UserProvider = ({ children }) => {
               return {
                 ...user,
                 cart: user.cart.map((item) => {
-                  return item.id === action.payload.id
+                  return item._id === action.payload._id
                     ? { ...item, quantity: item.quantity + 1 }
                     : item;
                 }),
@@ -178,7 +206,7 @@ export const UserProvider = ({ children }) => {
               return {
                 ...user,
                 cart: user.cart.map((item) => {
-                  return item.id === action.payload.id
+                  return item._id === action.payload._id
                     ? { ...item, quantity: item.quantity - 1 }
                     : item;
                 }),
@@ -194,15 +222,15 @@ export const UserProvider = ({ children }) => {
             if (user === currentUser) {
               return {
                 ...user,
-                cart: found(user.cart, action.payload.id)
+                cart: found(user.cart, action.payload._id)
                   ? user.cart.map((value) => {
-                      return value.id === action.payload.id
+                      return value._id === action.payload._id
                         ? { ...action.payload, quantity: value.quantity + 1 }
                         : value;
                     })
                   : [...user.cart, { ...action.payload, quantity: 1 }],
                 wishList: user.wishList.filter((item) => {
-                  return item.id !== action.payload.id;
+                  return item._id !== action.payload._id;
                 }),
               };
             }
@@ -227,9 +255,11 @@ export const UserProvider = ({ children }) => {
   ]);
 
   console.log(userState);
+  const currentUser = findUserById(userState, user._id);
+  console.log({ currentUser });
 
   return (
-    <UserContext.Provider value={{ userState, userDispatch }}>
+    <UserContext.Provider value={{ currentUser, userState, userDispatch }}>
       {children}
     </UserContext.Provider>
   );
