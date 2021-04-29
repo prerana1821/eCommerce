@@ -9,7 +9,6 @@ import {
 } from "./fakeAuthApi";
 import { findUserById } from "../utils";
 import axios from "axios";
-// import { useUser } from "../User";
 
 export const AuthContext = createContext();
 
@@ -23,8 +22,6 @@ export const AuthProvider = ({ children }) => {
   });
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
-  // const { currentUser } = useUser();
-  // const currentUser = findUserById(userState, user._id);
 
   useEffect(() => {
     (async () => {
@@ -60,29 +57,20 @@ export const AuthProvider = ({ children }) => {
           password: password,
         }
       );
-      console.log("login response", { response });
-      console.log(response.data.user._id);
-      console.log(authState);
       if (response.data.success) {
         const userFromApi = findUserById(authState, response.data.user._id);
         setUser(userFromApi);
         localStorage?.setItem("login", JSON.stringify({ login: true }));
-        console.log("login user", userFromApi);
         const { _id, username, password, email } = userFromApi;
         localStorage?.setItem(
           "user",
           JSON.stringify({ _id, username, password, email })
         );
-        // localStorage?.setItem(
-        //   "userDetails",
-        //   JSON.stringify({ ...currentUser })
-        // );
         setLogin(true);
       }
       setStatus("Hurray! Login Successful");
       return response.data;
     } catch (error) {
-      // console.log(error);
       if (!error.success) {
         setStatus("Ohh no login Unsuccessful");
       }
@@ -93,7 +81,6 @@ export const AuthProvider = ({ children }) => {
   const signUpUserWithCredentials = async (username, password, email) => {
     try {
       setStatus("Adding...");
-      // const response = await fakeSignUpApi(username, password, email);
       const response = await axios.post(
         "https://api-prestore.prerananawar1.repl.co/auth/signup",
         {
@@ -102,20 +89,15 @@ export const AuthProvider = ({ children }) => {
           email: email,
         }
       );
-      console.log("signup response", { response });
       localStorage?.setItem("login", JSON.stringify({ login: true }));
       if (response.data.success) {
         setLogin(true);
         authDispatch({ type: "ADD_NEW_USER", payload: response.data.user });
       }
       setStatus("Hurray! Signup Successful");
-      console.log(response.data.user);
-      // const userFromApi = findUserById(authState, response.data.user.id);
-      // console.log(userFromApi);
       setUser(response.data.user);
       return response.data;
     } catch (error) {
-      // console.log(error);
       if (!error.success) {
         setStatus("Ohh no signup Unsuccessful");
       }
@@ -127,7 +109,6 @@ export const AuthProvider = ({ children }) => {
     try {
       setStatus("Checkkingg...");
       const response = await fakeForgotPassApi(email, password);
-      // console.log({ response });
       localStorage?.setItem("login", JSON.stringify({ login: true }));
       if (response.success) {
         setLogin(true);
@@ -137,7 +118,6 @@ export const AuthProvider = ({ children }) => {
       setUser(userFromApi);
       return response;
     } catch (error) {
-      // console.log(error);
       if (!error.success) {
         setStatus("Email doesn't exits");
       }
@@ -172,9 +152,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const [authState, authDispatch] = useReducer(authReducer, []);
-
-  console.log(authState);
-  console.log("BESTEST", { user });
 
   return (
     <AuthContext.Provider

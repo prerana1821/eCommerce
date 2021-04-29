@@ -1,13 +1,8 @@
 import axios from "axios";
 
 export const addToCartApi = async (currentUser, product, dispatch) => {
-  console.log({ currentUser });
-  console.log({ product });
   try {
     dispatch({ type: "STATUS", payload: "Item Adding to Cart...." });
-    // const response = await axios.post("api/cartItems", {
-    //   cartItem: product,
-    // });
     const response = await axios.post(
       `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser._id}`,
       {
@@ -25,14 +20,11 @@ export const addToCartApi = async (currentUser, product, dispatch) => {
 };
 
 export const deleteItemFromCartApi = async (currentUser, product, dispatch) => {
-  console.log({ currentUser });
-  console.log({ product });
   try {
     dispatch({
       type: "STATUS",
       payload: "Removing Item from Cart....",
     });
-    // const response = await axios.delete(`api/cartItems/${product.id}`);
     const response = await axios.delete(
       `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser._id}/${product._id}`
     );
@@ -59,9 +51,6 @@ export const incrementQuantityFromCartApi = async (
       type: "STATUS",
       payload: "Increasing Quantity..",
     });
-    // const response = await axios.put(`api/cartItems/${product.id}`, {
-    //   cartItem: { ...product, quantity: product.quantity + 1 },
-    // });
     const response = await axios.post(
       `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser._id}/${product._id}`,
       {
@@ -92,9 +81,6 @@ export const decrementQuantityFromCartApi = async (
       type: "STATUS",
       payload: "Increasing Quantity..",
     });
-    // const response = await axios.put(`api/cartItems/${product.id}`, {
-    //   cartItem: { ...product, quantity: product.quantity - 1 },
-    // });
     const response = await axios.post(
       `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser._id}/${product._id}`,
       {
@@ -118,9 +104,6 @@ export const decrementQuantityFromCartApi = async (
 export const addToWishListApi = async (currentUser, product, dispatch) => {
   try {
     dispatch({ type: "STATUS", payload: "Item Adding to Wishlist...." });
-    // const response = await axios.post("api/wishListItems", {
-    //   wishListItem: product,
-    // });
     const response = await axios.post(
       `https://api-prestore.prerananawar1.repl.co/user-details/wishlist/${currentUser._id}`,
       {
@@ -144,7 +127,6 @@ export const deleteFromWishListApi = async (currentUser, product, dispatch) => {
     const response = await axios.delete(
       `https://api-prestore.prerananawar1.repl.co/user-details/wishlist/${currentUser._id}/${product._id}`
     );
-    // const response = await axios.delete(`api/wishListItems/${product.id}`);
     if (response.status === 200) {
       dispatch({ type: "REMOVE_FROM_WISHLIST", payload: product });
     }
