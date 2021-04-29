@@ -60,6 +60,24 @@ export const UserProvider = ({ children }) => {
       (async () => {
         try {
           const response = await axios.get(
+            `https://api-prestore.prerananawar1.repl.co/user-details/address/${user._id}`
+          );
+          console.log("address response", { response });
+          const data = response.data.addresses;
+          console.log("DDAATAAMUM", data);
+          userDispatch({ type: "LOAD_DATA_TO_ADDRESS", payload: data });
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+    }
+  }, [login]);
+
+  useEffect(() => {
+    if (login) {
+      (async () => {
+        try {
+          const response = await axios.get(
             `https://api-prestore.prerananawar1.repl.co/user-details/`
           );
           console.log("userdetails response", { response });
@@ -112,6 +130,19 @@ export const UserProvider = ({ children }) => {
             return user;
           })
         );
+      case "LOAD_DATA_TO_ADDRESS":
+        return (
+          currentUser &&
+          userState.map((user) => {
+            if (user === currentUser) {
+              return {
+                ...user,
+                addresses: action.payload,
+              };
+            }
+            return user;
+          })
+        );
       case "STATUS":
         return (
           currentUser &&
@@ -138,6 +169,19 @@ export const UserProvider = ({ children }) => {
             return user;
           })
         );
+      case "ADD_ADDRESS":
+        return (
+          currentUser &&
+          userState.map((user) => {
+            if (user === currentUser) {
+              return {
+                ...user,
+                addresses: user.addresses.concat(action.payload),
+              };
+            }
+            return user;
+          })
+        );
       case "REMOVE_FROM_CART":
         return (
           currentUser &&
@@ -148,6 +192,19 @@ export const UserProvider = ({ children }) => {
                 cart: user.cart.filter((item) => {
                   return item._id !== action.payload._id;
                 }),
+              };
+            }
+            return user;
+          })
+        );
+      case "DELETE_ADDRESS":
+        return (
+          currentUser &&
+          userState.map((user) => {
+            if (user === currentUser) {
+              return {
+                ...user,
+                addresses: action.payload,
               };
             }
             return user;
@@ -175,6 +232,23 @@ export const UserProvider = ({ children }) => {
                 ...user,
                 wishList: user.wishList.filter((item) => {
                   return item._id !== action.payload._id;
+                }),
+              };
+            }
+            return user;
+          })
+        );
+      case "EDIT_ADDRESS":
+        return (
+          currentUser &&
+          userState.map((user) => {
+            if (user === currentUser) {
+              return {
+                ...user,
+                addresses: user.addresses.map((item) => {
+                  return item._id === action.payload.id
+                    ? action.payload.address
+                    : item;
                 }),
               };
             }
@@ -250,6 +324,7 @@ export const UserProvider = ({ children }) => {
       id: "1",
       wishList: [],
       cart: [],
+      addresses: [],
       loading: "",
     },
   ]);

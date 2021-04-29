@@ -16,6 +16,7 @@ import {
   useAuth,
 } from "./Auth";
 import { findUserById } from "./utils";
+import { Address, Checkout } from "./Checkout";
 
 function App() {
   const { userState } = useUser();
@@ -31,6 +32,8 @@ function App() {
           <Route path='/products' element={<Products />}></Route>
           <PrivateRoute path='/cart' element={<Cart />}></PrivateRoute>
           <PrivateRoute path='/wishlist' element={<WishList />}></PrivateRoute>
+          <PrivateRoute path='/address' element={<Address />}></PrivateRoute>
+          <PrivateRoute path='/checkout' element={<Checkout />}></PrivateRoute>
           <Route path='/login' element={<Login />}></Route>
           <Route path='/signup' element={<SignUp />}></Route>
           <Route path='/forgot-password' element={<ForgotPassword />}></Route>

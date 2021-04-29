@@ -72,7 +72,7 @@ export const Products = () => {
         <div className='resp-heading-filter'>
           <h1>Apply Filters</h1>
           <button className='closebtn' onClick={handleClose}>
-            <i class='fas fa-times'></i>
+            <i className='fas fa-times'></i>
           </button>
         </div>
         <Filters />

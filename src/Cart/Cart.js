@@ -133,7 +133,9 @@ export const Cart = () => {
                     <bold> ₹ {totalPrice()} /-</bold>
                   </h4>
                 </div>
-                <button className='btn btn-checkout primary'>CHECKOUT</button>
+                <Link to='/address'>
+                  <button className='btn btn-checkout primary'>CHECKOUT</button>
+                </Link>
                 <div className='item-price-details'>
                   <small>Total price inc GST*</small>
                 </div>

@@ -30,7 +30,7 @@ export const Filters = () => {
             // return dispatch({ type: "SEARCH", payload: e.target.value });
           }}
           value={searchString ? searchString : search}
-          className='input-txt'
+          className='search-input-txt'
           required
         />
         <span className='flt-label flt-label-search'>Search Product</span>

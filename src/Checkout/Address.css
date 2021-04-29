@@ -1,0 +1,94 @@
+.address-management {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+.flex-input {
+  display: flex;
+  margin: 1rem 0;
+  grid-gap: 2rem;
+  gap: 2rem;
+}
+
+.btn-pad {
+  padding: 0.8rem 1rem;
+}
+
+.input-select {
+  padding: 1rem;
+  font-size: medium;
+  border: 2px solid var(--primary-color);
+  border-radius: 0.5rem;
+  display: block;
+  margin: 1rem;
+  outline: none;
+}
+
+.radio {
+  margin-left: 1rem;
+}
+
+.input-radio-label {
+  display: inline-block;
+  margin: 0 1rem;
+}
+
+.center-div {
+  justify-content: center;
+}
+
+.card-address {
+  max-width: 500px;
+  width: 100%;
+}
+
+.show-addresses {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.show-addresses > div {
+  margin: 2rem;
+  display: flex;
+  align-items: baseline;
+}
+
+.checkout-main {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.order-card {
+  max-width: 600px;
+  width: 100%;
+}
+
+.address-actions {
+  display: flex;
+  gap: 2rem;
+  margin: 1rem 0;
+}
+
+.mg-top {
+  margin: 1rem 0;
+}
+
+.proceed {
+  margin: 2rem 0;
+}
+
+.proceed > button {
+  padding: 0.8rem 12rem;
+}
+
+.checkout-card {
+  display: flex;
+  gap: 1rem;
+  border-radius: 0.7rem;
+  width: 100%;
+  max-width: 600px;
+}
