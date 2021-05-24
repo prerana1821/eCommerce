@@ -7,7 +7,7 @@ import { useUser } from "./User";
 import { Home } from "./Home";
 import { Route, Routes } from "react-router";
 import { Toast } from "./Toast";
-import { PrivateRoute, Login, SignUp, ForgotPassword, Account } from "./Auth";
+import { PrivateRoute, Login, SignUp, Account } from "./Auth";
 import { Address, Checkout } from "./Checkout";
 import { ProductDetail } from "./ProductDetail/ProductDetail";
 import { BottomToTop } from "./BottomToTop";
@@ -30,7 +30,6 @@ function App() {
           <PrivateRoute path='/account' element={<Account />}></PrivateRoute>
           <Route path='/login' element={<Login />}></Route>
           <Route path='/signup' element={<SignUp />}></Route>
-          <Route path='/forgot-password' element={<ForgotPassword />}></Route>
         </Routes>
         {userState?.loading && <Toast />}
         <BottomToTop />

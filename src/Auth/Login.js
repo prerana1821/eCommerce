@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from "react-router";
 import { useAuth } from "./AuthProvider";
 import { useState } from "react";
-import "./Login.css";
 import { Link } from "react-router-dom";
+import "./Login.css";
 
 export const Login = () => {
   const { status, loginUserWithCredentials } = useAuth();
@@ -81,12 +81,6 @@ export const Login = () => {
       <button className='btn btn-main' onClick={loginHandler}>
         Login
       </button>
-      <p className='mg'>
-        Forgot your password?
-        <Link to='/forgot-password'>
-          <span className='pink-txt'> Reset here!</span>
-        </Link>
-      </p>
       <p>
         Don't have an account?
         <Link to='/signup'>

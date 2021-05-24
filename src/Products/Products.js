@@ -1,7 +1,7 @@
 import { useData } from "../Products";
 import { useUser } from "../User";
 import { Link } from "react-router-dom";
-import { found } from "../utils";
+import { found, isProdInCart, isProdInWishList, loginAlert } from "../utils";
 import { Filters } from "../Filters";
 import {
   addToCartApi,
@@ -16,10 +16,9 @@ import { useState } from "react";
 export const Products = () => {
   const { loading, rangedData } = useData();
   const { userState, userDispatch } = useUser();
-  const { login } = useAuth();
   const [showModal, setShowModal] = useState(false);
-
   const [sideNav, showSideNav] = useState(false);
+  const { login } = useAuth();
 
   const handleClick = () => {
     showSideNav(true);
@@ -27,32 +26,6 @@ export const Products = () => {
 
   const handleClose = () => {
     showSideNav(false);
-  };
-
-  const isProdInCart = (item) => {
-    return login
-      ? userState?.cart.reduce((acc, value) => {
-          if (item._id === value._id) {
-            return "Go to Cart";
-          } else {
-            return acc;
-          }
-        }, "Add to Cart")
-      : "Add to Cart";
-  };
-
-  const isProdInWishList = (item) => {
-    return login
-      ? userState?.wishList.reduce((icon, product) => {
-          return product._id === item._id
-            ? (icon = "fas fa-lg fa-heart")
-            : icon;
-        }, "far fa-lg fa-heart")
-      : "far fa-lg fa-heart";
-  };
-
-  const loginAlert = (msg) => {
-    return setShowModal(true);
   };
 
   return (
@@ -130,13 +103,20 @@ export const Products = () => {
                           : (e) => {
                               e.preventDefault();
                               loginAlert(
-                                "Hey, you need to login in order to add items to wishlist"
+                                "Hey, you need to login in order to add items to wishlist",
+                                setShowModal
                               );
                             }
                       }
                       className='floating-act secondary flt-tri'
                     >
-                      <i className={`${isProdInWishList(product)}`}></i>
+                      <i
+                        className={`${isProdInWishList(
+                          product,
+                          userState,
+                          login
+                        )}`}
+                      ></i>
                     </button>
                   </div>
                 </div>
@@ -145,7 +125,7 @@ export const Products = () => {
                 {userState && found(userState.cart, product._id) ? (
                   <Link to='/cart'>
                     <button className='btn btn-primary primary btn-card'>
-                      <p>{isProdInCart(product)}</p>
+                      <p>{isProdInCart(product, userState, login)}</p>
                     </button>
                   </Link>
                 ) : (
@@ -156,11 +136,12 @@ export const Products = () => {
                         ? () => addToCartApi(userState, product, userDispatch)
                         : () =>
                             loginAlert(
-                              "Hey, you need to login in order to add items to cart"
+                              "Hey, you need to login in order to add items to cart",
+                              setShowModal
                             )
                     }
                   >
-                    <p>{isProdInCart(product)}</p>
+                    <p>{isProdInCart(product, userState, login)}</p>
                   </button>
                 )}
               </div>

@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { useData } from "../Products";
 import { useUser } from "../User";
 import { Link } from "react-router-dom";
-import { found } from "../utils";
+import { found, isProdInCart, isProdInWishList, loginAlert } from "../utils";
 import {
   addToCartApi,
   addToWishListApi,
@@ -19,34 +19,8 @@ export const ProductDetail = () => {
   const { id } = useParams();
   const { loading, productDetail, dispatch } = useData();
   const { userState, userDispatch } = useUser();
-  const { user, login } = useAuth();
+  const { login } = useAuth();
   const [showModal, setShowModal] = useState(false);
-
-  const loginAlert = (msg) => {
-    return setShowModal(true);
-  };
-
-  const isProdInCart = (item) => {
-    return login
-      ? userState?.cart.reduce((acc, value) => {
-          if (item._id === value._id) {
-            return "Go to Cart";
-          } else {
-            return acc;
-          }
-        }, "Add to Cart")
-      : "Add to Cart";
-  };
-
-  const isProdInWishList = (item) => {
-    return login
-      ? userState?.wishList.reduce((icon, product) => {
-          return product._id === item._id
-            ? (icon = "Remove from Wishlist")
-            : icon;
-        }, "Add to Wishlist")
-      : "Add to WishList";
-  };
 
   useEffect(() => {
     (async () => {
@@ -100,7 +74,7 @@ export const ProductDetail = () => {
               {userState && found(userState.cart, productDetail._id) ? (
                 <Link to='/cart'>
                   <button className='btn primary btn-pad-sm'>
-                    <p>{isProdInCart(productDetail)}</p>
+                    <p>{isProdInCart(productDetail, userState, login)}</p>
                   </button>
                 </Link>
               ) : (
@@ -112,11 +86,12 @@ export const ProductDetail = () => {
                           addToCartApi(userState, productDetail, userDispatch)
                       : () =>
                           loginAlert(
-                            "Hey, you need to login in order to add items to cart"
+                            "Hey, you need to login in order to add items to cart",
+                            setShowModal
                           )
                   }
                 >
-                  <p>{isProdInCart(productDetail)}</p>
+                  <p>{isProdInCart(productDetail, userState, login)}</p>
                 </button>
               )}
             </div>
@@ -137,12 +112,13 @@ export const ProductDetail = () => {
                       }
                     : () =>
                         loginAlert(
-                          "Hey, you need to login in order to add items to wishlist"
+                          "Hey, you need to login in order to add items to wishlist",
+                          setShowModal
                         )
                 }
                 className='btn primary btn-pad-sm'
               >
-                <p>{isProdInWishList(productDetail)}</p>
+                <p>{isProdInWishList(productDetail, userState, login)}</p>
               </button>
             </div>
           </div>
