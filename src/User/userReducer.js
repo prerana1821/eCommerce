@@ -12,6 +12,7 @@ export const userReducer = (userState, action) => {
     case "LOAD_USER_DETAILS":
       return {
         ...action.payload,
+        loading: "",
         wishList: action.payload.wishList.map((item) => {
           return item.productId;
         }),
