@@ -1,15 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "../User";
+import { totalPrice } from "../utils";
 
 export const CheckoutCard = () => {
   const { userState } = useUser();
-
-  function totalPrice() {
-    return userState?.cart.reduce((acc, value) => {
-      return acc + value.quantity * value.price;
-    }, 0);
-  }
 
   const totalItemPrice = (item) => {
     return item.quantity * item.price;
@@ -22,7 +17,7 @@ export const CheckoutCard = () => {
         <div>
           <div className='item-price-details'>
             <h4 className='center-txt'>Total Price:</h4>
-            <h4>{totalPrice()}</h4>
+            <h4>{totalPrice(userState)}</h4>
           </div>
           <div>
             {userState?.cart.map((item) => {
@@ -53,7 +48,7 @@ export const CheckoutCard = () => {
           <div className='item-price-details'>
             <h4 className='center-txt'>Total Amount: </h4>
             <h4 className='center-txt'>
-              <bold> ₹ {totalPrice()} /-</bold>
+              <bold> ₹ {totalPrice(userState)} /-</bold>
             </h4>
           </div>
           <Link to='/address'>

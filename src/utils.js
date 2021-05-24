@@ -25,3 +25,9 @@ export const isProdInWishList = (item, userState, login) => {
 export const loginAlert = (msg, setShowModal) => {
   return setShowModal(true);
 };
+
+export const totalPrice = (userState) => {
+  return userState?.cart.reduce((acc, value) => {
+    return acc + value.quantity * value.price;
+  }, 0);
+};

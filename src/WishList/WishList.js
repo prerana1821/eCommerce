@@ -40,7 +40,7 @@ export const WishList = () => {
               <h3>{product.name}</h3>
               <h4>{product.material}</h4>
               <div className='card-details'>
-                <p>{product.price}</p>
+                <p>Price: {product.price}</p>
               </div>
             </div>
             <button

@@ -11,23 +11,13 @@ export const userReducer = (userState, action) => {
       };
     case "LOAD_USER_DETAILS":
       return {
-        ...userState,
-        _id: action.payload._id,
-      };
-    case "LOAD_DATA_TO_CART":
-      return {
-        ...userState,
-        cart: action.payload,
-      };
-    case "LOAD_DATA_TO_WISHLIST":
-      return {
-        ...userState,
-        wishList: action.payload,
-      };
-    case "LOAD_DATA_TO_ADDRESS":
-      return {
-        ...userState,
-        addresses: action.payload,
+        ...action.payload,
+        wishList: action.payload.wishList.map((item) => {
+          return item.productId;
+        }),
+        cart: action.payload.cart.map((item) => {
+          return item.productId;
+        }),
       };
     case "STATUS":
       return {

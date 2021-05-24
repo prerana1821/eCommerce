@@ -1,21 +1,11 @@
 import React from "react";
 import { useUser } from "../User";
 import { useLocation } from "react-router";
+import { totalPrice } from "../utils";
 
 export const Checkout = () => {
   const { userState } = useUser();
   const { state } = useLocation();
-
-  console.log({ state });
-
-  console.log("Checkout", { userState });
-
-  const totalPrice = () => {
-    return userState.cart.reduce((value, item) => {
-      return value + item.quantity * item.price;
-    }, 0);
-  };
-
   const address = userState.addresses.find((item) => item._id === state.id);
 
   return (
