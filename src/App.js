@@ -18,6 +18,7 @@ import {
 import { findUserById } from "./utils";
 import { Address, Checkout } from "./Checkout";
 import { ProductDetail } from "./ProductDetail/ProductDetail";
+import { BottomToTop } from "./BottomToTop";
 
 function App() {
   const { userState } = useUser();
@@ -42,13 +43,7 @@ function App() {
           <Route path='/forgot-password' element={<ForgotPassword />}></Route>
         </Routes>
         {currentUser?.loading && <Toast />}
-        <a href='#top'>
-          <div className=' btn-top badge-av'>
-            <div className='avatar avatar-top av-pink'>
-              <i className='fas fa-lg  fa-arrow-up'></i>
-            </div>
-          </div>
-        </a>
+        <BottomToTop />
       </div>
     </div>
   );

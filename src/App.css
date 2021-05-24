@@ -37,17 +37,6 @@ a {
   color: black;
 }
 
-.btn-top {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  cursor: pointer;
-}
-
-.avatar-top {
-  box-shadow: none;
-}
-
 @media (max-width: 600px) {
   .card-horizontal-img {
     max-width: 100%;
