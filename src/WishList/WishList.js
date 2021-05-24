@@ -7,17 +7,17 @@ import {
 import "./WishList.css";
 import { found } from "../utils";
 import { Link } from "react-router-dom";
-import { findUserById } from "../utils";
-import { useAuth } from "../Auth";
+// import { findUserById } from "../utils";
+// import { useAuth } from "../Auth";
 
 export const WishList = () => {
   const { userState, userDispatch } = useUser();
-  const { user } = useAuth();
-  const currentUser = findUserById(userState, user._id);
+  // const { user } = useAuth();
+  // const currentUser = findUserById(userState, user._id);
 
   return (
     <div className='products products-wishlist'>
-      {currentUser?.wishList.length === 0 && (
+      {userState?.wishList.length === 0 && (
         <div className='card cart-empty-card'>
           <h3>Your Wish List is Empty</h3>
           <hr className='hr' />
@@ -27,13 +27,13 @@ export const WishList = () => {
           </Link>
         </div>
       )}
-      {currentUser?.wishList.map((product) => {
+      {userState?.wishList.map((product) => {
         return (
           <div className='card wishList-card' key={product._id}>
             <img className='card-img' src={product.image} alt='' />
             <button
               onClick={() =>
-                deleteFromWishListApi(currentUser, product, userDispatch)
+                deleteFromWishListApi(userState, product, userDispatch)
               }
               className='floating-act badge-close tertiary'
             >
@@ -50,14 +50,14 @@ export const WishList = () => {
             <button
               className='btn btn-primary primary btn-card'
               onClick={() => {
-                deleteFromWishListApi(currentUser, product, userDispatch);
-                return found(currentUser?.cart, product._id)
+                deleteFromWishListApi(userState, product, userDispatch);
+                return found(userState?.cart, product._id)
                   ? incrementQuantityFromCartApi(
-                      currentUser,
+                      userState,
                       product,
                       userDispatch
                     )
-                  : addToCartApi(currentUser, product, userDispatch);
+                  : addToCartApi(userState, product, userDispatch);
               }}
             >
               Move to Cart

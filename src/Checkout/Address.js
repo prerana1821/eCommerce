@@ -11,9 +11,9 @@ export const Address = () => {
   const [addNewAddress, setAddNewAddress] = useState(false);
   const { userState } = useUser();
   const { user } = useAuth();
-  const currentUser = findUserById(userState, user._id);
+  // const currentUser = findUserById(userState, user._id);
 
-  console.log("ADDRRESSS", { currentUser });
+  console.log("ADDRRESSS", { userState });
 
   return (
     <div className='address-management'>

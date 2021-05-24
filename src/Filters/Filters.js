@@ -15,8 +15,6 @@ export const Filters = () => {
     category,
   } = useData();
 
-  console.log("18", sortBy);
-
   const [search, setSearch] = useState("");
 
   return (

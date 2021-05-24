@@ -20,7 +20,7 @@ const defaultFormState = {
 export const AddressForm = ({ addNewAddress, setAddNewAddress, editAddID }) => {
   const { userState, userDispatch } = useUser();
   const { user } = useAuth();
-  const currentUser = findUserById(userState, user._id);
+  // const currentUser = findUserById(userState, user._id);
 
   const states = [
     "Andhra Pradesh",
@@ -39,7 +39,7 @@ export const AddressForm = ({ addNewAddress, setAddNewAddress, editAddID }) => {
   let editAddress = defaultFormState;
 
   if (editAddID) {
-    editAddress = currentUser.addresses.find((item) => item._id === editAddID);
+    editAddress = userState.addresses.find((item) => item._id === editAddID);
   }
 
   console.log(defaultFormState);
@@ -102,7 +102,7 @@ export const AddressForm = ({ addNewAddress, setAddNewAddress, editAddID }) => {
         try {
           userDispatch({ type: "STATUS", payload: "Adding Address...." });
           const response = await axios.post(
-            `https://api-prestore.prerananawar1.repl.co/user-details/address/${currentUser._id}`,
+            `https://api-prestore.prerananawar1.repl.co/user-details/address/${userState._id}`,
             {
               newAddress: { ...formState },
             }
@@ -143,7 +143,7 @@ export const AddressForm = ({ addNewAddress, setAddNewAddress, editAddID }) => {
             payload: "Adding Updated Address....",
           });
           const response = await axios.post(
-            `https://api-prestore.prerananawar1.repl.co/user-details/address/${currentUser._id}/${editAddID}`,
+            `https://api-prestore.prerananawar1.repl.co/user-details/address/${userState._id}/${editAddID}`,
             {
               updateAddress: { ...formState },
             }

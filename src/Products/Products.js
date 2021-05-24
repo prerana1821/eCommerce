@@ -12,7 +12,7 @@ import "./Products.css";
 import { useAuth } from "../Auth";
 import { LoginAlertModal } from "../LoginAlert";
 import { useState } from "react";
-import { findUserById } from "../utils";
+// import { findUserById } from "../utils";
 
 export const Products = () => {
   const { loading, rangedData } = useData();
@@ -21,7 +21,7 @@ export const Products = () => {
   const [showModal, setShowModal] = useState(false);
   console.log(user);
   console.log(userState);
-  const currentUser = findUserById(userState, user._id);
+  // const currentUser = findUserById(userState, user._id);
 
   const [sideNav, showSideNav] = useState(false);
 
@@ -35,7 +35,7 @@ export const Products = () => {
 
   const isProdInCart = (item) => {
     return login
-      ? currentUser?.cart.reduce((acc, value) => {
+      ? userState?.cart.reduce((acc, value) => {
           if (item._id === value._id) {
             return "Go to Cart";
           } else {
@@ -47,7 +47,7 @@ export const Products = () => {
 
   const isProdInWishList = (item) => {
     return login
-      ? currentUser?.wishList.reduce((icon, product) => {
+      ? userState?.wishList.reduce((icon, product) => {
           return product._id === item._id
             ? (icon = "fas fa-lg fa-heart")
             : icon;
@@ -114,18 +114,18 @@ export const Products = () => {
                         login
                           ? (e) => {
                               e.preventDefault();
-                              return currentUser?.wishList.reduce(
+                              return userState?.wishList.reduce(
                                 (acc, value) => {
                                   return value._id === product._id
                                     ? deleteFromWishListApi(
-                                        currentUser,
+                                        userState,
                                         product,
                                         userDispatch
                                       )
                                     : acc;
                                 },
                                 addToWishListApi(
-                                  currentUser,
+                                  userState,
                                   product,
                                   userDispatch
                                 )
@@ -146,7 +146,7 @@ export const Products = () => {
                 </div>
               </Link>
               <div>
-                {currentUser && found(currentUser.cart, product._id) ? (
+                {userState && found(userState.cart, product._id) ? (
                   <Link to='/cart'>
                     <button className='btn btn-primary primary btn-card'>
                       <p>{isProdInCart(product)}</p>
@@ -157,7 +157,7 @@ export const Products = () => {
                     className='btn btn-primary primary btn-card'
                     onClick={
                       login
-                        ? () => addToCartApi(currentUser, product, userDispatch)
+                        ? () => addToCartApi(userState, product, userDispatch)
                         : () =>
                             loginAlert(
                               "Hey, you need to login in order to add items to cart"

@@ -7,20 +7,20 @@ import { useLocation } from "react-router";
 export const Checkout = () => {
   const { userState } = useUser();
   const { user } = useAuth();
-  const currentUser = findUserById(userState, user._id);
+  // const currentUser = findUserById(userState, user._id);
   const { state } = useLocation();
 
   console.log({ state });
 
-  console.log("Checkout", { currentUser });
+  console.log("Checkout", { userState });
 
   const totalPrice = () => {
-    return currentUser.cart.reduce((value, item) => {
+    return userState.cart.reduce((value, item) => {
       return value + item.quantity * item.price;
     }, 0);
   };
 
-  const address = currentUser.addresses.find((item) => item._id === state.id);
+  const address = userState.addresses.find((item) => item._id === state.id);
 
   return (
     <div className='checkout-main'>
@@ -42,7 +42,7 @@ export const Checkout = () => {
       <div>
         <h3>Cart Details</h3>
         <div>
-          {currentUser.cart.map((item) => {
+          {userState.cart.map((item) => {
             return (
               <div key={item._id} className='card secondary checkout-card'>
                 <p>Name: {item.name}</p>

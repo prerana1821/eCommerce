@@ -102,6 +102,9 @@ export const decrementQuantityFromCartApi = async (
 };
 
 export const addToWishListApi = async (currentUser, product, dispatch) => {
+  console.log("perks");
+  console.log(currentUser._id);
+  console.log({ product });
   try {
     dispatch({ type: "STATUS", payload: "Item Adding to Wishlist...." });
     const response = await axios.post(
@@ -111,6 +114,7 @@ export const addToWishListApi = async (currentUser, product, dispatch) => {
       }
     );
     console.log(response);
+    console.log("works");
     if (response.status === 201) {
       dispatch({ type: "ADD_TO_WISHLIST", payload: product });
     }

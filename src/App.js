@@ -13,17 +13,17 @@ import {
   SignUp,
   ForgotPassword,
   Account,
-  useAuth,
+  // useAuth,
 } from "./Auth";
-import { findUserById } from "./utils";
+// import { findUserById } from "./utils";
 import { Address, Checkout } from "./Checkout";
 import { ProductDetail } from "./ProductDetail/ProductDetail";
 import { BottomToTop } from "./BottomToTop";
 
 function App() {
   const { userState } = useUser();
-  const { user } = useAuth();
-  const currentUser = findUserById(userState, user._id);
+  // const { user } = useAuth();
+  // const currentUser = findUserById(userState, user._id);
 
   return (
     <div className='App' id='top'>
@@ -42,7 +42,7 @@ function App() {
           <Route path='/signup' element={<SignUp />}></Route>
           <Route path='/forgot-password' element={<ForgotPassword />}></Route>
         </Routes>
-        {currentUser?.loading && <Toast />}
+        {userState?.loading && <Toast />}
         <BottomToTop />
       </div>
     </div>

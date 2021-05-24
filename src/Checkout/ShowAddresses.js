@@ -10,10 +10,10 @@ import { AddressForm } from "./AddressForm";
 export const ShowAddresses = () => {
   const { userState, userDispatch } = useUser();
   const { user } = useAuth();
-  const currentUser = findUserById(userState, user._id);
+  // const currentUser = findUserById(userState, user._id);
   const [editAdd, setEditAdd] = useState({ toggle: false, editAddID: "" });
 
-  console.log("ADDRRESSS", { currentUser });
+  console.log("ADDRRESSS", { userState });
 
   const [chooseAddress, setChooseAddress] = useState(null);
 
@@ -27,7 +27,7 @@ export const ShowAddresses = () => {
     try {
       userDispatch({ type: "STATUS", payload: "Deleting Address...." });
       const response = await axios.delete(
-        `https://api-prestore.prerananawar1.repl.co/user-details/address/${currentUser._id}/${id}`
+        `https://api-prestore.prerananawar1.repl.co/user-details/address/${userState._id}/${id}`
       );
       console.log({ response });
       if (response.status === 200) {
@@ -50,7 +50,7 @@ export const ShowAddresses = () => {
     <>
       {editAdd.toggle && <AddressForm editAddID={editAdd.editAddID} />}
       <div className='show-addresses'>
-        {currentUser.addresses.map((item) => {
+        {userState.addresses.map((item) => {
           return (
             <div className='card card-address' key={item._id}>
               <input

@@ -13,10 +13,10 @@ import { useAuth } from "../Auth";
 export const Cart = () => {
   const { userState, userDispatch } = useUser();
   const { user } = useAuth();
-  const currentUser = findUserById(userState, user._id);
+  // const currentUser = findUserById(userState, user._id);
 
   function totalPrice() {
-    return currentUser?.cart.reduce((acc, value) => {
+    return userState?.cart.reduce((acc, value) => {
       return acc + value.quantity * value.price;
     }, 0);
   }
@@ -27,7 +27,7 @@ export const Cart = () => {
 
   return (
     <div className='products products-cart'>
-      {currentUser?.cart.length === 0 ? (
+      {userState?.cart.length === 0 ? (
         <div className='card cart-empty-card'>
           <h3>Your Cart is Empty</h3>
           <hr className='hr' />
@@ -39,7 +39,7 @@ export const Cart = () => {
       ) : (
         <div className='products products-cart'>
           <div>
-            {currentUser?.cart.map((product) => {
+            {userState?.cart.map((product) => {
               return (
                 <div className='card-horizontal' key={product._id}>
                   <img
@@ -49,7 +49,7 @@ export const Cart = () => {
                   />
                   <button
                     onClick={() =>
-                      deleteItemFromCartApi(currentUser, product, userDispatch)
+                      deleteItemFromCartApi(userState, product, userDispatch)
                     }
                     className='floating-act badge-close tertiary'
                   >
@@ -63,7 +63,7 @@ export const Cart = () => {
                         <button
                           onClick={() =>
                             incrementQuantityFromCartApi(
-                              currentUser,
+                              userState,
                               product,
                               userDispatch
                             )
@@ -76,7 +76,7 @@ export const Cart = () => {
                         <button
                           onClick={() =>
                             decrementQuantityFromCartApi(
-                              currentUser,
+                              userState,
                               product,
                               userDispatch
                             )
@@ -95,14 +95,14 @@ export const Cart = () => {
           </div>
           <div>
             <div className='card card-checkout'>
-              <h2>Price Details - {currentUser?.cart.length} Items</h2>
+              <h2>Price Details - {userState?.cart.length} Items</h2>
               <div>
                 <div className='item-price-details'>
                   <h4 className='center-txt'>Total Price:</h4>
                   <h4>{totalPrice()}</h4>
                 </div>
                 <div>
-                  {currentUser?.cart.map((item) => {
+                  {userState?.cart.map((item) => {
                     return (
                       <div className='item-price-details'>
                         <p>

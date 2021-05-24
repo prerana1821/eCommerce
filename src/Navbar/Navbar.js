@@ -10,10 +10,10 @@ export const Navbar = () => {
   const { user, login } = useAuth();
   const { userState } = useUser();
   const [toggle, setToggle] = useState(true);
-  const currentUser = findUserById(userState, user._id);
+  // const currentUser = findUserById(userState, user._id);
 
   const totalItems = () => {
-    return currentUser?.cart.reduce((acc, value) => {
+    return userState?.cart.reduce((acc, value) => {
       return acc + value.quantity;
     }, 0);
   };
@@ -58,7 +58,7 @@ export const Navbar = () => {
               <div className='badge-av'>
                 {login && (
                   <div className='badge-icon primary bdg-top'>
-                    {currentUser?.wishList.length}
+                    {userState?.wishList.length}
                   </div>
                 )}
                 <div className='avatar av-primary'>

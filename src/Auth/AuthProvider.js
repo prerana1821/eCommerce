@@ -23,19 +23,19 @@ export const AuthProvider = ({ children }) => {
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get(
-          "https://api-prestore.prerananawar1.repl.co/auth"
-        );
-        console.log("auth response", { response });
-        authDispatch({ type: "LOAD_USERS", payload: response.data.auth });
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         "https://api-prestore.prerananawar1.repl.co/auth"
+  //       );
+  //       console.log("auth response", { response });
+  //       authDispatch({ type: "LOAD_USERS", payload: response.data.auth });
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   })();
+  // }, []);
 
   useEffect(() => {
     const loginFromApi = JSON.parse(localStorage?.getItem("login"));
@@ -58,10 +58,10 @@ export const AuthProvider = ({ children }) => {
         }
       );
       if (response.data.success) {
-        const userFromApi = findUserById(authState, response.data.user._id);
-        setUser(userFromApi);
+        // const userFromApi = findUserById(authState, response.data.user._id);
+        setUser(response.data.user);
         localStorage?.setItem("login", JSON.stringify({ login: true }));
-        const { _id, username, password, email } = userFromApi;
+        const { _id, username, password, email } = response.data.user;
         localStorage?.setItem(
           "user",
           JSON.stringify({ _id, username, password, email })
@@ -92,10 +92,10 @@ export const AuthProvider = ({ children }) => {
       localStorage?.setItem("login", JSON.stringify({ login: true }));
       if (response.data.success) {
         setLogin(true);
-        authDispatch({ type: "ADD_NEW_USER", payload: response.data.user });
+        // authDispatch({ type: "ADD_NEW_USER", payload: response.data.user });
+        setUser(response.data.user);
+        setStatus("Hurray! Signup Successful");
       }
-      setStatus("Hurray! Signup Successful");
-      setUser(response.data.user);
       return response.data;
     } catch (error) {
       if (!error.success) {
@@ -139,19 +139,19 @@ export const AuthProvider = ({ children }) => {
     navigate("/");
   };
 
-  const authReducer = (authState, action) => {
-    switch (action.type) {
-      case "LOAD_USERS":
-        return [...authState, ...action.payload];
-      case "ADD_NEW_USER":
-        return authState.concat(action.payload);
-      default:
-        console.log("Something went wrong");
-        break;
-    }
-  };
+  // const authReducer = (authState, action) => {
+  //   switch (action.type) {
+  //     case "LOAD_USERS":
+  //       return [...authState, ...action.payload];
+  //     case "ADD_NEW_USER":
+  //       return authState.concat(action.payload);
+  //     default:
+  //       console.log("Something went wrong");
+  //       break;
+  //   }
+  // };
 
-  const [authState, authDispatch] = useReducer(authReducer, []);
+  // const [authState, authDispatch] = useReducer(authReducer, []);
 
   return (
     <AuthContext.Provider
@@ -159,7 +159,7 @@ export const AuthProvider = ({ children }) => {
         status,
         login,
         user,
-        authState,
+        // authState,
         loginUserWithCredentials,
         signUpUserWithCredentials,
         forgotPasswordByCredentials,
