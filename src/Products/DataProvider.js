@@ -18,7 +18,6 @@ export const DataProvider = ({ children }) => {
     (async () => {
       try {
         dispatch({ type: "STATUS", payload: "Loading data from server..." });
-        // const response = await axios.get("api/products");
         const response = await axios.get(
           "https://api-prestore.prerananawar1.repl.co/products"
         );
@@ -33,12 +32,34 @@ export const DataProvider = ({ children }) => {
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        dispatch({
+          type: "STATUS",
+          payload: "Loading categories from server...",
+        });
+        const response = await axios.get(
+          "https://api-prestore.prerananawar1.repl.co/categories"
+        );
+        console.log({ response });
+        const data = response.data.categories;
+        dispatch({ type: "ADD_CATEGORIES", payload: data });
+      } catch (error) {
+        dispatch({ type: "STATUS", payload: "Sorry, try again later.." });
+      } finally {
+        dispatch({ type: "STATUS", payload: "" });
+      }
+    })();
+  }, []);
+
   const [
     {
       data,
       loading,
       sortBy,
       productDetail,
+      categories,
       showFastDelivery,
       showInventoryAll,
       priceRange,
@@ -50,6 +71,7 @@ export const DataProvider = ({ children }) => {
     dispatch,
   ] = useReducer(dataReducer, {
     data: [],
+    categories: [],
     loading: "",
     showInventoryAll: true,
     productDetail: {},
@@ -81,6 +103,7 @@ export const DataProvider = ({ children }) => {
         sortBy,
         rangedData,
         ratings,
+        categories,
         productDetail,
         dispatch,
         priceRange,

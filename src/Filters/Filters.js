@@ -1,12 +1,12 @@
 import { useData } from "../Products";
 import { useState } from "react";
 import "./Filters.css";
-import { categories } from "../api/database";
 export const Filters = () => {
   const {
     sortBy,
     showInventoryAll,
     showFastDeliveryOnly,
+    categories,
     priceRange,
     dispatch,
     level,
@@ -96,20 +96,20 @@ export const Filters = () => {
         Category:
         {categories.map((item) => {
           return (
-            <div key={item}>
+            <div key={item._id}>
               <label>
                 <input
                   type='radio'
                   name='sort-category'
-                  checked={item === category ? true : false}
+                  checked={item.name === category}
                   onChange={() =>
                     dispatch({
                       type: "CATEGORY",
-                      payload: item,
+                      payload: item.name,
                     })
                   }
                 />
-                {item}
+                {item.name}
               </label>
             </div>
           );

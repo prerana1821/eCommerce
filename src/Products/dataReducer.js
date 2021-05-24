@@ -2,6 +2,8 @@ export const dataReducer = (state, action) => {
   switch (action.type) {
     case "ADD_DATA":
       return { ...state, data: action.payload };
+    case "ADD_CATEGORIES":
+      return { ...state, categories: action.payload };
     case "STATUS":
       return {
         ...state,
