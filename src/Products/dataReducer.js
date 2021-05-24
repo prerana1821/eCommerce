@@ -21,6 +21,8 @@ export const dataReducer = (state, action) => {
       };
     case "SEARCH":
       return { ...state, searchString: action.payload };
+    case "PRODUCT_DETAIL":
+      return { ...state, productDetail: action.payload };
     case "TOGGLE_INVENTORY":
       return { ...state, showInventoryAll: !state.showInventoryAll };
     case "TOGGLE_DELIVERY":

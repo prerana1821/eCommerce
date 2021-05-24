@@ -17,6 +17,7 @@ import {
 } from "./Auth";
 import { findUserById } from "./utils";
 import { Address, Checkout } from "./Checkout";
+import { ProductDetail } from "./ProductDetail/ProductDetail";
 
 function App() {
   const { userState } = useUser();
@@ -30,14 +31,15 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />}></Route>
           <Route path='/products' element={<Products />}></Route>
+          <Route path='/products/:id' element={<ProductDetail />}></Route>
           <PrivateRoute path='/cart' element={<Cart />}></PrivateRoute>
           <PrivateRoute path='/wishlist' element={<WishList />}></PrivateRoute>
           <PrivateRoute path='/address' element={<Address />}></PrivateRoute>
           <PrivateRoute path='/checkout' element={<Checkout />}></PrivateRoute>
+          <PrivateRoute path='/account' element={<Account />}></PrivateRoute>
           <Route path='/login' element={<Login />}></Route>
           <Route path='/signup' element={<SignUp />}></Route>
           <Route path='/forgot-password' element={<ForgotPassword />}></Route>
-          <PrivateRoute path='/account' element={<Account />}></PrivateRoute>
         </Routes>
         {currentUser?.loading && <Toast />}
         <a href='#top'>

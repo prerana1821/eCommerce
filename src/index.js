@@ -5,8 +5,6 @@ import { UserProvider } from "./User";
 import { DataProvider } from "./Products";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./Auth";
-// import setupMockServer from "./api/mock.server";
-// setupMockServer();
 
 ReactDOM.render(
   <React.StrictMode>

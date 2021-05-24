@@ -23,7 +23,6 @@ export const Products = () => {
   console.log(userState);
   const currentUser = findUserById(userState, user._id);
 
-  // console.log({ currentUser });
   const [sideNav, showSideNav] = useState(false);
 
   const handleClick = () => {
@@ -90,57 +89,62 @@ export const Products = () => {
               <div className='bdge-sm pink'>
                 {product.inStock ? "Stock" : "Sold"}
               </div>
-              <div className='card-info'>
-                <p>{product.name}</p>
-                <div className='card-info-details'>
+              <Link to={`/products/${product._id}`}>
+                <div className='card-info'>
+                  <p>{product.name}</p>
+
+                  <div className='card-info-details'>
+                    <h5>
+                      {product.material} - {product.brand}
+                    </h5>
+                    <div className='badge-ratings'>
+                      <h5>{product.ratings}</h5>
+                      <i className='fa fa-star'></i>
+                    </div>
+                  </div>
                   <h5>
-                    {product.material} - {product.brand}
+                    {product.level} :
+                    {product.fastDelivery ? " Fast Delivery" : " 3 days +"}
                   </h5>
-                  <div className='badge-ratings'>
-                    <h5>{product.ratings}</h5>
-                    <i className='fa fa-star'></i>
+                  <h5>Category: {product.category}</h5>
+                  <div className='card-details'>
+                    <h5>Price: {product.price}</h5>
+                    <button
+                      onClick={
+                        login
+                          ? (e) => {
+                              e.preventDefault();
+                              return currentUser?.wishList.reduce(
+                                (acc, value) => {
+                                  return value._id === product._id
+                                    ? deleteFromWishListApi(
+                                        currentUser,
+                                        product,
+                                        userDispatch
+                                      )
+                                    : acc;
+                                },
+                                addToWishListApi(
+                                  currentUser,
+                                  product,
+                                  userDispatch
+                                )
+                              );
+                            }
+                          : (e) => {
+                              e.preventDefault();
+                              loginAlert(
+                                "Hey, you need to login in order to add items to wishlist"
+                              );
+                            }
+                      }
+                      className='floating-act secondary flt-tri'
+                    >
+                      <i className={`${isProdInWishList(product)}`}></i>
+                    </button>
                   </div>
                 </div>
-                <h5>
-                  {product.level} :
-                  {product.fastDelivery ? " Fast Delivery" : " 3 days +"}
-                </h5>
-                <h5>Category: {product.category}</h5>
-                <div className='card-details'>
-                  <h5>Price: {product.price}</h5>
-                  <button
-                    onClick={
-                      login
-                        ? () => {
-                            return currentUser?.wishList.reduce(
-                              (acc, value) => {
-                                return value._id === product._id
-                                  ? deleteFromWishListApi(
-                                      currentUser,
-                                      product,
-                                      userDispatch
-                                    )
-                                  : acc;
-                              },
-                              addToWishListApi(
-                                currentUser,
-                                product,
-                                userDispatch
-                              )
-                            );
-                          }
-                        : () =>
-                            loginAlert(
-                              "Hey, you need to login in order to add items to wishlist"
-                            )
-                    }
-                    className='floating-act secondary flt-tri'
-                  >
-                    <i className={`${isProdInWishList(product)}`}></i>
-                  </button>
-                </div>
-              </div>
-
+              </Link>
               <div>
                 {currentUser && found(currentUser.cart, product._id) ? (
                   <Link to='/cart'>

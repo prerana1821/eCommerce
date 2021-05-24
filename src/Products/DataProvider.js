@@ -38,6 +38,7 @@ export const DataProvider = ({ children }) => {
       data,
       loading,
       sortBy,
+      productDetail,
       showFastDelivery,
       showInventoryAll,
       priceRange,
@@ -51,6 +52,7 @@ export const DataProvider = ({ children }) => {
     data: [],
     loading: "",
     showInventoryAll: true,
+    productDetail: {},
     showFastDelivery: false,
     sortBy: null,
     priceRange: 1000,
@@ -59,6 +61,8 @@ export const DataProvider = ({ children }) => {
     searchString: "",
     category: "",
   });
+
+  console.log(data);
 
   const searchedData = getSearchedData(data, searchString);
   const categoryData = getSelectedCategoryData(searchedData, category);
@@ -77,6 +81,7 @@ export const DataProvider = ({ children }) => {
         sortBy,
         rangedData,
         ratings,
+        productDetail,
         dispatch,
         priceRange,
         loading,
