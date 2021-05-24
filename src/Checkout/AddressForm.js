@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useReducer, useState } from "react";
-import { useAuth } from "../Auth";
 import { useUser } from "../User";
 import "./Address.css";
 
@@ -17,7 +16,6 @@ const defaultFormState = {
 
 export const AddressForm = ({ addNewAddress, setAddNewAddress, editAddID }) => {
   const { userState, userDispatch } = useUser();
-  const { user } = useAuth();
 
   const states = [
     "Andhra Pradesh",
@@ -32,17 +30,10 @@ export const AddressForm = ({ addNewAddress, setAddNewAddress, editAddID }) => {
     "Sikkim",
   ];
 
-  console.log({ editAddID });
   let editAddress = defaultFormState;
-
   if (editAddID) {
     editAddress = userState.addresses.find((item) => item._id === editAddID);
   }
-
-  console.log(defaultFormState);
-  console.log(editAddress);
-
-  console.log(editAddress);
 
   const countries = ["India"];
 
@@ -94,8 +85,6 @@ export const AddressForm = ({ addNewAddress, setAddNewAddress, editAddID }) => {
 
     if (/\+?\d[\d -]{8,12}\d/.test(formState.phoneNumber)) {
       if (/^[1-9][0-9]{5}$/.test(formState.zipCode)) {
-        console.log({ formState });
-        console.log({ user });
         try {
           userDispatch({ type: "STATUS", payload: "Adding Address...." });
           const response = await axios.post(
@@ -132,8 +121,6 @@ export const AddressForm = ({ addNewAddress, setAddNewAddress, editAddID }) => {
     e.preventDefault();
     if (/\+?\d[\d -]{8,12}\d/.test(formState.phoneNumber)) {
       if (/^[1-9][0-9]{5}$/.test(formState.zipCode)) {
-        console.log({ formState });
-        console.log({ user });
         try {
           userDispatch({
             type: "STATUS",
@@ -150,8 +137,6 @@ export const AddressForm = ({ addNewAddress, setAddNewAddress, editAddID }) => {
               type: "EDIT_ADDRESS",
               payload: { id: editAddID, address: response.data.address },
             });
-            console.log("Hello");
-            console.log({ addNewAddress });
             setMsg("");
             setAddNewAddress(false);
             formDispatch({

@@ -47,7 +47,6 @@ export const Filters = () => {
               type='radio'
               name='sort'
               onChange={() => {
-                console.log(sortBy);
                 return dispatch({ type: "SORT", payload: "PRICE_LOW_TO_HIGH" });
               }}
               checked={sortBy && sortBy === "PRICE_LOW_TO_HIGH"}

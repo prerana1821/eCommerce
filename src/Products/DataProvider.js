@@ -21,7 +21,6 @@ export const DataProvider = ({ children }) => {
         const response = await axios.get(
           "https://api-prestore.prerananawar1.repl.co/products"
         );
-        console.log({ response });
         const data = response.data.products;
         dispatch({ type: "ADD_DATA", payload: data });
       } catch (error) {
@@ -42,7 +41,6 @@ export const DataProvider = ({ children }) => {
         const response = await axios.get(
           "https://api-prestore.prerananawar1.repl.co/categories"
         );
-        console.log({ response });
         const data = response.data.categories;
         dispatch({ type: "ADD_CATEGORIES", payload: data });
       } catch (error) {
@@ -83,8 +81,6 @@ export const DataProvider = ({ children }) => {
     searchString: "",
     category: "",
   });
-
-  console.log(data);
 
   const searchedData = getSearchedData(data, searchString);
   const categoryData = getSelectedCategoryData(searchedData, category);

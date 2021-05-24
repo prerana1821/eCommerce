@@ -39,8 +39,6 @@ export const ProductDetail = () => {
     })();
   }, [id]);
 
-  console.log({ productDetail });
-
   return (
     <div className='product-details'>
       <p>{loading}</p>

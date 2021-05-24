@@ -20,7 +20,6 @@ export const ShowAddresses = () => {
       const response = await axios.delete(
         `https://api-prestore.prerananawar1.repl.co/user-details/address/${userState._id}/${id}`
       );
-      console.log({ response });
       if (response.status === 200) {
         userDispatch({
           type: "DELETE_ADDRESS",
