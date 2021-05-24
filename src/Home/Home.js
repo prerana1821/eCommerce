@@ -6,6 +6,7 @@ import "./Home.css";
 export const Home = () => {
   const [img, setImg] = useState("img1");
   const { dispatch } = useData();
+
   return (
     <div className='home'>
       <div className='banner'>

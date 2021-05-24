@@ -7,23 +7,13 @@ import { useUser } from "./User";
 import { Home } from "./Home";
 import { Route, Routes } from "react-router";
 import { Toast } from "./Toast";
-import {
-  PrivateRoute,
-  Login,
-  SignUp,
-  ForgotPassword,
-  Account,
-  // useAuth,
-} from "./Auth";
-// import { findUserById } from "./utils";
+import { PrivateRoute, Login, SignUp, ForgotPassword, Account } from "./Auth";
 import { Address, Checkout } from "./Checkout";
 import { ProductDetail } from "./ProductDetail/ProductDetail";
 import { BottomToTop } from "./BottomToTop";
 
 function App() {
   const { userState } = useUser();
-  // const { user } = useAuth();
-  // const currentUser = findUserById(userState, user._id);
 
   return (
     <div className='App' id='top'>

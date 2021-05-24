@@ -4,16 +4,11 @@ import {
   incrementQuantityFromCartApi,
   decrementQuantityFromCartApi,
 } from "../api-calls";
-
 import "./Cart.css";
 import { Link } from "react-router-dom";
-import { findUserById } from "../utils";
-import { useAuth } from "../Auth";
 
 export const Cart = () => {
   const { userState, userDispatch } = useUser();
-  const { user } = useAuth();
-  // const currentUser = findUserById(userState, user._id);
 
   function totalPrice() {
     return userState?.cart.reduce((acc, value) => {

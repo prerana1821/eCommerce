@@ -7,13 +7,9 @@ import {
 import "./WishList.css";
 import { found } from "../utils";
 import { Link } from "react-router-dom";
-// import { findUserById } from "../utils";
-// import { useAuth } from "../Auth";
 
 export const WishList = () => {
   const { userState, userDispatch } = useUser();
-  // const { user } = useAuth();
-  // const currentUser = findUserById(userState, user._id);
 
   return (
     <div className='products products-wishlist'>

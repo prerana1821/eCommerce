@@ -12,16 +12,12 @@ import "./Products.css";
 import { useAuth } from "../Auth";
 import { LoginAlertModal } from "../LoginAlert";
 import { useState } from "react";
-// import { findUserById } from "../utils";
 
 export const Products = () => {
   const { loading, rangedData } = useData();
   const { userState, userDispatch } = useUser();
-  const { user, login } = useAuth();
+  const { login } = useAuth();
   const [showModal, setShowModal] = useState(false);
-  console.log(user);
-  console.log(userState);
-  // const currentUser = findUserById(userState, user._id);
 
   const [sideNav, showSideNav] = useState(false);
 

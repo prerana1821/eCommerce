@@ -4,13 +4,11 @@ import { useUser } from "../User";
 import { useState } from "react";
 import Logo from "../images/preCodes.png";
 import "./Navbar.css";
-import { findUserById } from "../utils";
 
 export const Navbar = () => {
-  const { user, login } = useAuth();
+  const { login } = useAuth();
   const { userState } = useUser();
   const [toggle, setToggle] = useState(true);
-  // const currentUser = findUserById(userState, user._id);
 
   const totalItems = () => {
     return userState?.cart.reduce((acc, value) => {

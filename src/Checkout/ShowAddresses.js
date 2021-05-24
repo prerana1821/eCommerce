@@ -1,23 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { useUser } from "../User";
-import { useAuth } from "../Auth";
-import { findUserById } from "../utils";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { AddressForm } from "./AddressForm";
 
 export const ShowAddresses = () => {
   const { userState, userDispatch } = useUser();
-  const { user } = useAuth();
-  // const currentUser = findUserById(userState, user._id);
   const [editAdd, setEditAdd] = useState({ toggle: false, editAddID: "" });
-
-  console.log("ADDRRESSS", { userState });
-
   const [chooseAddress, setChooseAddress] = useState(null);
-
-  console.log({ chooseAddress });
 
   const editAddress = (id) => {
     setEditAdd({ toggle: true, editAddID: id });

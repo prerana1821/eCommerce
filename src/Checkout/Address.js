@@ -1,19 +1,10 @@
-import React from "react";
 import { useState } from "react";
 import { AddressForm } from "./AddressForm";
 import "./Address.css";
-import { useUser } from "../User";
-import { useAuth } from "../Auth";
-import { findUserById } from "../utils";
 import { ShowAddresses } from "./ShowAddresses";
 
 export const Address = () => {
   const [addNewAddress, setAddNewAddress] = useState(false);
-  const { userState } = useUser();
-  const { user } = useAuth();
-  // const currentUser = findUserById(userState, user._id);
-
-  console.log("ADDRRESSS", { userState });
 
   return (
     <div className='address-management'>

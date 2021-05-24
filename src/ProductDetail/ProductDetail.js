@@ -13,7 +13,6 @@ import {
 import { useAuth } from "../Auth";
 import { LoginAlertModal } from "../LoginAlert";
 import { useState } from "react";
-// import { findUserById } from "../utils";
 import "./ProductDetail.css";
 
 export const ProductDetail = () => {
@@ -22,9 +21,6 @@ export const ProductDetail = () => {
   const { userState, userDispatch } = useUser();
   const { user, login } = useAuth();
   const [showModal, setShowModal] = useState(false);
-  console.log(user);
-  console.log(userState);
-  // const currentUser = findUserById(userState, user._id);
 
   const loginAlert = (msg) => {
     return setShowModal(true);

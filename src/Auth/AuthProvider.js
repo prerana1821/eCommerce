@@ -23,20 +23,6 @@ export const AuthProvider = ({ children }) => {
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "https://api-prestore.prerananawar1.repl.co/auth"
-  //       );
-  //       console.log("auth response", { response });
-  //       authDispatch({ type: "LOAD_USERS", payload: response.data.auth });
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   })();
-  // }, []);
-
   useEffect(() => {
     const loginFromApi = JSON.parse(localStorage?.getItem("login"));
     loginFromApi?.login && setLogin(true);
@@ -58,7 +44,6 @@ export const AuthProvider = ({ children }) => {
         }
       );
       if (response.data.success) {
-        // const userFromApi = findUserById(authState, response.data.user._id);
         setUser(response.data.user);
         localStorage?.setItem("login", JSON.stringify({ login: true }));
         const { _id, username, password, email } = response.data.user;
@@ -67,8 +52,8 @@ export const AuthProvider = ({ children }) => {
           JSON.stringify({ _id, username, password, email })
         );
         setLogin(true);
+        setStatus("Hurray! Login Successful");
       }
-      setStatus("Hurray! Login Successful");
       return response.data;
     } catch (error) {
       if (!error.success) {
@@ -92,7 +77,6 @@ export const AuthProvider = ({ children }) => {
       localStorage?.setItem("login", JSON.stringify({ login: true }));
       if (response.data.success) {
         setLogin(true);
-        // authDispatch({ type: "ADD_NEW_USER", payload: response.data.user });
         setUser(response.data.user);
         setStatus("Hurray! Signup Successful");
       }
@@ -139,27 +123,12 @@ export const AuthProvider = ({ children }) => {
     navigate("/");
   };
 
-  // const authReducer = (authState, action) => {
-  //   switch (action.type) {
-  //     case "LOAD_USERS":
-  //       return [...authState, ...action.payload];
-  //     case "ADD_NEW_USER":
-  //       return authState.concat(action.payload);
-  //     default:
-  //       console.log("Something went wrong");
-  //       break;
-  //   }
-  // };
-
-  // const [authState, authDispatch] = useReducer(authReducer, []);
-
   return (
     <AuthContext.Provider
       value={{
         status,
         login,
         user,
-        // authState,
         loginUserWithCredentials,
         signUpUserWithCredentials,
         forgotPasswordByCredentials,

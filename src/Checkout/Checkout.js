@@ -1,13 +1,9 @@
 import React from "react";
 import { useUser } from "../User";
-import { useAuth } from "../Auth";
-import { findUserById } from "../utils";
 import { useLocation } from "react-router";
 
 export const Checkout = () => {
   const { userState } = useUser();
-  const { user } = useAuth();
-  // const currentUser = findUserById(userState, user._id);
   const { state } = useLocation();
 
   console.log({ state });

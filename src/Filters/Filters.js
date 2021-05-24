@@ -25,7 +25,6 @@ export const Filters = () => {
           type='text'
           onChange={(e) => {
             return setSearch(e.target.value);
-            // return dispatch({ type: "SEARCH", payload: e.target.value });
           }}
           value={searchString ? searchString : search}
           className='search-input-txt'

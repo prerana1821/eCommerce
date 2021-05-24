@@ -1,9 +1,7 @@
 import axios from "axios";
-import React from "react";
 import { useReducer, useState } from "react";
 import { useAuth } from "../Auth";
 import { useUser } from "../User";
-import { findUserById } from "../utils";
 import "./Address.css";
 
 const defaultFormState = {
@@ -20,7 +18,6 @@ const defaultFormState = {
 export const AddressForm = ({ addNewAddress, setAddNewAddress, editAddID }) => {
   const { userState, userDispatch } = useUser();
   const { user } = useAuth();
-  // const currentUser = findUserById(userState, user._id);
 
   const states = [
     "Andhra Pradesh",
