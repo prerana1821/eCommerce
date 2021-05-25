@@ -7,7 +7,7 @@ export const dataReducer = (state, action) => {
     case "STATUS":
       return {
         ...state,
-        loading: action.payload,
+        status: action.payload,
       };
     case "CLEAR_FILTERS":
       return {

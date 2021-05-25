@@ -79,7 +79,9 @@ export const Login = () => {
         </button>
       </div>
       <h3>
-        {status && <img src={Loading} alt='loading' className='loading' />}
+        {status.loading && (
+          <img src={Loading} alt='loading' className='loading' />
+        )}
       </h3>
       <button className='btn btn-main' onClick={loginHandler}>
         Login

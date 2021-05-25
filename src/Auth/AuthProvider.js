@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     email: "",
     password: "",
   });
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState({ loading: "", success: "", error: "" });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
   const loginUserWithCredentials = async (username, password) => {
     try {
-      setStatus("Checking..");
+      setStatus({ loading: "Checking.." });
       const response = await axios.post(
         "https://api-prestore.prerananawar1.repl.co/auth/login",
         {
@@ -45,12 +45,14 @@ export const AuthProvider = ({ children }) => {
           JSON.stringify({ _id, username, password, email })
         );
         setLogin(true);
-        setStatus("Hurray! Login Successful");
+        setStatus({
+          success: `Login Successful. Welcome ${response.data.user.username}!`,
+        });
       }
       return response.data;
     } catch (error) {
       if (!error.success) {
-        setStatus("Ohh no login Unsuccessful");
+        setStatus({ error: "Ohh no login Unsuccessful" });
       }
       return error;
     }
@@ -58,7 +60,7 @@ export const AuthProvider = ({ children }) => {
 
   const signUpUserWithCredentials = async (username, password, email) => {
     try {
-      setStatus("Adding...");
+      setStatus({ loading: "Adding user credentials..." });
       const response = await axios.post(
         "https://api-prestore.prerananawar1.repl.co/auth/signup",
         {
@@ -71,12 +73,14 @@ export const AuthProvider = ({ children }) => {
       if (response.data.success) {
         setLogin(true);
         setUser(response.data.user);
-        setStatus("Hurray! Signup Successful");
+        setStatus({
+          success: `Signup Successful. Welcome ${response.data.user.username}!`,
+        });
       }
       return response.data;
     } catch (error) {
       if (!error.success) {
-        setStatus("Ohh no signup Unsuccessful");
+        setStatus({ error: "Ohh no signup Unsuccessful" });
       }
       return error;
     }
@@ -84,7 +88,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setLogin(false);
-    setStatus("");
+    setStatus({ loading: "", success: "", error: "" });
     setUser({
       id: "",
       username: "",

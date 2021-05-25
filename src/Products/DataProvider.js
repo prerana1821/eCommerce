@@ -17,16 +17,23 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     (async () => {
       try {
-        dispatch({ type: "STATUS", payload: "Loading data from server..." });
+        dispatch({
+          type: "STATUS",
+          payload: { loading: "Loading data from server..." },
+        });
         const response = await axios.get(
           "https://api-prestore.prerananawar1.repl.co/products"
         );
         const data = response.data.products;
         dispatch({ type: "ADD_DATA", payload: data });
       } catch (error) {
-        dispatch({ type: "STATUS", payload: "Sorry, try again later.." });
+        console.log(error.response);
+        dispatch({
+          type: "STATUS",
+          payload: { error: "Sorry, try again later.." },
+        });
       } finally {
-        dispatch({ type: "STATUS", payload: "" });
+        dispatch({ type: "STATUS", payload: { loading: "" } });
       }
     })();
   }, []);
@@ -36,7 +43,7 @@ export const DataProvider = ({ children }) => {
       try {
         dispatch({
           type: "STATUS",
-          payload: "Loading categories from server...",
+          payload: { loading: "Loading categories from server..." },
         });
         const response = await axios.get(
           "https://api-prestore.prerananawar1.repl.co/categories"
@@ -44,9 +51,12 @@ export const DataProvider = ({ children }) => {
         const data = response.data.categories;
         dispatch({ type: "ADD_CATEGORIES", payload: data });
       } catch (error) {
-        dispatch({ type: "STATUS", payload: "Sorry, try again later.." });
+        dispatch({
+          type: "STATUS",
+          payload: { error: "Sorry, try again later.." },
+        });
       } finally {
-        dispatch({ type: "STATUS", payload: "" });
+        dispatch({ type: "STATUS", payload: { loading: "" } });
       }
     })();
   }, []);
@@ -54,7 +64,7 @@ export const DataProvider = ({ children }) => {
   const [
     {
       data,
-      loading,
+      status,
       sortBy,
       productDetail,
       categories,
@@ -70,7 +80,7 @@ export const DataProvider = ({ children }) => {
   ] = useReducer(dataReducer, {
     data: [],
     categories: [],
-    loading: "",
+    status: { loading: "", success: "", error: "" },
     showInventoryAll: true,
     productDetail: {},
     showFastDelivery: false,
@@ -103,7 +113,7 @@ export const DataProvider = ({ children }) => {
         productDetail,
         dispatch,
         priceRange,
-        loading,
+        status,
         searchString,
         category,
       }}

@@ -27,7 +27,7 @@ export const Filters = () => {
             return setSearch(e.target.value);
           }}
           value={searchString ? searchString : search}
-          className='search-input-txt'
+          className='search-input-txt input-txt'
           required
         />
         <span className='flt-label flt-label-search'>Search Product</span>

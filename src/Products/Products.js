@@ -15,7 +15,7 @@ import Loading from "./../images/loading.svg";
 import { useState } from "react";
 
 export const Products = () => {
-  const { loading, rangedData } = useData();
+  const { status, rangedData } = useData();
   const { userState, userDispatch } = useUser();
   const [showModal, setShowModal] = useState(false);
   const [sideNav, showSideNav] = useState(false);
@@ -48,7 +48,9 @@ export const Products = () => {
       </div>
       <div className='product-listing'>
         <h2 className='center-txt ctn'>
-          {loading && <img src={Loading} alt='loading' className='loading' />}
+          {status.loading && (
+            <img src={Loading} alt='loading' className='loading' />
+          )}
         </h2>
         {rangedData.map((product) => {
           return (

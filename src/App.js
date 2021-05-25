@@ -1,19 +1,21 @@
 import "./App.css";
 import { Navbar } from "./Navbar";
 import { WishList } from "./WishList";
-import { Products } from "./Products";
+import { Products, useData } from "./Products";
 import { Cart } from "./Cart";
 import { useUser } from "./User";
 import { Home } from "./Home";
 import { Route, Routes } from "react-router";
 import { Toast } from "./Toast";
-import { PrivateRoute, Login, SignUp, Account } from "./Auth";
+import { PrivateRoute, Login, SignUp, Account, useAuth } from "./Auth";
 import { Address, Checkout } from "./Checkout";
 import { ProductDetail } from "./ProductDetail/ProductDetail";
 import { BottomToTop } from "./BottomToTop";
 
 function App() {
   const { userState } = useUser();
+  const { status } = useAuth();
+  const { status: productStatus } = useData();
 
   return (
     <div className='App' id='top'>
@@ -31,7 +33,10 @@ function App() {
           <Route path='/login' element={<Login />}></Route>
           <Route path='/signup' element={<SignUp />}></Route>
         </Routes>
-        {userState?.loading && <Toast />}
+        {(userState?.loading ||
+          status.error ||
+          status.success ||
+          productStatus.error) && <Toast />}
         <BottomToTop />
       </div>
     </div>

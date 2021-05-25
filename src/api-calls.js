@@ -130,6 +130,7 @@ export const deleteFromWishListApi = async (currentUser, product, dispatch) => {
       dispatch({ type: "REMOVE_FROM_WISHLIST", payload: product });
     }
   } catch (error) {
+    console.log(error.response);
     dispatch({
       type: "STATUS",
       payload: "Couldn't remove item to Wishlist..",
