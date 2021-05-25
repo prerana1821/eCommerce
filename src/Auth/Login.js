@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router";
 import { useAuth } from "./AuthProvider";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Loading from "./../images/loading.svg";
 import "./Login.css";
 
 export const Login = () => {
@@ -77,7 +78,9 @@ export const Login = () => {
           )}
         </button>
       </div>
-      <h3>{status}</h3>
+      <h3>
+        {status && <img src={Loading} alt='loading' className='loading' />}
+      </h3>
       <button className='btn btn-main' onClick={loginHandler}>
         Login
       </button>

@@ -1,0 +1,1 @@
+export { EmptyProductsCard } from "./EmptyProductsCard";

@@ -3,6 +3,7 @@ import { useAuth } from "./AuthProvider";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "../User";
+import Loading from "./../images/loading.svg";
 
 export const SignUp = () => {
   const { status, signUpUserWithCredentials } = useAuth();
@@ -167,7 +168,9 @@ export const SignUp = () => {
         Sign Up
       </button>
 
-      <h3>{status}</h3>
+      <h3>
+        {status && <img src={Loading} alt='loading' className='loading' />}
+      </h3>
     </div>
   );
 };

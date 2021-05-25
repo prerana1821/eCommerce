@@ -11,6 +11,7 @@ import {
 import "./Products.css";
 import { useAuth } from "../Auth";
 import { LoginAlertModal } from "../LoginAlert";
+import Loading from "./../images/loading.svg";
 import { useState } from "react";
 
 export const Products = () => {
@@ -46,7 +47,9 @@ export const Products = () => {
         <Filters />
       </div>
       <div className='product-listing'>
-        <h2 className='center-txt ctn'>{loading}</h2>
+        <h2 className='center-txt ctn'>
+          {loading && <img src={Loading} alt='loading' className='loading' />}
+        </h2>
         {rangedData.map((product) => {
           return (
             <div className='card' key={product._id}>

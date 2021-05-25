@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useData } from "../Products";
 import { useUser } from "../User";
@@ -12,7 +12,7 @@ import {
 } from "../api-calls";
 import { useAuth } from "../Auth";
 import { LoginAlertModal } from "../LoginAlert";
-import { useState } from "react";
+import Loading from "./../images/loading.svg";
 import "./ProductDetail.css";
 
 export const ProductDetail = () => {
@@ -41,7 +41,9 @@ export const ProductDetail = () => {
 
   return (
     <div className='product-details'>
-      <p>{loading}</p>
+      <p>
+        {loading && <img src={Loading} alt='loading' className='loading' />}
+      </p>
       <div className='product-detail'>
         <img
           className='product-detail-img'
