@@ -2,6 +2,8 @@ import axios from "axios";
 import { useReducer, useState } from "react";
 import { useUser } from "../User";
 import "./Address.css";
+import { addressTypes, countries, states } from "./formDB";
+import { formReducer } from "./formReducer";
 
 const defaultFormState = {
   name: "",
@@ -14,58 +16,13 @@ const defaultFormState = {
   addressType: "Home",
 };
 
-export const AddressForm = ({ addNewAddress, setAddNewAddress, editAddID }) => {
+export const AddressForm = ({ setAddNewAddress, editAddID }) => {
   const { userState, userDispatch } = useUser();
-
-  const states = [
-    "Andhra Pradesh",
-    "Assam",
-    "Goa",
-    "Kerala",
-    "Maharashtra",
-    "Bihar",
-    "Gujarat",
-    "Haryana",
-    "Manipur",
-    "Sikkim",
-  ];
-
+  const [msg, setMsg] = useState("");
   let editAddress = defaultFormState;
   if (editAddID) {
     editAddress = userState.addresses.find((item) => item._id === editAddID);
   }
-
-  const countries = ["India"];
-
-  const addressTypes = ["Home", "Office"];
-
-  const formReducer = (state, { type, payload }) => {
-    switch (type) {
-      case "SET_NAME":
-        return { ...state, name: payload };
-      case "SET_PHONENO":
-        return { ...state, phoneNumber: payload };
-      case "SET_ZIPCODE":
-        return { ...state, zipCode: payload };
-      case "SET_CITY":
-        return { ...state, city: payload };
-      case "SET_ADDRESS":
-        return { ...state, address: payload };
-      case "SET_STATE":
-        return { ...state, state: payload };
-      case "SET_COUNTRY":
-        return { ...state, country: payload };
-      case "SET_ADDRESSTYPE":
-        return { ...state, addressType: payload };
-      case "RESET_FORM":
-        return payload;
-      default:
-        break;
-    }
-    return state;
-  };
-
-  const [msg, setMsg] = useState("");
 
   const initialFormState = {
     name: editAddress.name,
