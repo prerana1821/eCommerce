@@ -6,7 +6,7 @@ import {
 } from "../api-calls";
 import "./WishList.css";
 import { found } from "../utils";
-import { Link } from "react-router-dom";
+import { EmptyProductsCard } from "./../EmptyProductsCard";
 
 export const WishList = () => {
   const { userState, userDispatch } = useUser();
@@ -14,14 +14,10 @@ export const WishList = () => {
   return (
     <div className='products products-wishlist'>
       {userState?.wishList.length === 0 && (
-        <div className='card cart-empty-card'>
-          <h3>Your Wish List is Empty</h3>
-          <hr className='hr' />
-          <p className='mg-1'>There are no items in your wishlist.</p>
-          <Link to='/products'>
-            <button className='btn primary btn-shop'>Shop Now</button>
-          </Link>
-        </div>
+        <EmptyProductsCard
+          title='Your Wish List is Empty'
+          body='There are no items in your wishlist.'
+        />
       )}
       {userState?.wishList.map((product) => {
         return (

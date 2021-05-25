@@ -5,8 +5,8 @@ import {
   decrementQuantityFromCartApi,
 } from "../api-calls";
 import "./Cart.css";
-import { Link } from "react-router-dom";
 import { CheckoutCard } from "./CheckoutCard";
+import { EmptyProductsCard } from "./../EmptyProductsCard";
 
 export const Cart = () => {
   const { userState, userDispatch } = useUser();
@@ -14,14 +14,10 @@ export const Cart = () => {
   return (
     <div className='products products-cart'>
       {userState?.cart.length === 0 ? (
-        <div className='card cart-empty-card'>
-          <h3>Your Cart is Empty</h3>
-          <hr className='hr' />
-          <p className='mg-1'>There are no items in your cart.</p>
-          <Link to='/products'>
-            <button className='btn primary btn-shop'>Shop Now</button>
-          </Link>
-        </div>
+        <EmptyProductsCard
+          title='Your Cart is Empty'
+          body='There are no items in your cart.'
+        />
       ) : (
         <div className='products products-cart'>
           <div>
@@ -31,7 +27,7 @@ export const Cart = () => {
                   <img
                     className='card-horizontal-img'
                     src={product.image}
-                    alt=''
+                    alt={product.name}
                   />
                   <button
                     onClick={() =>
