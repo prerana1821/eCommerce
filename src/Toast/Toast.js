@@ -15,12 +15,6 @@ export const Toast = ({
   const { dispatch } = useData();
   const [toastVisibility, setToastVisibility] = useState(true);
 
-  // console.log({ productStatus });
-  // console.log({ status });
-  // console.log(userState.loading);
-  console.log({ userStateLoading });
-  console.log({ toastVisibility });
-
   useEffect(() => {
     const toastVisible = setTimeout(() => {
       setToastVisibility(false);
