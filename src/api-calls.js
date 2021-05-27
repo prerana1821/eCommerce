@@ -14,9 +14,10 @@ export const addToCartApi = async (currentUser, product, dispatch) => {
     }
   } catch (error) {
     dispatch({ type: "STATUS", payload: "Couldn't add item to cart.." });
-  } finally {
-    dispatch({ type: "STATUS", payload: "" });
   }
+  // finally {
+  //   dispatch({ type: "STATUS", payload: "" });
+  // }
 };
 
 export const deleteItemFromCartApi = async (currentUser, product, dispatch) => {
@@ -36,9 +37,10 @@ export const deleteItemFromCartApi = async (currentUser, product, dispatch) => {
       type: "STATUS",
       payload: "Couldn't remove item to cart..",
     });
-  } finally {
-    dispatch({ type: "STATUS", payload: "" });
   }
+  // finally {
+  //   dispatch({ type: "STATUS", payload: "" });
+  // }
 };
 
 export const incrementQuantityFromCartApi = async (
@@ -66,9 +68,10 @@ export const incrementQuantityFromCartApi = async (
       type: "STATUS",
       payload: "Couldn't increase quantity in the cart..",
     });
-  } finally {
-    dispatch({ type: "STATUS", payload: "" });
   }
+  // finally {
+  //   dispatch({ type: "STATUS", payload: "" });
+  // }
 };
 
 export const decrementQuantityFromCartApi = async (
@@ -96,9 +99,10 @@ export const decrementQuantityFromCartApi = async (
       type: "STATUS",
       payload: "Couldn't increase quantity in the cart..",
     });
-  } finally {
-    dispatch({ type: "STATUS", payload: "" });
   }
+  // finally {
+  //   dispatch({ type: "STATUS", payload: "" });
+  // }
 };
 
 export const addToWishListApi = async (currentUser, product, dispatch) => {
@@ -115,9 +119,10 @@ export const addToWishListApi = async (currentUser, product, dispatch) => {
     }
   } catch (error) {
     dispatch({ type: "STATUS", payload: "Couldn't add item to Wishlist.." });
-  } finally {
-    dispatch({ type: "STATUS", payload: "" });
   }
+  // finally {
+  //   dispatch({ type: "STATUS", payload: "" });
+  // }
 };
 
 export const deleteFromWishListApi = async (currentUser, product, dispatch) => {
@@ -135,7 +140,8 @@ export const deleteFromWishListApi = async (currentUser, product, dispatch) => {
       type: "STATUS",
       payload: "Couldn't remove item to Wishlist..",
     });
-  } finally {
-    dispatch({ type: "STATUS", payload: "" });
   }
+  // finally {
+  //   dispatch({ type: "STATUS", payload: "" });
+  // }
 };

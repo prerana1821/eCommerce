@@ -36,7 +36,14 @@ function App() {
         {(userState?.loading ||
           status.error ||
           status.success ||
-          productStatus.error) && <Toast />}
+          productStatus.error) && (
+          <Toast
+            userStateLoading={userState?.loading}
+            statusError={status.error}
+            statusSuccess={status.success}
+            productStatusError={productStatus.error}
+          />
+        )}
         <BottomToTop />
       </div>
     </div>

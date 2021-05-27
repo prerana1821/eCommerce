@@ -26,14 +26,16 @@ export const DataProvider = ({ children }) => {
         );
         const data = response.data.products;
         dispatch({ type: "ADD_DATA", payload: data });
+        dispatch({
+          type: "STATUS",
+          payload: { loading: "" },
+        });
       } catch (error) {
         console.log(error.response);
         dispatch({
           type: "STATUS",
           payload: { error: "Sorry, try again later.." },
         });
-      } finally {
-        dispatch({ type: "STATUS", payload: { loading: "" } });
       }
     })();
   }, []);
@@ -50,13 +52,15 @@ export const DataProvider = ({ children }) => {
         );
         const data = response.data.categories;
         dispatch({ type: "ADD_CATEGORIES", payload: data });
+        dispatch({
+          type: "STATUS",
+          payload: { loading: "" },
+        });
       } catch (error) {
         dispatch({
           type: "STATUS",
           payload: { error: "Sorry, try again later.." },
         });
-      } finally {
-        dispatch({ type: "STATUS", payload: { loading: "" } });
       }
     })();
   }, []);
