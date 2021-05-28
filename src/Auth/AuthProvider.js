@@ -56,13 +56,6 @@ export const AuthProvider = ({ children }) => {
       }
       return error;
     }
-    // finally {
-    //   setStatus({
-    //     loading: "",
-    //     success: "",
-    //     error: "",
-    //   });
-    // }
   };
 
   const signUpUserWithCredentials = async (username, password, email) => {
@@ -91,13 +84,6 @@ export const AuthProvider = ({ children }) => {
       }
       return error;
     }
-    // finally {
-    //   setStatus({
-    //     loading: "",
-    //     success: "",
-    //     error: "",
-    //   });
-    // }
   };
 
   const logout = () => {
@@ -120,6 +106,7 @@ export const AuthProvider = ({ children }) => {
         status,
         login,
         user,
+        setStatus,
         loginUserWithCredentials,
         signUpUserWithCredentials,
         logout,
