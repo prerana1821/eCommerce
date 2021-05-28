@@ -1,3 +1,5 @@
+import { defaultFormState } from "./AddressForm";
+
 export const formReducer = (state, { type, payload }) => {
   switch (type) {
     case "SET_NAME":
@@ -17,7 +19,7 @@ export const formReducer = (state, { type, payload }) => {
     case "SET_ADDRESSTYPE":
       return { ...state, addressType: payload };
     case "RESET_FORM":
-      return payload;
+      return defaultFormState;
     default:
       break;
   }

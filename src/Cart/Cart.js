@@ -55,18 +55,20 @@ export const Cart = () => {
                           <i className='fas fa-lg fa-plus'></i>
                         </button>
                         <p>{product.quantity}</p>
-                        <button
-                          onClick={() =>
-                            decrementQuantityFromCartApi(
-                              userState,
-                              product,
-                              userDispatch
-                            )
-                          }
-                          className='floating-act badge-close tertiary'
-                        >
-                          <i className='fas fa-minus'></i>
-                        </button>
+                        {product.quantity > 1 && (
+                          <button
+                            onClick={() =>
+                              decrementQuantityFromCartApi(
+                                userState,
+                                product,
+                                userDispatch
+                              )
+                            }
+                            className='floating-act badge-close tertiary'
+                          >
+                            <i className='fas fa-minus'></i>
+                          </button>
+                        )}
                       </div>
                       <p>Rs. {product.price}</p>
                     </div>

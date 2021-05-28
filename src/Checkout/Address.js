@@ -5,6 +5,8 @@ import { ShowAddresses } from "./ShowAddresses";
 
 export const Address = () => {
   const [addNewAddress, setAddNewAddress] = useState(false);
+  const [editAdd, setEditAdd] = useState({ toggle: false, editAddID: "" });
+  console.log({ addNewAddress });
 
   return (
     <div className='address-management'>
@@ -14,7 +16,10 @@ export const Address = () => {
       {addNewAddress ? (
         <button
           className='btn btn-pad primary'
-          onClick={() => setAddNewAddress(() => !addNewAddress)}
+          onClick={() => {
+            setEditAdd(() => !editAdd.toggle);
+            setAddNewAddress(() => !addNewAddress);
+          }}
         >
           <i class='fas fa-backspace'></i> Go Back
         </button>
@@ -26,13 +31,17 @@ export const Address = () => {
           <i class='fas fa-plus'></i> Add new Address
         </button>
       )}
-      {addNewAddress && (
+      {!editAdd.toggle && addNewAddress && (
         <AddressForm
           addNewAddress={addNewAddress}
           setAddNewAddress={setAddNewAddress}
         ></AddressForm>
       )}
-      <ShowAddresses />
+      <ShowAddresses
+        setAddNewAddress={setAddNewAddress}
+        editAdd={editAdd}
+        setEditAdd={setEditAdd}
+      />
     </div>
   );
 };

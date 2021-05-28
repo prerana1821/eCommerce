@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { AddressForm } from "./AddressForm";
 
-export const ShowAddresses = () => {
+export const ShowAddresses = ({ setAddNewAddress, editAdd, setEditAdd }) => {
   const { userState, userDispatch } = useUser();
-  const [editAdd, setEditAdd] = useState({ toggle: false, editAddID: "" });
+
   const [chooseAddress, setChooseAddress] = useState(null);
 
   const editAddress = (id) => {
@@ -38,7 +38,13 @@ export const ShowAddresses = () => {
 
   return (
     <>
-      {editAdd.toggle && <AddressForm editAddID={editAdd.editAddID} />}
+      {editAdd.toggle && (
+        <AddressForm
+          editAddID={editAdd.editAddID}
+          setAddNewAddress={setAddNewAddress}
+          setEditAdd={setEditAdd}
+        />
+      )}
       <div className='show-addresses'>
         {userState.addresses.map((item) => {
           return (

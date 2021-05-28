@@ -5,7 +5,7 @@ import "./Address.css";
 import { addressTypes, countries, states } from "./formDB";
 import { formReducer } from "./formReducer";
 
-const defaultFormState = {
+export const defaultFormState = {
   name: "",
   phoneNumber: "",
   zipCode: "",
@@ -16,7 +16,7 @@ const defaultFormState = {
   addressType: "Home",
 };
 
-export const AddressForm = ({ setAddNewAddress, editAddID }) => {
+export const AddressForm = ({ setAddNewAddress, editAddID, setEditAdd }) => {
   const { userState, userDispatch } = useUser();
   const [msg, setMsg] = useState("");
   let editAddress = defaultFormState;
@@ -95,6 +95,7 @@ export const AddressForm = ({ setAddNewAddress, editAddID }) => {
               payload: { id: editAddID, address: response.data.address },
             });
             setMsg("");
+            setEditAdd(false);
             setAddNewAddress(false);
             formDispatch({
               type: "RESET_FORM",
@@ -254,7 +255,7 @@ export const AddressForm = ({ setAddNewAddress, editAddID }) => {
           <button
             className='btn  btn-pad secondary'
             onClick={() => {
-              setAddNewAddress(false);
+              // setAddNewAddress(false);
               return formDispatch({
                 type: "RESET_FORM",
                 payload: initialFormState,

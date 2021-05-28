@@ -73,7 +73,7 @@ export const decrementQuantityFromCartApi = async (
   try {
     dispatch({
       type: "STATUS",
-      payload: "Increasing Quantity..",
+      payload: "Decreasing Quantity..",
     });
     const response = await axios.post(
       `https://api-prestore.prerananawar1.repl.co/user-details/cart/${currentUser._id}/${product._id}`,
@@ -88,7 +88,7 @@ export const decrementQuantityFromCartApi = async (
   } catch (error) {
     dispatch({
       type: "STATUS",
-      payload: "Couldn't increase quantity in the cart..",
+      payload: "Couldn't decrease quantity in the cart..",
     });
   }
 };
