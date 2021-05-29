@@ -17,6 +17,8 @@ function App() {
   const { status } = useAuth();
   const { status: productStatus } = useData();
 
+  console.log("5555", status.error);
+
   return (
     <div className='App' id='top'>
       <Navbar />

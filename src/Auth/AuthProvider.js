@@ -52,7 +52,8 @@ export const AuthProvider = ({ children }) => {
       return response.data;
     } catch (error) {
       if (!error.success) {
-        setStatus({ error: "Ohh no login Unsuccessful" });
+        console.log(error.response);
+        setStatus({ error: error.response.data.errorMessage });
       }
       return error;
     }
@@ -80,7 +81,8 @@ export const AuthProvider = ({ children }) => {
       return response.data;
     } catch (error) {
       if (!error.success) {
-        setStatus({ error: "Ohh no signup Unsuccessful" });
+        console.log(error.response);
+        setStatus({ error: error.response.data.errorMessage });
       }
       return error;
     }

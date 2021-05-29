@@ -13,15 +13,23 @@ export const Login = () => {
     username: "",
     password: "",
     showPassword: false,
+    msg: "",
   });
 
   const loginHandler = async () => {
-    const result = await loginUserWithCredentials(
-      loginCredentials.username,
-      loginCredentials.password
-    );
-    if (result.success) {
-      navigate(state?.from ? state.from : "/");
+    if (loginCredentials.username && loginCredentials.password) {
+      const result = await loginUserWithCredentials(
+        loginCredentials.username,
+        loginCredentials.password
+      );
+      if (result.success) {
+        navigate(state?.from ? state.from : "/");
+      }
+    } else {
+      setLoginCredentials({
+        ...loginCredentials,
+        msg: "Username is required & Password is required",
+      });
     }
   };
 
@@ -37,6 +45,7 @@ export const Login = () => {
           onChange={(e) =>
             setLoginCredentials(() => ({
               ...loginCredentials,
+              msg: "",
               username: e.target.value,
             }))
           }
@@ -55,6 +64,7 @@ export const Login = () => {
           onChange={(e) =>
             setLoginCredentials(() => ({
               ...loginCredentials,
+              msg: "",
               password: e.target.value,
             }))
           }
@@ -83,6 +93,7 @@ export const Login = () => {
           <img src={Loading} alt='loading' className='loading' />
         )}
       </h3>
+      <p>{loginCredentials.msg}</p>
       <button className='btn btn-main' onClick={loginHandler}>
         Login
       </button>
