@@ -2,8 +2,8 @@ export const found = (array, id) => {
   return !!array.find((item) => item._id === id);
 };
 
-export const isProdInCart = (item, userState, login) => {
-  return login
+export const isProdInCart = (item, userState, token) => {
+  return token
     ? userState?.cart.reduce((acc, value) => {
         if (item._id === value._id) {
           return "Go to Cart";
@@ -14,8 +14,8 @@ export const isProdInCart = (item, userState, login) => {
     : "Add to Cart";
 };
 
-export const isProdInWishList = (item, userState, login) => {
-  return login
+export const isProdInWishList = (item, userState, token) => {
+  return token
     ? userState?.wishList.reduce((icon, product) => {
         return product._id === item._id ? (icon = "fas fa-lg fa-heart") : icon;
       }, "far fa-lg fa-heart")

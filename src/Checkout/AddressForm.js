@@ -45,7 +45,7 @@ export const AddressForm = ({ setAddNewAddress, editAddID, setEditAdd }) => {
         try {
           userDispatch({ type: "STATUS", payload: "Adding Address...." });
           const response = await axios.post(
-            `https://api-prestore.prerananawar1.repl.co/user-details/address/${userState._id}`,
+            `https://api-prestore.prerananawar1.repl.co/user-details/address`,
             {
               newAddress: { ...formState },
             }
@@ -84,7 +84,7 @@ export const AddressForm = ({ setAddNewAddress, editAddID, setEditAdd }) => {
             payload: "Adding Updated Address....",
           });
           const response = await axios.post(
-            `https://api-prestore.prerananawar1.repl.co/user-details/address/${userState._id}/${editAddID}`,
+            `https://api-prestore.prerananawar1.repl.co/user-details/address/${editAddID}`,
             {
               updateAddress: { ...formState },
             }

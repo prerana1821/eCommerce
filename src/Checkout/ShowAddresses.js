@@ -18,7 +18,7 @@ export const ShowAddresses = ({ setAddNewAddress, editAdd, setEditAdd }) => {
     try {
       userDispatch({ type: "STATUS", payload: "Deleting Address...." });
       const response = await axios.delete(
-        `https://api-prestore.prerananawar1.repl.co/user-details/address/${userState._id}/${id}`
+        `https://api-prestore.prerananawar1.repl.co/user-details/address/${id}`
       );
       if (response.status === 200) {
         userDispatch({

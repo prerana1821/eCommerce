@@ -6,7 +6,7 @@ import Logo from "../images/preCodes.png";
 import "./Navbar.css";
 
 export const Navbar = () => {
-  const { login } = useAuth();
+  const { token } = useAuth();
   const { userState } = useUser();
   const [toggle, setToggle] = useState(true);
 
@@ -54,7 +54,7 @@ export const Navbar = () => {
           <li className='nav-item'>
             <NavLink to='/wishlist' className='nav-link'>
               <div className='badge-av'>
-                {login && (
+                {token && (
                   <div className='badge-icon primary bdg-top'>
                     {userState?.wishList.length}
                   </div>
@@ -68,7 +68,7 @@ export const Navbar = () => {
           <li className='nav-item'>
             <NavLink to='/cart' className='nav-link'>
               <div className='badge-av'>
-                {login && (
+                {token && (
                   <div className='badge-icon pink bdg-top'>{totalItems()}</div>
                 )}
                 <div className='avatar av-pink'>
@@ -78,7 +78,7 @@ export const Navbar = () => {
             </NavLink>
           </li>
           <li className='nav-item'>
-            <NavLink to={login ? "/account" : "/login"} className='nav-link'>
+            <NavLink to={token ? "/account" : "/login"} className='nav-link'>
               <div className='badge-av'>
                 <div className='avatar av-pink'>
                   <i className='fas fa-lg fa-user'></i>

@@ -19,7 +19,7 @@ export const Products = () => {
   const { userState, userDispatch } = useUser();
   const [showModal, setShowModal] = useState(false);
   const [sideNav, showSideNav] = useState(false);
-  const { login } = useAuth();
+  const { token } = useAuth();
 
   const handleClick = () => {
     showSideNav(true);
@@ -85,7 +85,7 @@ export const Products = () => {
                     <h5>Price: {product.price}</h5>
                     <button
                       onClick={
-                        login
+                        token
                           ? (e) => {
                               e.preventDefault();
                               return userState?.wishList.reduce(
@@ -119,7 +119,7 @@ export const Products = () => {
                         className={`${isProdInWishList(
                           product,
                           userState,
-                          login
+                          token
                         )}`}
                       ></i>
                     </button>
@@ -130,14 +130,14 @@ export const Products = () => {
                 {userState && found(userState.cart, product._id) ? (
                   <Link to='/cart'>
                     <button className='btn btn-primary primary btn-card'>
-                      <p>{isProdInCart(product, userState, login)}</p>
+                      <p>{isProdInCart(product, userState, token)}</p>
                     </button>
                   </Link>
                 ) : (
                   <button
                     className='btn btn-primary primary btn-card'
                     onClick={
-                      login
+                      token
                         ? () => addToCartApi(userState, product, userDispatch)
                         : () =>
                             loginAlert(
@@ -146,7 +146,7 @@ export const Products = () => {
                             )
                     }
                   >
-                    <p>{isProdInCart(product, userState, login)}</p>
+                    <p>{isProdInCart(product, userState, token)}</p>
                   </button>
                 )}
               </div>

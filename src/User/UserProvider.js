@@ -6,14 +6,14 @@ import { userReducer } from "./userReducer";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const { user, login } = useAuth();
+  const { user, token } = useAuth();
 
   useEffect(() => {
-    if (login) {
+    if (token) {
       (async () => {
         try {
           const response = await axios.get(
-            `https://api-prestore.prerananawar1.repl.co/user-details/${user._id}`
+            `https://api-prestore.prerananawar1.repl.co/user-details`
           );
           const data = response.data.user;
           userDispatch({ type: "LOAD_USER_DETAILS", payload: data });
@@ -22,7 +22,7 @@ export const UserProvider = ({ children }) => {
         }
       })();
     }
-  }, [login]);
+  }, [token]);
 
   const [userState, userDispatch] = useReducer(userReducer, {
     _id: "1",

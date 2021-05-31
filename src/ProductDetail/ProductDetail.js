@@ -19,7 +19,7 @@ export const ProductDetail = () => {
   const { id } = useParams();
   const { status, productDetail, dispatch } = useData();
   const { userState, userDispatch } = useUser();
-  const { login } = useAuth();
+  const { token } = useAuth();
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export const ProductDetail = () => {
             <div>
               <button
                 onClick={
-                  login
+                  token
                     ? () => {
                         return userState?.wishList.reduce((acc, value) => {
                           return value._id === productDetail._id
@@ -105,7 +105,7 @@ export const ProductDetail = () => {
                   className={`${isProdInWishList(
                     productDetail,
                     userState,
-                    login
+                    token
                   )}`}
                 ></i>
               </button>
@@ -114,14 +114,14 @@ export const ProductDetail = () => {
               {userState && found(userState.cart, productDetail._id) ? (
                 <Link to='/cart'>
                   <button className='btn primary btn-pad-sm'>
-                    <p>{isProdInCart(productDetail, userState, login)}</p>
+                    <p>{isProdInCart(productDetail, userState, token)}</p>
                   </button>
                 </Link>
               ) : (
                 <button
                   className='btn primary btn-pad-sm'
                   onClick={
-                    login
+                    token
                       ? () =>
                           addToCartApi(userState, productDetail, userDispatch)
                       : () =>
@@ -131,7 +131,7 @@ export const ProductDetail = () => {
                           )
                   }
                 >
-                  <p>{isProdInCart(productDetail, userState, login)}</p>
+                  <p>{isProdInCart(productDetail, userState, token)}</p>
                 </button>
               )}
             </div>

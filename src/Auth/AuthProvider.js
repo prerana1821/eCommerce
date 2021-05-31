@@ -5,8 +5,37 @@ import axios from "axios";
 
 export const AuthContext = createContext();
 
+export const setupAuthHeaderForServiceCalls = (token) => {
+  if (token) {
+    return (axios.defaults.headers.common["Authorization"] = token);
+  }
+  delete axios.defaults.headers.common["Authorization"];
+};
+
+export const setupAuthExceptionHandler = (logoutUser, navigate) => {
+  const UNAUTHORIZED = 401;
+  axios.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error?.response?.status === UNAUTHORIZED) {
+        logoutUser();
+        console.log("here");
+        navigate("login");
+      }
+      return Promise.reject(error);
+    }
+  );
+};
+
 export const AuthProvider = ({ children }) => {
-  const [login, setLogin] = useState(false);
+  // const [login, setLogin] = useState(false);
+  const { token: savedToken } = JSON.parse(localStorage?.getItem("token")) || {
+    token: null,
+  };
+  if (savedToken) {
+    setupAuthHeaderForServiceCalls(savedToken);
+  }
+  const [token, setToken] = useState(savedToken);
   const [user, setUser] = useState({
     id: "",
     username: "",
@@ -16,14 +45,15 @@ export const AuthProvider = ({ children }) => {
   const [status, setStatus] = useState({ loading: "", success: "", error: "" });
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const loginFromApi = JSON.parse(localStorage?.getItem("login"));
-    loginFromApi?.login && setLogin(true);
-  }, []);
+  // useEffect(() => {
+  //   const loginFromApi = JSON.parse(localStorage?.getItem("login"));
+  //   loginFromApi?.login && setLogin(true);
+  // }, []);
 
   useEffect(() => {
     const userFromApi = JSON.parse(localStorage?.getItem("user"));
     userFromApi?._id && setUser({ ...userFromApi });
+    setupAuthExceptionHandler(logout, navigate);
   }, []);
 
   const loginUserWithCredentials = async (username, password) => {
@@ -38,13 +68,18 @@ export const AuthProvider = ({ children }) => {
       );
       if (response.data.success) {
         setUser(response.data.user);
-        localStorage?.setItem("login", JSON.stringify({ login: true }));
+        console.log(response.data.token);
+        localStorage?.setItem(
+          "token",
+          JSON.stringify({ token: response.data.token })
+        );
         const { _id, username, password, email } = response.data.user;
         localStorage?.setItem(
           "user",
           JSON.stringify({ _id, username, password, email })
         );
-        setLogin(true);
+        setToken(response.data.token);
+        setupAuthHeaderForServiceCalls(response.data.token);
         setStatus({
           success: `Login Successful. Welcome ${response.data.user.username}!`,
         });
@@ -70,10 +105,20 @@ export const AuthProvider = ({ children }) => {
           email: email,
         }
       );
-      localStorage?.setItem("login", JSON.stringify({ login: true }));
       if (response.data.success) {
-        setLogin(true);
+        console.log(response.data.token);
+        localStorage?.setItem(
+          "token",
+          JSON.stringify({ token: response.data.token })
+        );
+        setToken(response.data.token);
+        setupAuthHeaderForServiceCalls(response.data.token);
         setUser(response.data.user);
+        const { _id, username, password, email } = response.data.user;
+        localStorage?.setItem(
+          "user",
+          JSON.stringify({ _id, username, password, email })
+        );
         setStatus({
           success: `Signup Successful. Welcome ${response.data.user.username}!`,
         });
@@ -89,7 +134,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    setLogin(false);
+    setToken("");
     setStatus({ loading: "", success: "", error: "" });
     setUser({
       id: "",
@@ -97,7 +142,7 @@ export const AuthProvider = ({ children }) => {
       email: "",
       password: "",
     });
-    localStorage?.removeItem("login");
+    localStorage?.removeItem("token");
     localStorage?.removeItem("user");
     navigate("/");
   };
@@ -106,7 +151,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         status,
-        login,
+        token,
         user,
         setStatus,
         loginUserWithCredentials,
