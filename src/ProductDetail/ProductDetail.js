@@ -34,13 +34,15 @@ export const ProductDetail = () => {
         );
         const data = response.data.product;
         dispatch({ type: "PRODUCT_DETAIL", payload: data });
+        dispatch({
+          type: "STATUS",
+          payload: { loading: "" },
+        });
       } catch (error) {
         dispatch({
           type: "STATUS",
           payload: { error: "Sorry, try again later.." },
         });
-      } finally {
-        dispatch({ type: "STATUS", payload: { loading: "" } });
       }
     })();
   }, [id]);
