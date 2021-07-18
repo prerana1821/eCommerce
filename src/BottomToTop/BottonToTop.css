@@ -1,0 +1,10 @@
+.btn-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  cursor: pointer;
+}
+
+.avatar-top {
+  box-shadow: none;
+}

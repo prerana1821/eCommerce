@@ -1,0 +1,14 @@
+.login-alert {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn-sec {
+  padding: 0rem 0.6rem;
+}
+
+.box-sh {
+  box-shadow: var(--primary-box-shadow) !important;
+}
