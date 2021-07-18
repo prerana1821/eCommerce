@@ -1,3 +1,5 @@
+export const API_URL = "https://api-prestore.prerananawar1.repl.co";
+
 export const found = (array, id) => {
   return !!array.find((item) => item._id === id);
 };

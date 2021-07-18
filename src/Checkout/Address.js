@@ -6,7 +6,6 @@ import { ShowAddresses } from "./ShowAddresses";
 export const Address = () => {
   const [addNewAddress, setAddNewAddress] = useState(false);
   const [editAdd, setEditAdd] = useState({ toggle: false, editAddID: "" });
-  console.log({ addNewAddress });
 
   return (
     <div className='address-management'>

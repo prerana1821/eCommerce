@@ -4,6 +4,7 @@ import { useUser } from "../User";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { AddressForm } from "./AddressForm";
+import { API_URL } from "../utils";
 
 export const ShowAddresses = ({ setAddNewAddress, editAdd, setEditAdd }) => {
   const { userState, userDispatch } = useUser();
@@ -18,7 +19,7 @@ export const ShowAddresses = ({ setAddNewAddress, editAdd, setEditAdd }) => {
     try {
       userDispatch({ type: "STATUS", payload: "Deleting Address...." });
       const response = await axios.delete(
-        `https://api-prestore.prerananawar1.repl.co/user-details/address/${id}`
+        `${API_URL}/user-details/address/${id}`
       );
       if (response.status === 200) {
         userDispatch({

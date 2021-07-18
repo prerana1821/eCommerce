@@ -1,14 +1,12 @@
 import axios from "axios";
+import { API_URL } from "./utils";
 
-export const addToCartApi = async (currentUser, product, dispatch) => {
+export const addToCartApi = async (product, dispatch) => {
   try {
     dispatch({ type: "STATUS", payload: "Item Adding to Cart...." });
-    const response = await axios.post(
-      `https://api-prestore.prerananawar1.repl.co/user-details/cart`,
-      {
-        id: product._id,
-      }
-    );
+    const response = await axios.post(`${API_URL}/user-details/cart`, {
+      id: product._id,
+    });
     if (response.status === 201) {
       dispatch({ type: "ADD_TO_CART", payload: product });
     }
@@ -17,14 +15,14 @@ export const addToCartApi = async (currentUser, product, dispatch) => {
   }
 };
 
-export const deleteItemFromCartApi = async (currentUser, product, dispatch) => {
+export const deleteItemFromCartApi = async (product, dispatch) => {
   try {
     dispatch({
       type: "STATUS",
       payload: "Removing Item from Cart....",
     });
     const response = await axios.delete(
-      `https://api-prestore.prerananawar1.repl.co/user-details/cart/${product._id}`
+      `${API_URL}/user-details/cart/${product._id}`
     );
     if (response.status === 200) {
       dispatch({ type: "REMOVE_FROM_CART", payload: product });
@@ -37,18 +35,14 @@ export const deleteItemFromCartApi = async (currentUser, product, dispatch) => {
   }
 };
 
-export const incrementQuantityFromCartApi = async (
-  currentUser,
-  product,
-  dispatch
-) => {
+export const incrementQuantityFromCartApi = async (product, dispatch) => {
   try {
     dispatch({
       type: "STATUS",
       payload: "Increasing Quantity..",
     });
     const response = await axios.post(
-      `https://api-prestore.prerananawar1.repl.co/user-details/cart/${product._id}`,
+      `${API_URL}/user-details/cart/${product._id}`,
       {
         ...product,
         quantity: product.quantity + 1,
@@ -65,18 +59,14 @@ export const incrementQuantityFromCartApi = async (
   }
 };
 
-export const decrementQuantityFromCartApi = async (
-  currentUser,
-  product,
-  dispatch
-) => {
+export const decrementQuantityFromCartApi = async (product, dispatch) => {
   try {
     dispatch({
       type: "STATUS",
       payload: "Decreasing Quantity..",
     });
     const response = await axios.post(
-      `https://api-prestore.prerananawar1.repl.co/user-details/cart/${product._id}`,
+      `${API_URL}/user-details/cart/${product._id}`,
       {
         ...product,
         quantity: product.quantity - 1,
@@ -93,15 +83,12 @@ export const decrementQuantityFromCartApi = async (
   }
 };
 
-export const addToWishListApi = async (currentUser, product, dispatch) => {
+export const addToWishListApi = async (product, dispatch) => {
   try {
     dispatch({ type: "STATUS", payload: "Item Adding to Wishlist...." });
-    const response = await axios.post(
-      `https://api-prestore.prerananawar1.repl.co/user-details/wishlist`,
-      {
-        id: product._id,
-      }
-    );
+    const response = await axios.post(`${API_URL}/user-details/wishlist`, {
+      id: product._id,
+    });
     if (response.status === 201) {
       dispatch({ type: "ADD_TO_WISHLIST", payload: product });
     }
@@ -110,11 +97,11 @@ export const addToWishListApi = async (currentUser, product, dispatch) => {
   }
 };
 
-export const deleteFromWishListApi = async (currentUser, product, dispatch) => {
+export const deleteFromWishListApi = async (product, dispatch) => {
   try {
     dispatch({ type: "STATUS", payload: "Removing Item from Wishlist...." });
     const response = await axios.delete(
-      `https://api-prestore.prerananawar1.repl.co/user-details/wishlist/${product._id}`
+      `${API_URL}/user-details/wishlist/${product._id}`
     );
     if (response.status === 200) {
       dispatch({ type: "REMOVE_FROM_WISHLIST", payload: product });

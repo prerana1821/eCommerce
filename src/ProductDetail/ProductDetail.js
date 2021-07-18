@@ -4,7 +4,13 @@ import { useParams } from "react-router";
 import { useData } from "../Products";
 import { useUser } from "../User";
 import { Link } from "react-router-dom";
-import { found, isProdInCart, isProdInWishList, loginAlert } from "../utils";
+import {
+  API_URL,
+  found,
+  isProdInCart,
+  isProdInWishList,
+  loginAlert,
+} from "../utils";
 import {
   addToCartApi,
   addToWishListApi,
@@ -29,9 +35,7 @@ export const ProductDetail = () => {
           type: "STATUS",
           payload: { loading: "Loading data from server..." },
         });
-        const response = await axios.get(
-          `https://api-prestore.prerananawar1.repl.co/products/${id}`
-        );
+        const response = await axios.get(`${API_URL}/products/${id}`);
         const data = response.data.product;
         dispatch({ type: "PRODUCT_DETAIL", payload: data });
         dispatch({
@@ -87,13 +91,9 @@ export const ProductDetail = () => {
                     ? () => {
                         return userState?.wishList.reduce((acc, value) => {
                           return value._id === productDetail._id
-                            ? deleteFromWishListApi(
-                                userState,
-                                productDetail,
-                                userDispatch
-                              )
+                            ? deleteFromWishListApi(productDetail, userDispatch)
                             : acc;
-                        }, addToWishListApi(userState, productDetail, userDispatch));
+                        }, addToWishListApi(productDetail, userDispatch));
                       }
                     : () =>
                         loginAlert(
@@ -124,8 +124,7 @@ export const ProductDetail = () => {
                   className='btn primary btn-pad-sm'
                   onClick={
                     token
-                      ? () =>
-                          addToCartApi(userState, productDetail, userDispatch)
+                      ? () => addToCartApi(productDetail, userDispatch)
                       : () =>
                           loginAlert(
                             "Hey, you need to login in order to add items to cart",

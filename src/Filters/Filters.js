@@ -24,9 +24,9 @@ export const Filters = () => {
         <input
           type='text'
           onChange={(e) => {
-            return setSearch(e.target.value);
+            setSearch(e.target.value);
           }}
-          value={searchString ? searchString : search}
+          value={search}
           className='search-input-txt input-txt'
           required
         />

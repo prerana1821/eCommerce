@@ -24,9 +24,7 @@ export const WishList = () => {
           <div className='card wishList-card' key={product._id}>
             <img className='card-img' src={product.image} alt='' />
             <button
-              onClick={() =>
-                deleteFromWishListApi(userState, product, userDispatch)
-              }
+              onClick={() => deleteFromWishListApi(product, userDispatch)}
               className='floating-act badge-close tertiary'
             >
               <i className='fas fa-lg fa-times'></i>
@@ -42,14 +40,10 @@ export const WishList = () => {
             <button
               className='btn btn-primary primary btn-card'
               onClick={() => {
-                deleteFromWishListApi(userState, product, userDispatch);
+                deleteFromWishListApi(product, userDispatch);
                 return found(userState?.cart, product._id)
-                  ? incrementQuantityFromCartApi(
-                      userState,
-                      product,
-                      userDispatch
-                    )
-                  : addToCartApi(userState, product, userDispatch);
+                  ? incrementQuantityFromCartApi(product, userDispatch)
+                  : addToCartApi(product, userDispatch);
               }}
             >
               Move to Cart

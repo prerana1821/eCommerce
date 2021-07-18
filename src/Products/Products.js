@@ -21,11 +21,11 @@ export const Products = () => {
   const [sideNav, showSideNav] = useState(false);
   const { token } = useAuth();
 
-  const handleClick = () => {
+  const openSideNav = () => {
     showSideNav(true);
   };
 
-  const handleClose = () => {
+  const closeSideNav = () => {
     showSideNav(false);
   };
 
@@ -33,14 +33,14 @@ export const Products = () => {
     <div className='products'>
       <div className='responsive-filter'>
         <h3>Filters</h3>
-        <button className='resp-btn-filter' onClick={handleClick}>
+        <button className='resp-btn-filter' onClick={openSideNav}>
           <i className='fas fa-filter'></i>
         </button>
       </div>
       <div className={sideNav ? "side-filters" : "main-filters"}>
         <div className='resp-heading-filter'>
           <h1>Apply Filters</h1>
-          <button className='closebtn' onClick={handleClose}>
+          <button className='closebtn' onClick={closeSideNav}>
             <i className='fas fa-times'></i>
           </button>
         </div>
@@ -92,17 +92,12 @@ export const Products = () => {
                                 (acc, value) => {
                                   return value._id === product._id
                                     ? deleteFromWishListApi(
-                                        userState,
                                         product,
                                         userDispatch
                                       )
                                     : acc;
                                 },
-                                addToWishListApi(
-                                  userState,
-                                  product,
-                                  userDispatch
-                                )
+                                addToWishListApi(product, userDispatch)
                               );
                             }
                           : (e) => {
@@ -138,7 +133,7 @@ export const Products = () => {
                     className='btn btn-primary primary btn-card'
                     onClick={
                       token
-                        ? () => addToCartApi(userState, product, userDispatch)
+                        ? () => addToCartApi(product, userDispatch)
                         : () =>
                             loginAlert(
                               "Hey, you need to login in order to add items to cart",

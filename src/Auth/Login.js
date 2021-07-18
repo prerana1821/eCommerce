@@ -16,7 +16,7 @@ export const Login = () => {
     msg: "",
   });
 
-  const loginHandler = async () => {
+  const loginUser = async () => {
     if (loginCredentials.username && loginCredentials.password) {
       const result = await loginUserWithCredentials(
         loginCredentials.username,
@@ -94,7 +94,7 @@ export const Login = () => {
         )}
       </h3>
       <p>{loginCredentials.msg}</p>
-      <button className='btn btn-main' onClick={loginHandler}>
+      <button className='btn btn-main' onClick={loginUser}>
         Login
       </button>
       <p>

@@ -30,9 +30,7 @@ export const Cart = () => {
                     alt={product.name}
                   />
                   <button
-                    onClick={() =>
-                      deleteItemFromCartApi(userState, product, userDispatch)
-                    }
+                    onClick={() => deleteItemFromCartApi(product, userDispatch)}
                     className='floating-act badge-close tertiary'
                   >
                     <i className='fas fa-lg fa-times'></i>
@@ -44,11 +42,7 @@ export const Cart = () => {
                       <div className='card-quant'>
                         <button
                           onClick={() =>
-                            incrementQuantityFromCartApi(
-                              userState,
-                              product,
-                              userDispatch
-                            )
+                            incrementQuantityFromCartApi(product, userDispatch)
                           }
                           className='floating-act badge-close tertiary'
                         >
@@ -59,7 +53,6 @@ export const Cart = () => {
                           <button
                             onClick={() =>
                               decrementQuantityFromCartApi(
-                                userState,
                                 product,
                                 userDispatch
                               )

@@ -21,7 +21,7 @@ export const SignUp = () => {
     msg: "",
   });
 
-  const signUpHandler = async () => {
+  const signUpUser = async () => {
     if (
       signUpCredentials.email &&
       signUpCredentials.username &&
@@ -181,7 +181,7 @@ export const SignUp = () => {
           </Link>
         </p>
 
-        <button className='btn btn-main' onClick={signUpHandler}>
+        <button className='btn btn-main' onClick={signUpUser}>
           Sign Up
         </button>
       </form>

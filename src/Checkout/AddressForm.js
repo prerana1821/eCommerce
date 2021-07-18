@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useReducer, useState } from "react";
 import { useUser } from "../User";
 import "./Address.css";
+import { handleEditAddress, handleSubmit } from "./checkOutUtils";
 import { addressTypes, countries, states } from "./formDB";
 import { formReducer } from "./formReducer";
 
@@ -37,91 +37,32 @@ export const AddressForm = ({ setAddNewAddress, editAddID, setEditAdd }) => {
 
   const [formState, formDispatch] = useReducer(formReducer, initialFormState);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (/\+?\d[\d -]{8,12}\d/.test(formState.phoneNumber)) {
-      if (/^[1-9][0-9]{5}$/.test(formState.zipCode)) {
-        try {
-          userDispatch({ type: "STATUS", payload: "Adding Address...." });
-          const response = await axios.post(
-            `https://api-prestore.prerananawar1.repl.co/user-details/address`,
-            {
-              newAddress: { ...formState },
-            }
-          );
-          if (response.status === 201) {
-            userDispatch({
-              type: "ADD_ADDRESS",
-              payload: response.data.address,
-            });
-          }
-          setMsg("");
-          setAddNewAddress(false);
-        } catch (error) {
-          userDispatch({
-            type: "STATUS",
-            payload: "Couldn't add address..",
-          });
-        } finally {
-          userDispatch({ type: "STATUS", payload: "" });
-        }
-      } else {
-        setMsg("Please enter a valid Indian Zip-Code");
-      }
-    } else {
-      setMsg("Please enter a valid 10 digit phone number");
-    }
-  };
-
-  const handleEditAddress = async (e) => {
-    e.preventDefault();
-    if (/\+?\d[\d -]{8,12}\d/.test(formState.phoneNumber)) {
-      if (/^[1-9][0-9]{5}$/.test(formState.zipCode)) {
-        try {
-          userDispatch({
-            type: "STATUS",
-            payload: "Adding Updated Address....",
-          });
-          const response = await axios.post(
-            `https://api-prestore.prerananawar1.repl.co/user-details/address/${editAddID}`,
-            {
-              updateAddress: { ...formState },
-            }
-          );
-          if (response.status === 200) {
-            userDispatch({
-              type: "EDIT_ADDRESS",
-              payload: { id: editAddID, address: response.data.address },
-            });
-            setMsg("");
-            setEditAdd(false);
-            setAddNewAddress(false);
-            formDispatch({
-              type: "RESET_FORM",
-              payload: initialFormState,
-            });
-          }
-        } catch (error) {
-          userDispatch({
-            type: "STATUS",
-            payload: "Couldn't update address..",
-          });
-        } finally {
-          userDispatch({ type: "STATUS", payload: "" });
-        }
-      } else {
-        setMsg("Please enter a valid Indian Zip-Code");
-      }
-    } else {
-      setMsg("Please enter a valid 10 digit phone number");
-    }
-  };
-
   return (
     <div>
       <form
-        onSubmit={editAddID ? handleEditAddress : handleSubmit}
+        onSubmit={
+          editAddID
+            ? (e) =>
+                handleEditAddress({
+                  e,
+                  formState,
+                  userDispatch,
+                  editAddID,
+                  setAddNewAddress,
+                  formDispatch,
+                  setMsg,
+                  setEditAdd,
+                  initialFormState,
+                })
+            : (e) =>
+                handleSubmit({
+                  e,
+                  formState,
+                  userDispatch,
+                  setMsg,
+                  setAddNewAddress,
+                })
+        }
         className='address-form'
       >
         <div className='flex-input'>
@@ -203,8 +144,8 @@ export const AddressForm = ({ setAddNewAddress, editAddID, setEditAdd }) => {
                 formDispatch({ type: "SET_STATE", payload: e.target.value })
               }
             >
-              {states.map((stte) => {
-                return <option value={stte}>{stte}</option>;
+              {states.map((state) => {
+                return <option value={state}>{state}</option>;
               })}
             </select>
 
@@ -215,30 +156,30 @@ export const AddressForm = ({ setAddNewAddress, editAddID, setEditAdd }) => {
                 formDispatch({ type: "SET_COUNTRY", payload: e.target.value })
               }
             >
-              {countries.map((cntry) => {
-                return <option value={cntry}>{cntry}</option>;
+              {countries.map((country) => {
+                return <option value={country}>{country}</option>;
               })}
             </select>
 
             <div className='radio'>
               <p>Select the Address Type:</p>
-              {addressTypes.map((addType) => {
+              {addressTypes.map((addressType) => {
                 return (
                   <label className='input-radio-label'>
                     <input
                       className='input-radio'
                       type='radio'
                       name='address-type'
-                      value={addType}
+                      value={addressType}
                       onChange={(e) =>
                         formDispatch({
                           type: "SET_ADDRESSTYPE",
                           payload: e.target.value,
                         })
                       }
-                      checked={formState.addressType === addType}
+                      checked={formState.addressType === addressType}
                     />
-                    {addType}
+                    {addressType}
                   </label>
                 );
               })}
@@ -255,7 +196,6 @@ export const AddressForm = ({ setAddNewAddress, editAddID, setEditAdd }) => {
           <button
             className='btn  btn-pad secondary'
             onClick={() => {
-              // setAddNewAddress(false);
               return formDispatch({
                 type: "RESET_FORM",
                 payload: initialFormState,

@@ -1,34 +1,25 @@
+import axios from "axios";
 import { createContext, useContext } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import axios from "axios";
+import { API_URL } from "../utils";
+import {
+  setupAuthExceptionHandler,
+  setupAuthHeaderForServiceCalls,
+} from "./authUtils";
 
 export const AuthContext = createContext();
 
-export const setupAuthHeaderForServiceCalls = (token) => {
-  if (token) {
-    return (axios.defaults.headers.common["Authorization"] = token);
-  }
-  delete axios.defaults.headers.common["Authorization"];
-};
-
-export const setupAuthExceptionHandler = (logoutUser, navigate) => {
-  const UNAUTHORIZED = 401;
-  axios.interceptors.response.use(
-    (response) => response,
-    (error) => {
-      if (error?.response?.status === UNAUTHORIZED) {
-        logoutUser();
-        console.log("here");
-        navigate("login");
-      }
-      return Promise.reject(error);
-    }
-  );
+export const addUser = ({ data, setUser, setToken }) => {
+  setUser(data.user);
+  setToken(data.token);
+  localStorage?.setItem("token", JSON.stringify({ token: data.token }));
+  const { _id, username, email } = data.user;
+  localStorage?.setItem("user", JSON.stringify({ _id, username, email }));
+  setupAuthHeaderForServiceCalls(data.token);
 };
 
 export const AuthProvider = ({ children }) => {
-  // const [login, setLogin] = useState(false);
   const { token: savedToken } = JSON.parse(localStorage?.getItem("token")) || {
     token: null,
   };
@@ -45,11 +36,6 @@ export const AuthProvider = ({ children }) => {
   const [status, setStatus] = useState({ loading: "", success: "", error: "" });
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const loginFromApi = JSON.parse(localStorage?.getItem("login"));
-  //   loginFromApi?.login && setLogin(true);
-  // }, []);
-
   useEffect(() => {
     const userFromApi = JSON.parse(localStorage?.getItem("user"));
     userFromApi?._id && setUser({ ...userFromApi });
@@ -59,32 +45,17 @@ export const AuthProvider = ({ children }) => {
   const loginUserWithCredentials = async (username, password) => {
     try {
       setStatus({ loading: "Checking.." });
-      const response = await axios.post(
-        "https://api-prestore.prerananawar1.repl.co/auth/login",
-        {
-          username: username,
-          password: password,
-        }
-      );
-      if (response.data.success) {
-        setUser(response.data.user);
-        console.log(response.data.token);
-        localStorage?.setItem(
-          "token",
-          JSON.stringify({ token: response.data.token })
-        );
-        const { _id, username, password, email } = response.data.user;
-        localStorage?.setItem(
-          "user",
-          JSON.stringify({ _id, username, password, email })
-        );
-        setToken(response.data.token);
-        setupAuthHeaderForServiceCalls(response.data.token);
+      const { data } = await axios.post(`${API_URL}/auth/login`, {
+        username: username,
+        password: password,
+      });
+      if (data.success) {
+        addUser({ data, setUser, setToken });
         setStatus({
-          success: `Login Successful. Welcome ${response.data.user.username}!`,
+          success: `Login Successful. Welcome ${data.user.username}!`,
         });
       }
-      return response.data;
+      return data;
     } catch (error) {
       if (!error.success) {
         console.log(error.response);
@@ -97,33 +68,18 @@ export const AuthProvider = ({ children }) => {
   const signUpUserWithCredentials = async (username, password, email) => {
     try {
       setStatus({ loading: "Adding user credentials..." });
-      const response = await axios.post(
-        "https://api-prestore.prerananawar1.repl.co/auth/signup",
-        {
-          username: username,
-          password: password,
-          email: email,
-        }
-      );
-      if (response.data.success) {
-        console.log(response.data.token);
-        localStorage?.setItem(
-          "token",
-          JSON.stringify({ token: response.data.token })
-        );
-        setToken(response.data.token);
-        setupAuthHeaderForServiceCalls(response.data.token);
-        setUser(response.data.user);
-        const { _id, username, password, email } = response.data.user;
-        localStorage?.setItem(
-          "user",
-          JSON.stringify({ _id, username, password, email })
-        );
+      const { data } = await axios.post(`${API_URL}/auth/signup`, {
+        username: username,
+        password: password,
+        email: email,
+      });
+      if (data.success) {
+        addUser({ data, setUser, setToken });
         setStatus({
-          success: `Signup Successful. Welcome ${response.data.user.username}!`,
+          success: `Signup Successful. Welcome ${data.user.username}!`,
         });
       }
-      return response.data;
+      return data;
     } catch (error) {
       if (!error.success) {
         console.log(error.response);

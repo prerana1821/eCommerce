@@ -37,7 +37,7 @@ export const Checkout = () => {
               </div>
             );
           })}
-          <p>Total Price: ₹ {totalPrice()}</p>
+          <p>Total Price: ₹ {totalPrice(userState)}</p>
         </div>
       </div>
       <div className='proceed'>

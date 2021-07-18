@@ -10,6 +10,7 @@ import {
   getSortedData,
 } from "./dataFilters";
 import { dataReducer } from "./dataReducer";
+import { API_URL } from "../utils";
 
 export const DataContext = createContext();
 
@@ -21,9 +22,7 @@ export const DataProvider = ({ children }) => {
           type: "STATUS",
           payload: { loading: "Loading data from server..." },
         });
-        const response = await axios.get(
-          "https://api-prestore.prerananawar1.repl.co/products"
-        );
+        const response = await axios.get(`${API_URL}/products`);
         const data = response.data.products;
         dispatch({ type: "ADD_DATA", payload: data });
         dispatch({
@@ -47,9 +46,7 @@ export const DataProvider = ({ children }) => {
           type: "STATUS",
           payload: { loading: "Loading categories from server..." },
         });
-        const response = await axios.get(
-          "https://api-prestore.prerananawar1.repl.co/categories"
-        );
+        const response = await axios.get(`${API_URL}/categories`);
         const data = response.data.categories;
         dispatch({ type: "ADD_CATEGORIES", payload: data });
         dispatch({
